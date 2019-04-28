@@ -23,13 +23,181 @@ bibliography: bibliography.bib
 output: rticles::asa_article
 ---
 
-# Introduction
+# Sources Summaries
 
-This template demonstrates some of the basic latex you'll need to know to create a ASA article.
+Main points of different sources, as well as info about how they might be used for the paper.
 
-\section{Verifications}
+\section{Background Information}
 \label{sec:verify}
-This section will be just long enough to illustrate what a full page of
-text looks like, for margins and spacing.
+
+Here are some sources we might use for motivation behind the project:
+
+
+### The Reproducibility Crisis
+
+Big idea: most scientific fields are facing a reproducibility crisis and poor statistical use is considered one of the important reasons behind this.
+
+Not sure how useful this is due to the fact that it does not necessarily focus on the same kind of reproducibility we are looking at, which is code reproducibility rather than experimental reproducibility.
+
+
+@baker20161
+
+
+### Why is reproducibility important?
+
+From Popper in `The Logic of Scientific Discovery`: "non-reproducible single occurrences are of no significance to science."
+
+
+@popper2005logic
+
+### What does reproducibility mean in data science?
+
+"The ability of a researcher to duplicate the results of a prior study using the same materials as were used by the original investigator. That is, a second researcher might use the same raw data to build the same analysis files and implement the same statistical analysis in an attempt to yield the same results."
+
+@goodman2016does
+
+From "The Practice of Reproducibile Research": Can all of the figures/calculations related to the result be reproduced in a single button press or at least with a reasonably small effort?
+
+@kitzes2017practice
+
+### What makes a data science project reproducibile?
+
+Another way to think about this is: what features does fertile have that match what different sources think needs to be checked to ensure reproducibility?
+
+
+Some big ideas from the OpenSci discussion page:
+
+* code should use tidy style
+* project should have short vignette files -- most written code should be in an R/ directory
+* code and data should be stored in separate folders
+* a run environment and dependencies should be specified
+* there should be a README file
+* there should be a data dictionary
+* one master script
+* code should only use relative paths
+* code should be well commented and all variables should be defined
+
+Big ideas from "Packaging data analytical work reproducibly using R"
+
+* research should be organized like an R package!
+* clear separation of data, method, and output
+* specify the computational environment that was used for the original analysis (typically in a plain text file)
+* there should be a README describing the project and where to get started
+* script files with reusable functions should go in an R/ directory
+* raw data files should be kept in a data/ directory
+* analysis scripts and report files should go in an analysis/ directory
+* for simpe projects, scripts should be given ascending names. For more complicated ones, the use of some sort of makefile is recommended
+* there should also be a DESCRIPTION file with information about the authors, project license, and software dependencies
+
 
 @marwick2018packaging
+
+
+From "The Practice of Reproducible Research"
+
+* Are the data openly accessible? If hosted online, is the web address reliable long-term?
+* Are they in a commonly used and well-documented file format? Avoid spreadsheets and instead use plain text data if possible!
+* Is the raw data available? Is sufficient metadata provided?
+
+* Are dependencies described properly?
+* Is full history of source code available through a public version history
+
+
+* Is there a README?
+* Are functions documented?
+* Is there narrative documentation explaining how the different pieces work together?
+* Are there usage examples?
+
+Folder setup might look like:
+
+1. Raw Data
+    + Data
+    + README
+2. Clean Data
+    + Data
+3. Results
+    + Results file
+4. Src
+    + Analysis script
+    + Script to clean data
+
+
+@kitzes2017practice
+
+
+From R OpenSci's Reproducibility Guide:
+
+http://ropensci.github.io/reproducibility-guide/
+
+* Is it clear where to begin?
+* Can you determinine which files were used as input to create output files?
+* Is there documentation about every result?
+* Are exact versions of external applications noted?
+* If using randomness, are seeds noted?
+* Have you specified a license or noted licenses if you used other people's content?
+* Are files easy to find?
+* Is it clear what the most recent file is?
+* Are there any folders that could be deleted?
+* Is analysis output done hierarchically?
+* Are there lots of manual data manipulation steps?
+
+From "A Guide to Reproducible Code in Ecology and Evolution" (these ideas are pretty universal, though):
+
+A basic project structure:
+
+* The data folder contains all input data (and metadata) used in the analysis.
+* The doc folder contains the manuscript
+* The figs directory contains figures generated by the analysis
+* The output folder contains any type of intermediate or output files (e.g. simulation outputs, models, processed datasets, etc.). You might separate this and also have a cleaned-data folder.
+* The R directory contains R scripts with function definitions.
+* The reports folder contains RMarkdown files that document the analysis or report on results
+
+* Consistent, ordered naming of scripts
+* Use portable paths
+* Write unit tests (only for advanced coding)
+* Show the packages you used
+* Record dependencies and versions of outside things you use
+
+
+
+@cooper2017guide
+
+
+
+
+# Why is this package important?
+
+From "Five Concrete Reasons Your Students Should Be Learning to Analyze Data in the Reproducible Paradigm"
+
+* Helps with transparency: make clear data cleaning steps between raw data and final data
+* Helps with collaboration: easier to share code when it takes very few steps to run on a different computer
+
+
+@bray2014five
+
+The other big ideas on the importance/use of this package (not from sources):
+
+* Make it easier for professors to grade students' code
+* Should be usable by intro level data science students
+* Possible use by reviewers of journal articles (and by those writing the articles)
+
+
+# Similar R Packages
+
+### rrtools
+
+https://github.com/benmarwick/rrtools
+
+* Creates a basic R package named after your research topic
+* Generates a license file
+* Connects to GitHub and creates a repository
+* Generates a README
+* Generates a reproducible directory structure
+* Creates a dockerfile
+* Creates a minimal travis file
+* Sets up testthat
+
+
+
+
+
