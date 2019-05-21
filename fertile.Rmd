@@ -163,6 +163,18 @@ A basic project structure:
 @cooper2017guide
 
 
+# Karl Broman's Suggestions
+
+
+* Encapsulate everything within one directory
+* Separate raw data from derived data
+* Separate data from code
+* Use relative paths
+* Choose filenames correctly
+* Write README files
+
+http://kbroman.org/steps2rr/pages/organize.html
+
 
 
 # Why is this package important?
@@ -182,6 +194,16 @@ The other big ideas on the importance/use of this package (not from sources):
 * Possible use by reviewers of journal articles (and by those writing the articles)
 
 
+# Why focus on R?
+
+* R is the most popular language for statistical programming and is specifically designed for statistics
+* R is great for reprodubility because the code is readable by users, and RMarkdown is a great way to show/explain processes
+* R is easy to install and begin using
+
+--> from https://openresearchsoftware.metajnl.com/articles/10.5334/jors.bu/print/
+
+
+
 # Similar R Packages
 
 ### rrtools
@@ -196,6 +218,18 @@ https://github.com/benmarwick/rrtools
 * Creates a dockerfile
 * Creates a minimal travis file
 * Sets up testthat
+
+
+
+
+
+# Msc sources to look at:
+
+
+### Victoria Stodden's "Implementing Reproducible Research" book
+https://books.google.com/books?hl=en&lr=&id=JcmSAwAAQBAJ&oi=fnd&pg=PP1&dq=Victoria+stodden+reproducibility&ots=ym_gvSxMNH&sig=B5N6FlkoocVjIprIZevtvrL33qQ#v=onepage&q=coombes&f=false
+
+
 
 
 
