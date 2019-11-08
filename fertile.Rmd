@@ -17,20 +17,69 @@ keywords:
 - that do not appear in the title
 
 abstract: |
-  The text of your abstract.  200 or fewer words.
+  The production of reproducible research is key for advancing our scientific knowlege, encouraging transparency, collaboration, and understanding. However, there is no clear consensus on the standards that constitute research reproducibility. In an attempt to build a reproducibility framework in the R community, several packages have been developed to address different aspects of reproducibility, but none are comprehensive. In this paper, we present `fertile`, an R package with an extensive selection of functions designed to thoroughly test reproducibility. Fertile makes creating a reproducibile project as easy as possible for users of all levels of sophistication, providing a simple and comprehensive framework for testing reproducibility in the R community. 
+  
+  Note: should we add something about the idea of testing the package in a     classroom?
+  
+  
 
 bibliography: bibliography.bib
 output: rticles::asa_article
 ---
 
-# Sources Summaries
+
+# Introduction
+
+# The Importance of Ensuring Reproducibility
+
+Practicing reproducible research is key for advancing our scientific knowledge. One reason for this is that reproducible research encourages transparency. Providing one's audience with well organized, reproducible code and results allows readers to understand the steps taken to generate findings from raw data and determine for themselves whether or not they believe the results to be reliable or trustworthy. 
+
+Additionally, reproducibility encourages collaboration and extended research, allows others to easily apply the methods used in one project to their own work with minimal effort. @bray2014five
+
+Fertile is designed to make reproducibility simple, providing fast and easy methods to test an R project for reproducibility. The package is intended to be usable by introductory data science students in their first semester of R.
+
+
+
+
+--> make sure this info is included somewhere:
+
+From "Five Concrete Reasons Your Students Should Be Learning to Analyze Data in the Reproducible Paradigm" (@bray2014five)
+
+* Helps with transparency: make clear data cleaning steps between raw data and final data
+* Helps with collaboration: easier to share code when it takes very few steps to run on a different computer
+
+
+
+The other big ideas on the importance/use of this package (not from sources):
+
+* Make it easier for professors to grade students' code
+* Should be usable by intro level data science students
+* Possible use by reviewers of journal articles (and by those writing the articles)
+
+
+
+# What Defines Reproducibility in Data Science?
+
+
+
+
+# Creating Comprehensive Reproducibility Reports With "fertile"
+
+
+
+
+
+
+
+
 
 Main points of different sources, as well as info about how they might be used for the paper.
 
-\section{Background Information}
-\label{sec:verify}
 
 Here are some sources we might use for motivation behind the project:
+
+
+
 
 
 ### The Reproducibility Crisis
@@ -176,22 +225,6 @@ A basic project structure:
 http://kbroman.org/steps2rr/pages/organize.html
 
 
-
-# Why is this package important?
-
-From "Five Concrete Reasons Your Students Should Be Learning to Analyze Data in the Reproducible Paradigm"
-
-* Helps with transparency: make clear data cleaning steps between raw data and final data
-* Helps with collaboration: easier to share code when it takes very few steps to run on a different computer
-
-
-@bray2014five
-
-The other big ideas on the importance/use of this package (not from sources):
-
-* Make it easier for professors to grade students' code
-* Should be usable by intro level data science students
-* Possible use by reviewers of journal articles (and by those writing the articles)
 
 
 # Why focus on R?
