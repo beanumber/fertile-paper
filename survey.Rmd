@@ -1,0 +1,25 @@
+---
+title: "survey"
+author: "Audrey Bertin"
+date: "11/20/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Major Topics to Cover:
+
+• Paths:
+    - Identifying absolute / non-portable paths
+    - Stating what is wrong with said paths and why they are not     
+    reproducible
+    
+• Tidy file organization
+
+• Use of randomness / setting seeds
+
+• Importance of documentation (readme?)
+
+    
