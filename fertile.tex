@@ -37,13 +37,16 @@
 
 \if0\blind
 {
-  \title{\bf Title here}
+  \title{\bf Creating optimal conditions for reproducible data analysis in R with
+\texttt{fertile}}
 
   \author{
-        Author 1 \thanks{The authors gratefully acknowledge \ldots{}} \\
-    Department of YYY, University of XXX\\
-     and \\     Author 2 \\
-    Department of ZZZ, University of WWW\\
+        Audrey Bertin \thanks{The authors gratefully acknowledge contributions from Hadley Wickham,
+Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the
+\texttt{tidyverse} team.} \\
+    Program in Statistical and Data Sciences, Smith College\\
+     and \\     Benjamin S. Baumer \\
+    Program in Statistical and Data Sciences, Smith College\\
       }
   \maketitle
 } \fi
@@ -54,44 +57,79 @@
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf Title here}
+    {\LARGE\bf Creating optimal conditions for reproducible data analysis in R with
+\texttt{fertile}}
   \end{center}
   \medskip
 } \fi
 
 \bigskip
 \begin{abstract}
-The production of reproducible research is key for advancing our
-scientific knowlege, encouraging transparency, collaboration, and
-understanding. However, there is no clear consensus on the standards
-that constitute research reproducibility. In an attempt to build a
-reproducibility framework in the R community, several packages have been
-developed to address different aspects of reproducibility, but none are
-comprehensive. In this paper, we present \texttt{fertile}, an R package
-with an extensive selection of functions designed to thoroughly test
-reproducibility. Fertile makes creating a reproducibile project as easy
-as possible for users of all levels of sophistication, providing a
-simple and comprehensive framework for testing reproducibility in the R
-community.
-
-Note: should we add something about the idea of testing the package in a
-classroom?
+The advancement of scientific knowledge increasingly depends on ensuring
+that data-driven research is reproducible: that two people with the same
+data obtain the same results. However, while the necessity of
+reproducibility is clear, there are significant behavioral and technical
+challenges that impede its widespread implementation, and no clear
+consensus on standards of what constitutes reproducibility in published
+research. We focus on a series of common mistakes programmers make while
+conducting data science projects in R, primarily through the RStudio
+integrated development environment. \texttt{fertile} is an R package
+that operates in two modes: proactively (to prevent reproducibility
+mistakes from happening in the first place), and retroactively
+(analyzing code that is already written for potential problems).
+Furthermore, \texttt{fertile} is designed to educate the user about why
+the mistakes are problematic, and how to fix them. We discuss
+experimental results from testing \texttt{fertile} in an introductory
+data science course.
 \end{abstract}
 
 \noindent%
-{\it Keywords:} 3 to 6 keywords, that do not appear in the title
+{\it Keywords:} reproducibility, statistical software, workflow, collaboration
 \vfill
 
 \newpage
 \spacingset{1.45} % DON'T change the spacing!
+
+\section{Extended Abstract}\label{extended-abstract}
+
+In data science, an analyst has created \emph{reproducible} work if
+their code and data produces identical results when given to another
+analyst.
+
+This idea of reproducibility is becoming increasingly important to the
+advancement of our scientific knowledge. One reason for this is that
+reproducible research encourages transparency. Providing one's audience
+with well organized, reproducible code and results allows readers to
+understand the steps taken to generate findings from raw data and
+determine for themselves whether or not they believe the results to be
+reliable or trustworthy.
+
+Additionally, reproducibility encourages collaboration and extended
+research, allowing others to easily apply the methods used in one
+project to their own work with minimal effort.
+
+However, while the necessity of reproducibility is clear, there are
+significant behavioral and technical challenges that impede its
+widespread implementation, and no clear consensus on standards of what
+constitutes reproducibility in published research.
+
+• Note: What are these behavioral and technical challenges, and which
+ones should we mention?
+
+In defining the steps toward creating reproducible analyses, researchers
+place their emphasis on different areas, including file structure,
+documentation, the use of file paths in code, and accessibility. Within
+these categories, the recommendations for what steps to take in ensuring
+reproducibility also vary.
+
+• Why focus on R?
 
 \section{Introduction}\label{introduction}
 
 \section{The Importance of Ensuring
 Reproducibility}\label{the-importance-of-ensuring-reproducibility}
 
-Practicing reproducible research is key for advancing our scientific
-knowledge. One reason for this is that reproducible research encourages
+One reason for this is that reproducible research encourages
 transparency. Providing one's audience with well organized, reproducible
 code and results allows readers to understand the steps taken to
 generate findings from raw data and determine for themselves whether or
