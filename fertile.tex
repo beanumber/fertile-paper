@@ -92,29 +92,33 @@ data science course.
 
 \section{Extended Abstract}\label{extended-abstract}
 
-In data science, an analyst has created \emph{reproducible} work if
-their code and data produces identical results when given to another
+In the field of data science, an analyst has created \emph{reproducible}
+work if: 1) their code and data files have been made publicly available,
+and 2) these files produce identical results when run by another
 analyst.
 
-This idea of reproducibility is becoming increasingly important to the
-advancement of our scientific knowledge. One reason for this is that
-reproducible research encourages transparency. Providing one's audience
-with well organized, reproducible code and results allows readers to
-understand the steps taken to generate findings from raw data and
-determine for themselves whether or not they believe the results to be
-reliable or trustworthy.
+In the age of modern computer technology, where knowledge can be
+instantly shared worldwide, reproducibility is becoming incredibly
+important to the advancement of scientific knowledge.
 
-Additionally, reproducibility encourages collaboration and extended
-research, allowing others to easily apply the methods used in one
-project to their own work with minimal effort.
+The first reason for this is that reproducible research is transparent.
+When researchers provide the code and data used for their work in a well
+organized and reproducible format, readers are able to understand the
+steps taken to generate findings from raw data and determine whether or
+not they believe the results to be reliable or trustworthy. Without
+reproducibility, research results must be blindly trusted.
+
+The second reason is that reproducibility allows for collaboration and
+extended research. The creators of reproducible research can easily
+receive feedback and recommendations on their work, and others
+interested in the research topic can see the code and easily apply the
+methods and ideas used in one project to their own future work with
+minimal effort.
 
 However, while the necessity of reproducibility is clear, there are
 significant behavioral and technical challenges that impede its
 widespread implementation, and no clear consensus on standards of what
 constitutes reproducibility in published research.
-
-• Note: What are these behavioral and technical challenges, and which
-ones should we mention?
 
 In defining the steps toward creating reproducible analyses, researchers
 place their emphasis on different areas, including file structure,
@@ -122,7 +126,53 @@ documentation, the use of file paths in code, and accessibility. Within
 these categories, the recommendations for what steps to take in ensuring
 reproducibility also vary.
 
-• Why focus on R?
+Much of the discussion around reproducibility is also generalized,
+written in a way applicable to users working with a variety of
+statistical software programs. As a result, analysts interested in
+practicing reproducibility cannot easily access recommendations tailored
+specifically to their programming language or software of choice.
+
+Additionally, all statistical software programs operate differently.
+Since analysts do not all share the same software preferences, there can
+be no single set of recommendations or guidelines for reproducibility.
+Instead, recommendations must be specific to certain software programs.
+
+In this paper, we focus on reproducibility in the R programming
+language, with a specific concentration on the RStudio integrated
+development environment, due to its popularity for statistical analyses
+and the ease with which analysts can download and begin using the
+software.
+
+We propose an R package called \texttt{fertile}, which focuses on a
+series of common reproducibility-harming mistakes programmers make while
+conducting data science projects in R, warning users of their errors and
+providing recommendations for how to correct them.
+
+\texttt{fertile} operates in two modes: proactively (to prevent
+reproducibility mistakes from happening in the first place), and
+retroactively (analyzing code that is already written for potential
+problems).
+
+Retroactively, \texttt{fertile} is designed to be run on an R Project
+folder, analyzing the project structure and the analyst's use of file
+paths and considering randomness, among other areas of interest.
+\texttt{fertile} creates reproducibility reports, identifying mistakes
+that users have made and providing recommendations for remedies. For
+example, fertile might identify an analyst's use of randomness in code
+and recommend setting a seed.
+
+Proactively, the package works similarly, identifying mistakes as they
+are made by the user and outputting an educational warning message
+identifying, and providing a solution for, the mistake. In its proactive
+warning system, \texttt{fertile} focuses primarily on the use of file
+paths. As users execute code, \texttt{fertile} looks for file paths
+passed to functions, identifying when absolute paths are provided or
+when paths point to a location outside of the project directory.
+
+\texttt{fertile} is designed to educate the user about why the mistakes
+are problematic, and how to fix them. It is written for a wide audience,
+simple enough to be used by students in an introductory data science
+course.
 
 \section{Introduction}\label{introduction}
 
