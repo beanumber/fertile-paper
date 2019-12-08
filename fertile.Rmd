@@ -40,13 +40,14 @@ The second reason is that reproducibility allows for collaboration and extended 
 
 However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research.
 
-In defining the steps toward creating reproducible analyses, researchers place their emphasis on different areas, including file structure, documentation, the use of file paths in code, and accessibility. Within these categories, the recommendations for what steps to take in ensuring reproducibility also vary.
+In defining the steps toward creating reproducible analyses, different researchers place their emphasis on different areas, including file structure, documentation, the use of file paths in code, and accessibility. Within these categories, the recommendations for what steps to take in ensuring reproducibility also vary.
 
-Much of the discussion around reproducibility is also generalized, written in a way applicable to users working with a variety of statistical software programs. As a result, analysts interested in practicing reproducibility cannot easily access recommendations tailored specifically to their programming language or software of choice. 
+Much of the discussion around reproducibility is also generalized, written in a way applicable to users working with a variety of statistical software programs. Since all statistical software programs operate differently, generalized recommendations on reproducibility often cannot go in depth. While they provide some useful guidelines, they can often be relatively unhelpful, particularly to new analysts who are unsure how to apply such recommendations within the software programs they are using.
 
-Additionally, all statistical software programs operate differently. Since analysts do not all share the same software preferences, there can be no single set of recommendations or guidelines for reproducibility. Instead, recommendations must be specific to certain software programs. 
 
-In this paper, we focus on reproducibility in the R programming language, with a specific concentration on the RStudio integrated development environment, due to its popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
+In order to be most effective, reproducibility recommendations must be tailored to specific software programs. However, there has been very little work on reproducibility that is tailored to this level of specificity. In this paper, attempt to remedy that, focusing on reproducibility in the R programming language with a concentration on the RStudio integrated development environment.
+
+R is an ideal candidate for reproducibility recommendations due to the language's popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
 
 We propose an R package called `fertile`, which focuses on a series of common reproducibility-harming mistakes programmers make while conducting data science projects in R, warning users of their errors and providing recommendations for how to correct them.
 
@@ -57,6 +58,8 @@ Retroactively, `fertile` is designed to be run on an R Project folder, analyzing
 Proactively, the package works similarly, identifying mistakes as they are made by the user and outputting an educational warning message identifying, and providing a solution for, the mistake. In its proactive warning system, `fertile` focuses primarily on the use of file paths. As users execute code, `fertile` looks for file paths passed to functions, identifying when absolute paths are provided or when paths point to a location outside of the project directory.
 
 `fertile` is designed to educate the user about why the mistakes are problematic, and how to fix them. It is written for a wide audience, simple enough to be used by students in an introductory data science course.
+
+
 
 
 
