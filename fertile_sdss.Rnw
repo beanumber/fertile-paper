@@ -33,9 +33,9 @@
 
 \begin{document}
 \maketitle
-%\begin{abstract}
-%The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We focus on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. \pkg{fertile} is an R package that operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, \pkg{fertile} is designed to educate the user about why the mistakes are problematic, and how to fix them. We discuss experimental results from testing \pkg{fertile} in an introductory data science course.
-%\end{abstract}
+\begin{abstract}
+The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We focus on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. \pkg{fertile} is an R package that operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, \pkg{fertile} is designed to educate the user about why the mistakes are problematic, and how to fix them. We discuss experimental results from testing \pkg{fertile} in an introductory data science course.
+\end{abstract}
 
 {\bf Keywords:} reproducibility, statistical software, workflow, collaboration
 
@@ -54,7 +54,7 @@ Thus, reproducibility recommendations tailored to specific software programs are
 In this paper, we focus on reproducibility in the R programming language with a concentration on projects that use the RStudio integrated development environment.
 R is an ideal candidate for reproducibility recommendations due to the language's popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
 
-We present an R package called \href{https://github.com/baumer-lab/fertile}{\pkg{fertile}}, which focuses on a series of common mistakes programmers make while conducting data science research in R.
+We present an R package called \href{https://github.com/baumer-lab/fertile}{\pkg{fertile}}\footnote{The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the `tidyverse` team.}, which focuses on a series of common mistakes programmers make while conducting data science research in R.
 \pkg{fertile} operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems).
 
 Retroactively, \pkg{fertile} analyzes potential obstacles to reproducibility in an RStudio Project (i.e., a directory that contains an \cmd{.Rproj} file), including the directory structure, the analyst's use of file paths, randomness, etc. \pkg{fertile} creates reproducibility reports that identify potential mistakes and provide recommendations for remedies. For example, fertile might identify the use of randomness in code and recommend setting a seed.
