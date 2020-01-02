@@ -1,0 +1,79 @@
+% File SDSS2020_SampleExtendedAbstract.tex
+\documentclass[10pt]{article}
+\usepackage{sdss2020} % Uses Times Roman font (either newtx or times package)
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{amsmath, amsthm, amsfonts}
+\usepackage{algorithm, algorithmic}  
+\usepackage{graphicx}
+\usepackage{xspace}
+
+% custom macros
+
+\newcommand{\R}{\textsf{R}\xspace}
+\newcommand{\RStudio}{\textsf{RStudio}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\pkg}[1]{\texttt{#1}}
+
+\title{Creating optimal conditions for reproducible data analysis in R with \pkg{fertile}}
+
+\author{
+  Audrey M. Bertin \\
+  Statistical and Data Sciences \\ 
+  Smith College \\
+  {\tt abertin@smith.edu} \\\And
+  Benjamin S. Baumer \\
+  Statistical and Data Sciences \\ 
+  Smith College \\
+  {\tt bbaumer@smith.edu}
+}
+  
+
+\date{}
+
+\begin{document}
+\maketitle
+%\begin{abstract}
+%The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We focus on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. \pkg{fertile} is an R package that operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, \pkg{fertile} is designed to educate the user about why the mistakes are problematic, and how to fix them. We discuss experimental results from testing \pkg{fertile} in an introductory data science course.
+%\end{abstract}
+
+{\bf Keywords:} reproducibility, statistical software, workflow, collaboration
+
+\section{Introduction}
+
+In the field of data science, an analyst has created \emph{reproducible} work if: 1) their code and data files have been made publicly available, and 2) these files produce identical results when run by another analyst. 
+
+In the age of modern computer technology, where knowledge can be instantly shared worldwide, reproducibility is becoming incredibly important to the advancement of scientific knowledge.
+
+The first reason for this is that reproducible research is transparent. When researchers provide the code and data used for their work in a well organized and reproducible format, readers are able to understand the steps taken to generate findings from raw data and determine whether or not they believe the results to be reliable or trustworthy. Without reproducibility, research results must be blindly trusted.
+
+The second reason is that reproducibility allows for collaboration and extended research. The creators of reproducible research can easily receive feedback and recommendations on their work, and others interested in the research topic can see the code and easily apply the methods and ideas used in one project to their own future work with minimal effort.
+
+However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research.
+
+In defining the steps toward creating reproducible analyses, different researchers place their emphasis on different areas, including file structure, documentation, the use of file paths in code, and accessibility. Within these categories, the recommendations for what steps to take in ensuring reproducibility also vary.
+
+Much of the discussion around reproducibility is also generalized, written in a way applicable to users working with a variety of statistical software programs. Since all statistical software programs operate differently, generalized recommendations on reproducibility often cannot go in depth. While they provide some useful guidelines, they can often be relatively unhelpful, particularly to new analysts who are unsure how to apply such recommendations within the software programs they are using.
+
+
+In order to be most effective, reproducibility recommendations must be tailored to specific software programs. However, there has been very little work on reproducibility that is tailored to this level of specificity. In this paper, attempt to remedy that, focusing on reproducibility in the R programming language with a concentration on the RStudio integrated development environment.
+
+R is an ideal candidate for reproducibility recommendations due to the language's popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
+
+We propose an R package called \pkg{fertile}, which focuses on a series of common reproducibility-harming mistakes programmers make while conducting data science projects in R, warning users of their errors and providing recommendations for how to correct them.
+
+\pkg{fertile} operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems).
+
+Retroactively, \pkg{fertile} is designed to be run on an R Project folder, analyzing the project structure and the analyst's use of file paths and considering randomness, among other areas of interest. \pkg{fertile} creates reproducibility reports, identifying mistakes that users have made and providing recommendations for remedies. For example, fertile might identify an analyst's use of randomness in code and recommend setting a seed.
+
+Proactively, the package works similarly, identifying mistakes as they are made by the user and outputting an educational warning message identifying, and providing a solution for, the mistake. In its proactive warning system, \pkg{fertile} focuses primarily on the use of file paths. As users execute code, \pkg{fertile} looks for file paths passed to functions, identifying when absolute paths are provided or when paths point to a location outside of the project directory.
+
+\pkg{fertile} is designed to educate the user about why the mistakes are problematic, and how to fix them. It is written for a wide audience, simple enough to be used by students in an introductory data science course.
+
+
+
+
+\bibliographystyle{sdss2020} % Please do not change the bibliography style
+\bibliography{bibliography}
+
+\end{document}
