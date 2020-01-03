@@ -44,7 +44,6 @@ In defining the steps toward creating reproducible analyses, different researche
 
 Much of the discussion around reproducibility is also generalized, written in a way applicable to users working with a variety of statistical software programs. Since all statistical software programs operate differently, generalized recommendations on reproducibility often cannot go in depth. While they provide some useful guidelines, they can often be relatively unhelpful, particularly to new analysts who are unsure how to apply such recommendations within the software programs they are using.
 
-
 In order to be most effective, reproducibility recommendations must be tailored to specific software programs. However, there has been very little work on reproducibility that is tailored to this level of specificity. In this paper, attempt to remedy that, focusing on reproducibility in the R programming language with a concentration on the RStudio integrated development environment.
 
 R is an ideal candidate for reproducibility recommendations due to the language's popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
