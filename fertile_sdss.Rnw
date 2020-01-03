@@ -67,11 +67,11 @@ With two primary functions, users can access the majority of \pkg{fertile}'s ret
 
 The \cmd{check()} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to \cmd{set.seed()} present. 
 
-The \cmd{proj_analyze()}function creates a report documenting the structure of a data analysis project. This report contains informations about all packages referenced in code; the files present in the directory, and their types; suggestions for moving files to create a more organized structure; and a list of reproducibility-breaking file paths used in code.
+The \cmd{proj\_analyze()} function creates a report documenting the structure of a data analysis project. This report contains informations about all packages referenced in code; the files present in the directory, and their types; suggestions for moving files to create a more organized structure; and a list of reproducibility-breaking file paths used in code.
 
 The proactive features are even more accessible, active immediately after loading the \pkg{fertile} package and requiring no additional code to access.
 
-In addition to the primary reproducability analsis functions present in \cmd{check}, \cmd{proj_analyze}, and the interactive warning system, several useful utility functions are made available to \pkg{fertile} users. Among other things, these include functions to check the type of a file and a way to create a copy of a project in a temp directory.
+In addition to the primary reproducability analsis functions present in \cmd{check}, \cmd{proj\_analyze()}, and the interactive warning system, several useful utility functions are made available to \pkg{fertile} users. Among other things, these include functions to check the type of a file and a way to create a copy of a project in a temp directory.
 
 \pkg{fertile} is designed to educate the user about why the mistakes are problematic, and how to fix them, promoting a greater understanding of reproducibility concepts in its users.
 
