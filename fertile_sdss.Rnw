@@ -51,8 +51,11 @@ However, while the necessity of reproducibility is clear, there are significant 
 
 Much of the discussion around reproducibility is also generalized---it is written to be applicable to users working with a variety of statistical software programs. Since all statistical software programs operate differently, generalized recommendations on reproducibility are often shallow and unspecific. While they provide useful guidelines, they can often be difficult to implement, particularly to new analysts who are unsure how to apply such recommendations within the software programs they are using.
 Thus, reproducibility recommendations tailored to specific software programs are more likely to be adopted. 
+
 In this paper, we focus on reproducibility in the R programming language with a concentration on projects that use the RStudio integrated development environment.
 R is an ideal candidate for reproducibility recommendations due to the language's popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
+
+\section{Methods}
 
 We present an R package called \href{https://github.com/baumer-lab/fertile}{\pkg{fertile}}\footnote{The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the `tidyverse` team.}, which focuses on a series of common mistakes programmers make while conducting data science research in R.
 \pkg{fertile} operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems).
@@ -60,6 +63,10 @@ We present an R package called \href{https://github.com/baumer-lab/fertile}{\pkg
 Retroactively, \pkg{fertile} analyzes potential obstacles to reproducibility in an RStudio Project (i.e., a directory that contains an \cmd{.Rproj} file), including the directory structure, the analyst's use of file paths, randomness, etc. \pkg{fertile} creates reproducibility reports that identify potential mistakes and provide recommendations for remedies. For example, fertile might identify the use of randomness in code and recommend setting a seed.
 
 Proactively, the package identifies potential mistakes as they are made by the user and outputs an informative message as well as a recommended solution. For example, \pkg{fertile} catches when a user passes a potentially problematic file path---such as an absolute path, or a path that points to a location outside of the project directory---to a variety of common input/output functions. \pkg{fertile} is even more aggressive with functions (like \cmd{setwd()}) that are almost certain to break reproducibility---it causes them to throw errors.
+
+\pkg{fertile} is available for download at \url{https://github.com/baumer-lab/fertile}.
+
+\section{Results}
 
 The features and functions available in \pkg{fertile} are easily accessible to users. The retroactive reproducibility checks, also available individually, are packaged neatly into several primary functions that users of \pkg{fertile} can run quickly, in any order, by executing minimal lines of code. 
 
@@ -73,14 +80,40 @@ The proactive features are even more accessible, active immediately after loadin
 
 In addition to the primary reproducability analsis functions present in \cmd{check}, \cmd{proj\_analyze()}, and the interactive warning system, several useful utility functions are made available to \pkg{fertile} users. Among other things, these include functions to check the type of a file and a way to create a copy of a project in a temp directory.
 
+<<message=FALSE>>=
+library(tidyverse)
+library(fertile)
+is_path_portable(".")
+is_path_portable("~")
+@
+
 \pkg{fertile} is designed to educate the user about why the mistakes are problematic, and how to fix them, promoting a greater understanding of reproducibility concepts in its users.
 
+<<include=FALSE>>=
+readr::write_csv(mtcars, "~/Desktop/my_data.csv")
+@
+
+
+<<>>=
+file.exists("~/Desktop/my_data.csv")
+read.csv("~/Desktop/my_data.csv")
+@
+
+
 It is also written for a wide audience, simple enough to be used by students in an introductory data science course, but still helpful to experienced analysts.
+
+<<message=FALSE>>=
+check_some(".", contains("paths"))
+@
+
 
 The benefits and features of \pkg{fertile} can be accessed almost effortlessly, providing very little barrier to entry and making it easy for data analysists of all skill levels and backgrounds to gain a better understanding of how to make their work reproducible.
 
 In an effort to understand the package's effectiveness, we also share preliminary results from a randomized, controlled experiment conducted on an undergraduate introductory data science course\footnote{This study is approved by Smith College IRB, Protocol \#19-032}. The purpose of the study is to determine whether \pkg{fertile} helps students produce data science research that is more likely to be reproducible. 
 
+\section{Conclusion}
+
+\pkg{fertile} is an R package that lowers barriers to reproducible data analysis projects in R. 
 
 \bibliographystyle{sdss2020} % Please do not change the bibliography style
 \bibliography{bibliography}
