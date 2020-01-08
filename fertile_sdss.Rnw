@@ -73,7 +73,6 @@ readr::write_csv(mtcars, "~/Desktop/my_data.csv")
 @
 
 <<message = FALSE>>=
-library(tidyverse)
 library(fertile)
 file.exists("~/Desktop/my_data.csv")
 read.csv("~/Desktop/my_data.csv")
@@ -87,13 +86,12 @@ setwd("~/Desktop")
 
 
 
-The proactive features are activated immediately after loading the \pkg{fertile} package and require no additional effort by the user. 
+The proactive features are activated immediately after loading the \pkg{fertile} package and require no additional effort by the user.
 
 
 In addition to the interactive warning system, \pkg{fertile} provides several useful utility functions. Among other things, these include functions to check the type of a file and a way to create a copy of a project in a temporary directory.
 
 <<message=FALSE>>=
-is_path_portable(".")
 is_path_portable("~")
 
 is_data_file("~/Desktop/my_data.csv")
@@ -108,14 +106,14 @@ Retroactively, \pkg{fertile} analyzes potential obstacles to reproducibility in 
 
 Users can access the majority of \pkg{fertile}'s retroactive features through two primary functions.
 
-The \cmd{check()} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to \cmd{set.seed()} present. Subsets of the fifteen tests can be invoked using the select helper functions from \pkg{dplyr}\cite{R-dplyr} and the \cmd{check\_some()} function.
+The \cmd{check()} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to \cmd{set.seed()} present. Subsets of the fifteen tests can be invoked using the select helper functions from \pkg{dplyr} and the \cmd{check\_some()} function.
 
 <<eval=FALSE, include=FALSE>>=
 knitr::write_bib("dplyr", file = "pkgs.bib")
 @
 
-
 <<message=FALSE>>=
+library(tidyverse)
 check_some(".", contains("paths"))
 @
 
@@ -132,9 +130,11 @@ In an effort to understand the package's effectiveness, we also share preliminar
 \section{Conclusion}
 
 \pkg{fertile} is an R package that lowers barriers to reproducible data analysis projects in R. 
-The features of \pkg{fertile} can be accessed almost effortlessly, lowering barriers to entry and making it easy for data analysts of all skill levels and backgrounds to gain a better understanding of how to make their work reproducible.
+The features of \pkg{fertile} can be accessed almost effortlessly, making it easy for data analysts of all skill levels and backgrounds to gain a better understanding of how to make their work reproducible.
 \pkg{fertile} is designed to educate the user about why the mistakes are problematic and how to fix them, promoting a greater understanding of reproducibility concepts in its users.
 It is written for a wide audience, simple enough to be used by students in an introductory data science course, but still helpful to experienced analysts.
+\pkg{fertile} also addresses a human challenge of reproducibility. In the moment, it often feels easiest to take a shortcut---to use an absolute path or change a working directory. However, when considering the long term path of a project, spending the extra time to improve reproducibility is worthwhile. \pkg{fertile}'s user-friendly features can help data analysts avoid these harmful shortcuts with minimal effort.
+
 
 \bibliographystyle{sdss2020} % Please do not change the bibliography style
 \bibliography{bibliography,pkgs}
