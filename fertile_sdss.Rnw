@@ -106,7 +106,7 @@ Retroactively, \pkg{fertile} analyzes potential obstacles to reproducibility in 
 
 Users can access the majority of \pkg{fertile}'s retroactive features through two primary functions.
 
-The \cmd{check()} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to \cmd{set.seed()} present. Subsets of the fifteen tests can be invoked using the select helper functions from \pkg{dplyr} and the \cmd{check\_some()} function.
+The \cmd{proj\_check()} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to \cmd{set.seed()} present. Subsets of the fifteen tests can be invoked using the select helper functions from \pkg{dplyr} and the \cmd{check\_some()} function.
 
 <<eval=FALSE, include=FALSE>>=
 knitr::write_bib("dplyr", file = "pkgs.bib")
