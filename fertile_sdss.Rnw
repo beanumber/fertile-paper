@@ -114,7 +114,7 @@ knitr::write_bib("dplyr", file = "pkgs.bib")
 
 <<message=FALSE>>=
 library(tidyverse)
-check_some(".", contains("paths"))
+proj_check_some(".", contains("paths"))
 @
 
 
