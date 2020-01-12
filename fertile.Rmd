@@ -248,6 +248,12 @@ http://ropensci.github.io/reproducibility-guide/
 * Is analysis output done hierarchically?
 * Are there lots of manual data manipulation steps?
 
+
+R OpenSci also has a discussion of code review practices where users commented. Not too much that was helpful from here (just a few odd comments):
+https://discuss.ropensci.org/t/how-do-you-review-code-that-accompanies-a-research-project-or-paper-help-ropensci-plan-a-community-call/1321/43
+
+
+
 From "A Guide to Reproducible Code in Ecology and Evolution" (these ideas are pretty universal, though):
 
 A basic project structure:
@@ -311,6 +317,51 @@ https://github.com/benmarwick/rrtools
 * Sets up testthat
 
 
+### represtools
+
+https://pirategrunt.com/represtools/
+
+Has basic utility functions to support reproducibile research
+• Gather
+• Cook
+• Analyze
+• Present
+
+### orderly
+
+https://github.com/vimc/orderly
+
+Focuses on automating a series of basic steps in the prodcess of writing analyses.
+• Tracks inputs
+• Stores multiple versions of an analysis (unclear whether this is different stages?)
+• Track outputs
+• Create analyses that depend on the outputs of previous analyses
+• You have to declare what you're going to use and create BEFORE you start the analysis
+
+### workflowr
+
+https://f1000research.com/articles/8-1749
+
+Aims to instill a particular workflow that helps make projects more reproducible.
+
+• Version control (git)
+• Literate programming (Rmd)
+• Automatic checks & safeguards (seemingly related to whether different files in a project have been published on git, and not actually to do with code practices)
+• Sharing code / results via browsable website
+
+### checkers
+
+https://github.com/ropenscilabs/checkers
+
+• A framework for reviewing analysis projects
+• Seems to be something run after-the-fact
+• Currently a work in progress and not passing checks (as of Jan 2019)
+• Can create custom checks
+• Checks include:
+ - Comments
+ - Good coding style (lintr)
+ - Use of version control
+ - Whether preferred packages are used
 
 
 
