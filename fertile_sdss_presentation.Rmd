@@ -1,0 +1,219 @@
+---
+title: "Creating optimal conditions for reproducible data analysis in R with 'fertile'"
+subtitle: 
+author: |
+  Audrey Bertin<br/>
+  <span style = 'font-size: 70%;'>
+  [Statistical & Data Sciences](http://www.smith.edu/sds), Smith College<br/>
+  `r icon::fa("envelope")` &nbsp;[abertin@smith.edu](mailto:abertin@smith.edu) | 
+  `r icon::fa("twitter")` @[ambertin99](http://www.twitter.com/ambertin99) |
+  `r icon::fa("github")` [ambertin](http://www.github.com/ambertin)
+  </span>
+date: |
+  SDSS 2020 <br/>
+  Date <br/>
+  `r sds::img_logo(width = 64)`
+output:
+  sds::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE}
+# sds::duo_smith()
+sds::mono_light_smith()
+```
+
+
+# Reproducibility
+
+.pull-left[
+
+• When code + data files produce **identical** results when run by another analyst
+
+### Why this is important:
+  - Research is increasingly data-driven
+  - Knowledge can be shared worldwide rapidly
+  - Transparency
+  - Specific feedback
+  - Sharing of knowledge / future work
+
+]
+
+.pull-right[
+
+![Diagram by Stephanie Hicks and Roger Peng](images/reproducibility.png)
+
+]
+
+---
+
+# Reproducibility challenges
+
+• No consensus on standards of reproducibility in research
+  - **components** (e.g. need it be open source?)
+  - **recommendations** (e.g. should raw / processed data be stored separately?)
+  
+• Discussion is very generalized
+  - For any software
+  - Difficult to implement (particularly for new analysts)
+
+---
+
+
+# fertile addresses this
+
+
+• `fertile`: An R package that focuses on common mistakes data analysts make in R
+
+### Two modes
+
+• Proactive 
+  - Stops mistakes as they are happening
+  
+• Retroactive
+  - Analyzes already-written code for potential issues
+
+
+
+---
+# Proactive use
+
+• Identifies potential mistakes as they are made
+
+• Outputs an informative message and a recommended solution
+
+.pull-left[
+
+• Ex: detecting problematic file paths (absolute or pointing outside a directory)
+
+![](images/absolute.png)
+
+]
+
+.pull-right[
+
+• Ex: setting working directories
+
+![](images/setwd.png)
+
+]
+
+---
+# Retroactive use
+
+• Analyze an RStudio project:
+  - Directory structure
+  - File path use
+  - Randomness
+  
+• Provide recommendations for remedies
+
+• Features easily accessed w/ two simple functions
+
+---
+# Retroactive use
+
+### 1. `proj_check()`
+
+• Runs 15 reproducibility checks
+  - Clear build chain
+  - Clutter-free project root level
+  - No unused files
+  - Randomness without `set.seed()`
+  
+• Notes which pass/fail
+
+• Gives recommendations for addressing issues
+
+• Gives a guide of where to look for help
+
+---
+
+![](images/proj_check.png)
+
+---
+# Retroactive use
+
+### 2. `proj_analyze()`
+
+• Creates a report focused primarily on the structure of a data analysis project
+
+• Contains:
+  - Packages referenced
+  - Files / types
+  - Suggestions for reorganization
+  - Problematic file paths
+
+---
+
+![](images/proj_analyze.png)
+
+---
+# Why `fertile` matters
+
+• `fertile` lowers barriers to reproducibile data analysis in R
+
+• Provides non-generalized recommendations
+
+• Near-effortless accessibility 
+
+• Good for analysts of all skill levels / backgrounds
+
+--- 
+---
+
+# `fertile` is different
+
+• There are already R packages (some still in development) trying to address this issue:
+  -rrtools
+  -represtools
+  -orderly
+  -workflowr
+  -checkers
+  
+• However, many of these are:
+  -Complicated and difficult for beginners
+  -Focused on just one aspect of reproducibility
+
+• `fertile` is incredibly simple to use and covers a wide variety of topics
+
+
+---
+
+# Testing `fertile`
+
+• Is `fertile` actually effective for teaching reproducibility?
+• Experimented in a Smith College introductory data science course
+
+• Findings:
+
+
+
+---
+
+
+class: center, middle
+# Thank you!
+
+---
+class: center, middle
+## Acknowledgements
+
+The authors gratefully acknowledge contributions from:
+Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the `tidyverse` team.
+
+---
+
+`r icon::fa("envelope")` [abertin@smith.edu](mailto:abertin@smith.edu) |
+`r icon::fa("twitter")` [ambertin99](http://www.twitter.com/ambertin99) |
+`r icon::fa("github")` [ambertin](http://www.github.com/ambertin)
