@@ -377,3 +377,64 @@ https://books.google.com/books?hl=en&lr=&id=JcmSAwAAQBAJ&oi=fnd&pg=PP1&dq=Victor
 
 
 
+# Literature Review
+
+
+
+## Papers and Books
+
+*What does research reproducibility mean? -- Goodman et al*
+
+•The language and conceptual framework of research reproducibility vary across the sciences. There are no clear standards agreed upon by all scientific researchers.
+
+*The practice of reproducible research: case studies and lessons from the data-intensive sciences -- Kitzes et al*
+
+• Reproducibility examples from a variety of fields all vary significantly but they share key principles / practices in common: 1. Use clear separation, labeling, and documentation. 2. Automate documentation. 3. Design a workflow as a sequence of small steps glued together with intermediate outputs from one step feeding into the next.
+
+*Packaging data analytical work reproducibly using {R} (and friends) -- Marwick et al*
+
+• The R package can be a suitable template for organizing files into a research compendium to enhance the reproducibility of research.
+
+*A guide to reproducible code in ecology and evolution -- Cooper et al*
+
+• Reproducible work should include a clear and well-separated file system, well-named files, a list of package dependencies, good documentation. Preferably, RMarkdown and version control should be used.
+
+*Reproducible research and Biostatistics -- Peng*
+
+• To meet the "reproducible" criterion in the biostatistics journal you must submit: a main script and any complementary side scripts, data and any other necessary files, a target file containing results.
+
+
+# Other articles
+
+*Karl Broman's suggestions:*
+
+• Keep the project contained in one directory, separate the components (raw data, derived data, code), use relative paths, write a README, and name things clearly.
+
+
+*R OpenSci's suggestions:*
+
+• To be reproducible, it should be easy to find files, be clear what each file is, and be easy to know what order to run files. There should be no extraneous files. Everything should be documented, dependencies noted, and seeds used for randomness. Automation should be used when possible.
+
+
+## Packages
+
+rrtools
+• Complementary to Ben Marwick's paper
+• Creates a basic R package structure for your research and institutes some testthat check functionality
+
+
+orderly
+• Based on the step-by-step analysis process. 
+• Build components that take inputs from other components
+• Have to declare project structure at the beginning.
+
+workflowr
+• Focused a lot on version control and making code available
+
+checkers
+• Allows you to create custom checks to look over your work
+
+*Notes: Almost all of these are things you need to do before you start your project. They each focus on a small subset of reproducibility components. They are somewhat complicated to use -- commands are complex and there are often a lot of them.
+
+
+
