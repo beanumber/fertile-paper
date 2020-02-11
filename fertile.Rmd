@@ -190,7 +190,13 @@ Susan doesn't understand why it didn't work on the professor's computer when it 
 
 On future projects, she always loads and runs fertile to make sure her work is okay before submitting.
 
-### 2. Experience R User
+### 2. Experienced R User
+
+Emma is a post-doc, with several years of R experience. She is familiar with some basic rules of reproducibility--file paths should always be relative and randomness should always be associated with a seed--but has never needed to pass any sort of reproducibility check before because her professors never emphasized that.
+
+She has just finished a research project and is looking to submit her work to a journal. When researching the journal she is interested in submitting to, she discovers that it has high standards for research reproducibility and a dedicated editor focusing on that aspect of submissions. She goes online and finds the journal's guidelines for reproducibility. They are more complete than any guidelines she has previously been required to conform to. In addition to notes about file paths and randomness, the journal requires a clean, well-organized folder structure, broken down by file category and cleaned of files that do not serve a purpose.
+
+Unsure of the best way to achieve this structure, Emma goes online to find help. In her search, she comes across `fertile`. She downloads the package, and in only a handful of commands, she identifies and removes excess files in her directory and automatically organizes her files into a structure reminiscent of an R package. She now meets the guidelines for the journal and can submit her research.
 
 # Results
 
