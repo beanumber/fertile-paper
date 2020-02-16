@@ -57,7 +57,77 @@ To address this, we present an R package called [`fertile`](https://github.com/b
 
 # Literature Review
 
-## Academic Research
+As is becoming increasingly clear, reproducibility is critically important to the advancement of knowledge in all fields of scientific research. Researchers appear to be acknowledging this, as publications focusing on reproducibility seem to have increased in frequency over the last several years. 
+
+Much of the available literature is focused on the methods for achieving reproducibility in specific disciplines, though much of this information is generalizable to all areas of scientific research. There is also a small body of work focusing on reproducibility within the R community specifically. Some of this work is in the form of academic papers, while other literature comes from the blog posts and websites of several highly-regarded R-focused websites and researchers.  In this section, we will discuss the reproducibility recommendations from both the formal and informal publications, which together influenced which features were included in `fertile`.
+
+There is also a small existing body of R packages focused on providing tools to assist researchers with achieving reproducibility. We will consider the functionality of these packages, identifying `fertile`'s unique role and functionality. 
+
+## Published Literature
+
+As Goodman, Fanelli, and Ionnidis argue in their 2016 paper, *What does research reproducibilty mean?*, the language and conceptual framework of research reproducibility vary across the sciences. There are no clear standards agreed upon across fields. 
+
+The variety of recommendations and techniques for achieving reproducibility can be clearly seen Kitzes, Turek, and Deniz' book *The Practice of Reproducible Research*, a collection of case studies on reproducibility practices from across the data-intensive sciences. Although the book idenfies no consensus on exact standards of reproducibility, several common trends and principles emerge from the case studies:
+
+1. Use clear separation, labeling and documentation.
+2. Automate processes when possible.
+3. Design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next.
+
+*A guide to reproducible code in ecology and evolution*, focused on data analysis in R, identifies similar important reproducibility components, reiterating the need to clearly labled, well-documented, and well-separated files. In addition, the paper recommends that a list of dependencies be published and version control be used.
+
+Karl Broman, Professor of Biostatistics and Medical Informatics at the University of Wisconsin, Madison, reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a README. 
+
+R OpenSci's reproducibility recommendations share similar components to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds when running code involving randomness.
+
+When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on:
+
+• A well-designed file structure:
+  - Separate folders for different file types.
+  - No extraneous files.
+  - Minimal clutter.
+  
+• Good documentation:
+  - Files are clearly named, preferably in a way where the order in which they should be run is clear.
+  - A README is present.
+  - Dependencies are noted.
+  
+• Reproducible file paths:
+  - No absolute paths, or paths leading to locations outside of a project's directory, are used in code. Only portable (relative) paths.
+  
+• Randomness is accounted for:
+  - If randomness is used in code, a seed must also be set.
+  
+• Code conforms to tidyverse style
+
+
+
+
+
+*Packaging data analytical work reproducibly using {R} (and friends) -- Marwick et al*
+
+• The R package can be a suitable template for organizing files into a research compendium to enhance the reproducibility of research.
+
+
+
+*Reproducible research and Biostatistics -- Peng*
+
+• To meet the "reproducible" criterion in the biostatistics journal you must submit: a main script and any complementary side scripts, data and any other necessary files, a target file containing results.
+
+
+*R OpenSci's suggestions:*
+
+• To be reproducible, it should be easy to find files, be clear what each file is, and be easy to know what order to run files. There should be no extraneous files. Everything should be documented, dependencies noted, and seeds used for randomness. Automation should be used when possible.
+
+*A guide to reproducible code in ecology and evolution -- Cooper et al*
+
+• Reproducible work should include a clear and well-separated file system, well-named files, a list of package dependencies, good documentation. Preferably, RMarkdown and version control should be used.
+
+
+*Karl Broman's suggestions:*
+
+• Keep the project contained in one directory, separate the components (raw data, derived data, code), use relative paths, write a README, and name things clearly.
+
+
 
 *What does research reproducibility mean? -- Goodman et al*
 
@@ -67,29 +137,6 @@ To address this, we present an R package called [`fertile`](https://github.com/b
 
 • Reproducibility examples from a variety of fields all vary significantly but they share key principles / practices in common: 1. Use clear separation, labeling, and documentation. 2. Automate documentation. 3. Design a workflow as a sequence of small steps glued together with intermediate outputs from one step feeding into the next.
 
-*Packaging data analytical work reproducibly using {R} (and friends) -- Marwick et al*
-
-• The R package can be a suitable template for organizing files into a research compendium to enhance the reproducibility of research.
-
-*A guide to reproducible code in ecology and evolution -- Cooper et al*
-
-• Reproducible work should include a clear and well-separated file system, well-named files, a list of package dependencies, good documentation. Preferably, RMarkdown and version control should be used.
-
-*Reproducible research and Biostatistics -- Peng*
-
-• To meet the "reproducible" criterion in the biostatistics journal you must submit: a main script and any complementary side scripts, data and any other necessary files, a target file containing results.
-
-
-## Other Articles
-
-*Karl Broman's suggestions:*
-
-• Keep the project contained in one directory, separate the components (raw data, derived data, code), use relative paths, write a README, and name things clearly.
-
-
-*R OpenSci's suggestions:*
-
-• To be reproducible, it should be easy to find files, be clear what each file is, and be easy to know what order to run files. There should be no extraneous files. Everything should be documented, dependencies noted, and seeds used for randomness. Automation should be used when possible.
 
 
 ## R Packages
@@ -115,6 +162,8 @@ checkers
 
 # Methods
 
+As we have seen, many existing R packages focusing on reproducibility are designed in a way such that they can only be used prior to the start of a project, often for the purposes of creating an organized file structure or ordered file hierarchy. 
+`fertile`, on the other hand, can be used at any stage in the data analysis workflow. It is designed to be used on data analyses organized as R Projects (i.e. folders containing a `.Rproj` file). Once an R Project is created, `fertile` can provide benefits at any time, both while coding as well as after the fact.
 `fertile` operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems). 
 `fertile` is available for download at [https://github.com/baumer-lab/fertile](https://github.com/baumer-lab/fertile)
 
@@ -123,17 +172,22 @@ checkers
 Proactively, the package identifies potential mistakes as they are made by the user and outputs an informative message as well as a recommended solution. For example, `fertile` catches when a user passes a potentially problematic file path---such as an absolute path, or a path that points to a location outside of the project directory---to a variety of common input/output functions. 
 
 ```{r setup, cache = F, include = FALSE}
-knitr::opts_chunk$set(error = TRUE)
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```
 
-```{r, include = FALSE}
+```{r, include = FALSE, message = FALSE}
 readr::write_csv(mtcars, "~/Desktop/my_data.csv")
 library(fertile)
+library(tidyverse)
 ```
 
 ```{r, message = FALSE}
 file.exists("~/Desktop/my_data.csv")
 read.csv("~/Desktop/my_data.csv")
+```
+
+```{r}
+read.table("~/Desktop/my_data.csv")
 ```
 
 
@@ -152,8 +206,23 @@ In addition to the interactive warning system, `fertile` provides several useful
 is_path_portable("~")
 
 is_data_file("~/Desktop/my_data.csv")
+is_image_file("~/Desktop/my_data.csv")
 ```
 
+```{r}
+dir <- getwd()
+new_dir <- sandbox(dir)
+```
+
+```{r}
+dir
+fs::dir_ls(dir) %>% head()
+```
+
+```{r}
+new_dir
+fs::dir_ls(new_dir) %>% head()
+```
 
 ## Retroactive Use
 
