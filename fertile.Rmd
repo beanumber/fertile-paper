@@ -23,9 +23,14 @@ abstract: |
   The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We focus on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. `fertile` is an R package that operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, `fertile` is designed to educate the user about why the mistakes are problematic, and how to fix them. We discuss experimental results from testing `fertile` in an introductory data science course.
 
 
-bibliography: bibliography.bib
+bibliography: [bibliography.bib, pkgs.bib]
 output: rticles::asa_article
 ---
+
+```{r, include=FALSE}
+knitr::write_bib(c("dplyr", "drake"), file = "pkgs.bib")
+```
+
 
 # Introduction
 
@@ -63,9 +68,10 @@ Much of the available literature is focused on the methods for achieving reprodu
 
 There is also a small existing body of R packages focused on providing tools to assist researchers with achieving reproducibility. We will consider the functionality of these packages, identifying `fertile`'s unique role and functionality. 
 
+
 ## Published Literature
 
-As Goodman, Fanelli, and Ionnidis argue in their 2016 paper, *What does research reproducibilty mean?*, the language and conceptual framework of research reproducibility vary across the sciences. There are no clear standards agreed upon across fields. 
+As @goodman2016does argue, the language and conceptual framework of research reproducibility vary across the sciences. There are no clear standards agreed upon across fields. 
 
 The variety of recommendations and techniques for achieving reproducibility can be clearly seen Kitzes, Turek, and Deniz' book *The Practice of Reproducible Research*, a collection of case studies on reproducibility practices from across the data-intensive sciences. Although the book idenfies no consensus on exact standards of reproducibility, several common trends and principles emerge from the case studies:
 
@@ -99,10 +105,12 @@ When considered in combination, these sources provide a well-rounded picture of 
   
 • Code conforms to tidyverse style
 
-Much of the available literature focuses on file structure, organization, and naming, and `fertile`'s features are consistent with this. The *ideal* file structure is not agreed upon by academics, though there are some recommendations focused on R that are available. *Packaging data analytical work reproducibility using {R} (and friends)* by Marwick, Boettiger, and Mullen provides the framework for file structure that `fertile` is based on: a structure similar to that of an R package, with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
+Much of the available literature focuses on file structure, organization, and naming, and `fertile`'s features are consistent with this. The *ideal* file structure is not agreed upon by academics, though there are some recommendations focused on R that are available. @marwick2018packaging provides the framework for file structure that `fertile` is based on: a structure similar to that of an R package, with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
 
 
 ## R Packages
+
+See also the **drake** package [@R-drake].
 
 rrtools
 • Complementary to Ben Marwick's paper
