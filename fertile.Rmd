@@ -99,44 +99,7 @@ When considered in combination, these sources provide a well-rounded picture of 
   
 • Code conforms to tidyverse style
 
-
-
-
-
-*Packaging data analytical work reproducibly using {R} (and friends) -- Marwick et al*
-
-• The R package can be a suitable template for organizing files into a research compendium to enhance the reproducibility of research.
-
-
-
-*Reproducible research and Biostatistics -- Peng*
-
-• To meet the "reproducible" criterion in the biostatistics journal you must submit: a main script and any complementary side scripts, data and any other necessary files, a target file containing results.
-
-
-*R OpenSci's suggestions:*
-
-• To be reproducible, it should be easy to find files, be clear what each file is, and be easy to know what order to run files. There should be no extraneous files. Everything should be documented, dependencies noted, and seeds used for randomness. Automation should be used when possible.
-
-*A guide to reproducible code in ecology and evolution -- Cooper et al*
-
-• Reproducible work should include a clear and well-separated file system, well-named files, a list of package dependencies, good documentation. Preferably, RMarkdown and version control should be used.
-
-
-*Karl Broman's suggestions:*
-
-• Keep the project contained in one directory, separate the components (raw data, derived data, code), use relative paths, write a README, and name things clearly.
-
-
-
-*What does research reproducibility mean? -- Goodman et al*
-
-•The language and conceptual framework of research reproducibility vary across the sciences. There are no clear standards agreed upon by all scientific researchers.
-
-*The practice of reproducible research: case studies and lessons from the data-intensive sciences -- Kitzes et al*
-
-• Reproducibility examples from a variety of fields all vary significantly but they share key principles / practices in common: 1. Use clear separation, labeling, and documentation. 2. Automate documentation. 3. Design a workflow as a sequence of small steps glued together with intermediate outputs from one step feeding into the next.
-
+Much of the available literature focuses on file structure, organization, and naming, and `fertile`'s features are consistent with this. The *ideal* file structure is not agreed upon by academics, though there are some recommendations focused on R that are available. *Packaging data analytical work reproducibility using {R} (and friends)* by Marwick, Boettiger, and Mullen provides the framework for file structure that `fertile` is based on: a structure similar to that of an R package, with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
 
 
 ## R Packages
@@ -622,6 +585,40 @@ https://books.google.com/books?hl=en&lr=&id=JcmSAwAAQBAJ&oi=fnd&pg=PP1&dq=Victor
 
 
 
+
+*Packaging data analytical work reproducibly using {R} (and friends) -- Marwick et al*
+
+• The R package can be a suitable template for organizing files into a research compendium to enhance the reproducibility of research.
+
+
+
+*Reproducible research and Biostatistics -- Peng*
+
+• To meet the "reproducible" criterion in the biostatistics journal you must submit: a main script and any complementary side scripts, data and any other necessary files, a target file containing results.
+
+
+*R OpenSci's suggestions:*
+
+• To be reproducible, it should be easy to find files, be clear what each file is, and be easy to know what order to run files. There should be no extraneous files. Everything should be documented, dependencies noted, and seeds used for randomness. Automation should be used when possible.
+
+*A guide to reproducible code in ecology and evolution -- Cooper et al*
+
+• Reproducible work should include a clear and well-separated file system, well-named files, a list of package dependencies, good documentation. Preferably, RMarkdown and version control should be used.
+
+
+*Karl Broman's suggestions:*
+
+• Keep the project contained in one directory, separate the components (raw data, derived data, code), use relative paths, write a README, and name things clearly.
+
+
+
+*What does research reproducibility mean? -- Goodman et al*
+
+•The language and conceptual framework of research reproducibility vary across the sciences. There are no clear standards agreed upon by all scientific researchers.
+
+*The practice of reproducible research: case studies and lessons from the data-intensive sciences -- Kitzes et al*
+
+• Reproducibility examples from a variety of fields all vary significantly but they share key principles / practices in common: 1. Use clear separation, labeling, and documentation. 2. Automate documentation. 3. Design a workflow as a sequence of small steps glued together with intermediate outputs from one step feeding into the next.
 
 
 
