@@ -25,6 +25,7 @@ abstract: |
 
 bibliography: [bibliography.bib, pkgs.bib]
 output: rticles::asa_article
+
 ---
 
 ```{r, include = FALSE}
@@ -116,25 +117,17 @@ package, with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignette
 ## R Packages
 
 
-There also exists a small selection of R packages that work to address the issue of research reproducibility, though not all of them are available on `CRAN`. **rrtools** [@R-rrtools], developed to address some of the issues discussed in @marwick2018packaging, creates a basic R package structure for a data analysis project and implements a basic **testthat** `check` functionality.
+There also exists a small selection of R packages that work to address the issue of research reproducibility, though not all of them are available on `CRAN`. 
 
+**rrtools** [@R-rrtools], developed to address some of the issues discussed in @marwick2018packaging, creates a basic R package structure for a data analysis project and implements a basic **testthat**::`check` functionality. The **orderly** [@R-orderly] package also focuses on file structure, requiring the user to declare a desired project structure (typically a step-by-step structure, where outputs from one step are inputs into the next) at the beginning and then creating the files necessary to achieve that structure. **workflowr**'s [@R-workflowr] functionality is based around version control and making code easily available online. It works to generate a website containing time-stamped, versioned, and documented results. **checkers** [@R-checkers] allows you to create custom checks that look at different aspects of reproducibility. **packrat** [@R-packrat] is focused on dependencies, creating a packaged folder containing a project as well as all of its dependencies, so that projects dependent on lesser-used packages can be easily shared across computers. Lastly, the **reproducible** [@R-reproducible] package focuses on the concept of caching--saving information so that projects can be run faster each time they are re-completed from the start. 
 
+Many of these packages focus on one specific area of reproducibility, and while they each succeed well at their intended goal, they are not necessarily the most practical option for users trying to address a wide variety of factors influencing reproducibility at once. 
 
-orderly
-• Based on the step-by-step analysis process. 
-• Build components that take inputs from other components
-• Have to declare project structure at the beginning.
-
-workflowr
-• Focused a lot on version control and making code available
-
-checkers
-• Allows you to create custom checks to look over your work
-
-*Notes: Almost all of these are things you need to do before you start your project. They each focus on a small subset of reproducibility components. They are somewhat complicated to use -- commands are complex and there are often a lot of them.
+Additionally, with the focused nature of these packages comes added complexity. The functions in these packages are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This complex nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their R journey, nor particularly useful to those looking for quick and easy reproducibility checks. 
 
 
 # Methods
+
 
 As we have seen, many existing R packages focusing on reproducibility are designed in a way such that they can only be used prior to the start of a project, often for the purposes of creating an organized file structure or ordered file hierarchy. 
 **fertile**, on the other hand, can be used at any stage in the data analysis workflow. It is designed to be used on data analyses organized as R Projects (i.e. folders containing a `.Rproj` file). Once an R Project is created, **fertile** can provide benefits at any time, both while coding as well as after the fact.
@@ -188,6 +181,7 @@ dir <- getwd()
 new_dir <- sandbox(dir)
 ```
 
+\tiny
 ```{r}
 dir
 fs::dir_ls(dir) %>% head()
@@ -197,6 +191,7 @@ fs::dir_ls(dir) %>% head()
 new_dir
 fs::dir_ls(new_dir) %>% head()
 ```
+\normalsize
 
 ## Retroactive Use
 
