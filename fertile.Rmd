@@ -23,9 +23,13 @@ abstract: |
   The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We focus on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. `fertile` is an R package that operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, `fertile` is designed to educate the user about why the mistakes are problematic, and how to fix them. We discuss experimental results from testing `fertile` in an introductory data science course.
 
 
-bibliography: bibliography.bib
+bibliography: [bibliography.bib, pkgs.bib]
 output: rticles::asa_article
 ---
+
+```{r, include = FALSE}
+knitr::write_bib(c("dplyr", "rrtools", "tidyverse", "orderly", "workflowr", "testthat"),  file = "pkgs.bib")
+```
 
 # Introduction
 
@@ -52,7 +56,9 @@ Much of this work is narrowly tailored, with each package effectively addressisi
 Many existing reproducibility packages, due to their focused nature, succeed at their area of focus well, but at a cost. They are often semi-complex to learn and operate, providing a barrier to entry for less-experienced data analysts. 
 
 There appear to be no existing tools that cater to analysts looking for an easy-to-learn, easy-to-implement, fast way to obtain a broad overview of their projects' reproducibility.
-To address this, we present an R package called [**fertile**](https://github.com/baumer-lab/fertile) [^1]:{The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the `tidyverse` team.}, a low barrier-to-entry package which focuses on a series of common mistakes programmers make while conducting data science research in R.
+To address this, we present an R package called [**fertile**](https://github.com/baumer-lab/fertile) [^1].
+
+[^1]:{The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the **tidyverse** team.}, a low barrier-to-entry package which focuses on a series of common mistakes programmers make while conducting data science research in R.
 
 
 # Literature Review
@@ -97,16 +103,21 @@ When considered in combination, these sources provide a well-rounded picture of 
 • Randomness is accounted for:
   - If randomness is used in code, a seed must also be set.
   
-• Code conforms to tidyverse style
+• Code conforms to tidyverse style      
 
-Much of the available literature focuses on file structure, organization, and naming, and **fertile`**s features are consistent with this. The *ideal* file structure is not agreed upon by academics, though there are some recommendations focused on R that are available. @marwick2018packaging provides the framework for file structure that **fertile** is based on: a structure similar to that of an R package, with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
+Much of the available literature focuses on file structure, organization, and 
+naming, and **fertile**s features are consistent with this. The *ideal* file 
+structure is not agreed upon by academics, though there are some recommendations 
+focused on R that are available. @marwick2018packaging provides the framework for 
+file structure that **fertile** is based on: a structure similar to that of an R 
+package, with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
 
 
 ## R Packages
 
-rrtools
-• Complementary to Ben Marwick's paper
-• Creates a basic R package structure for your research and institutes some testthat check functionality
+
+There also exists a small selection of R packages that work to address the issue of research reproducibility, though not all of them are available on `CRAN`. **rrtools** [@R-rrtools], developed to address some of the issues discussed in @marwick2018packaging, creates a basic R package structure for a data analysis project and implements a basic **testthat** `check` functionality.
+
 
 
 orderly
@@ -194,11 +205,6 @@ Retroactively, **fertile** analyzes potential obstacles to reproducibility in an
 Users can access the majority of **fertile**'s retroactive features through two primary functions.
 
 The `proj_check()` function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to `set.seed()` present. Subsets of the fifteen tests can be invoked using the select helper functions from **dplyr** and the `proj_check_some()` function.
-
-
-```{r, eval = FALSE, include = FALSE}
-knitr::write_bib("dplyr", file = "pkgs.bib")
-```
 
 ```{r, message = FALSE}
 library(tidyverse)
