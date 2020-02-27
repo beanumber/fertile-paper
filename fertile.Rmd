@@ -190,8 +190,34 @@ proj_analyze(".")
 ```
 \normalsize
 
+**fertile** also contains a logging functionality, which records commands with the potential to affect reproducibility that are run in the console. The package focuses mostly on package loading and file opening, notes which function was used, the path or package it referenced, and the timestamp at which that event happened.
+
+Users can access the log recording their commands at any time via the `log_report()` function:
+
+```{r, include = FALSE}
+log_clear()
+```
 
 
+```{r, message = FALSE, results = "hide"}
+library(purrr)
+library(forcats)
+library(fertile)
+read.csv("mtcars.csv")
+```
+
+\tiny
+```{r}
+log_report()
+```
+\normalsize
+
+The `log_clear()` function allows for management of the log, enabling users to erase it and start over at any time.
+
+```{r, message = FALSE}
+log_clear()
+log_report()
+```
 
 
 ## Utility Functions
