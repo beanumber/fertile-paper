@@ -160,22 +160,31 @@ read_csv("~/Desktop/my_data.csv")
 read.table("~/Desktop/my_data.csv")
 ```
 
-**fertile** is even more aggressive with functions (like `setwd()`) that are almost certain to break reproducibility, causing them to throw errors that prevent their execution.
+**fertile** is even more aggressive with functions (like `setwd()`) that are almost certain to break reproducibility, causing them to throw errors that prevent their execution and providing recommendations for better alternatives.
 
 ```{r, message = FALSE}
 setwd("~/Desktop")
 ```
 
-The proactive features are activated immediately after loading the **fertile** package and require no additional effort by the user to access.
+
+These proactive warning features are activated immediately after loading the **fertile** package and require no additional effort by the user to access.  
 
 
 ## Retroactive Use
 
-Retroactively, **fertile** analyzes potential obstacles to reproducibility in an RStudio Project (i.e., a directory that contains an `.Rproj` file), including the directory structure, the analyst's use of file paths, randomness, etc. **fertile** creates reproducibility reports that identify potential mistakes and provide recommendations for remedies. For example, **fertile** might identify the use of randomness in code and recommend setting a seed.
+Retroactively, **fertile** analyzes potential obstacles to reproducibility in an RStudio Project (i.e., a directory that contains an `.Rproj` file). The package considers several different aspects of the project which may influence reproducibility, including the directory structure, the analyst's use of file paths, and whether randomness is used thoughtfully.  
 
-Users can access the majority of **fertile**'s retroactive features through two primary functions.
+The end products of these analyses are reproducibility reports summarizing a project's adherence to reproducibility standards and recommending remedies for where the project falls short. For example, **fertile** might identify the use of randomness in code and recommend setting a seed if one is not present.
 
-The `proj_check()` function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to `set.seed()` present. Subsets of the fifteen tests can be invoked using the select helper functions from **dplyr** and the `proj_check_some()` function.
+Users can access the majority of **fertile**'s retroactive features through two primary functions, `proj_check()` and `proj_analyze()`.
+
+The `proj_check()` function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to `set.seed()` present. A full list is provided below:
+
+```{r}
+list_checks()
+```
+
+Subsets of the fifteen tests can be invoked using the select helper functions from **dplyr** in combination with the `proj_check_some()` function. 
 
 ```{r, message = FALSE}
 library(tidyverse)
@@ -190,7 +199,7 @@ proj_analyze(".")
 ```
 \normalsize
 
-**fertile** also contains a logging functionality, which records commands with the potential to affect reproducibility that are run in the console. The package focuses mostly on package loading and file opening, notes which function was used, the path or package it referenced, and the timestamp at which that event happened.
+**fertile** also contains a logging functionality, which records commands with the potential to affect reproducibility that are run in the console, enabling users to look at their past history at any time. The package focuses mostly on package loading and file opening, noting which function was used, the path or package it referenced, and the timestamp at which that event happened.
 
 Users can access the log recording their commands at any time via the `log_report()` function:
 
@@ -212,17 +221,19 @@ log_report()
 ```
 \normalsize
 
-The `log_clear()` function allows for management of the log, enabling users to erase it and start over at any time.
+The log, if not managed, can grow very long over time. For users who do not desire such functionality, the `log_clear()` provides a way to erase the log and start it over.
 
 ```{r, message = FALSE}
 log_clear()
 log_report()
 ```
 
+In addition to the interactive log, users can access something called the render log, which contains much of the information used to create the output for `proj_analyze()` using the function `render_log_report()`.
+
 
 ## Utility Functions
 
-**fertile** also provides several useful utility functions. Among other things, these include functions to check the type of a file and a way to create a copy of a project in a temporary directory.
+**fertile** also provides several useful utility functions that may assist with the process of data analysis. Among other things, these include functions to check the type of a file and a way to create a copy of a project in a temporary directory.
 
 ```{r}
 is_path_portable("~")
@@ -275,13 +286,18 @@ Unsure of the best way to achieve this structure, Emma goes online to find help.
 
 In an effort to understand the package's effectiveness, we also share preliminary results from a randomized, controlled experiment conducted on an undergraduate introductory data science course [^2]:{This study is approved by Smith College IRB, Protocol #19-032}. The purpose of the study is to determine whether **fertile** helps students produce data science research that is more likely to be reproducible. 
 
+# Results
+
+
 # Conclusion
 
 
-**fertile** is an R package that lowers barriers to reproducible data analysis projects in R. 
-The features of **fertile** can be accessed almost effortlessly, making it easy for data analysts of all skill levels and backgrounds to gain a better understanding of how to make their work reproducible.
+**fertile** is an R package that lowers barriers to reproducible data analysis projects in R, providing a wide array of checks and suggestions addressing many different aspects of project reproducibility. 
+
+Unlike with many other R packages focused on reproducibility that are currently available, the features of **fertile** can be accessed almost effortlessly, making it easy for data analysts of all skill levels and backgrounds to gain a better understanding of how to make their work reproducible. Many of **fertile**'s features can be accessed in only two lines of code and using minimal arguments, and some of the proactive features can be accessed purely upon loading the package. As a result, it is beneficial to a wide audience--simple enough to be used by students in an introductory data science course, but still helpful to experienced analysts.
+
 **fertile** is designed to educate the user about why the mistakes are problematic and how to fix them, promoting a greater understanding of reproducibility concepts in its users.
-It is written for a wide audience, simple enough to be used by students in an introductory data science course, but still helpful to experienced analysts.
+
 **fertile** also addresses a human challenge of reproducibility. In the moment, it often feels easiest to take a shortcut---to use an absolute path or change a working directory. However, when considering the long term path of a project, spending the extra time to improve reproducibility is worthwhile. **fertile**'s user-friendly features can help data analysts avoid these harmful shortcuts with minimal effort.
 
 
