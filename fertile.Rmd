@@ -28,83 +28,81 @@ output: rticles::asa_article
 
 ---
 
-```{r, include = FALSE}
-knitr::write_bib(c("dplyr", "rrtools", "tidyverse", "orderly", "workflowr", "testthat"),  file = "pkgs.bib")
-```
 
 # Introduction
 
-Data-based research cannot be fully *reproducible* unless the requisite code and data files produce identical results when run by another analyst. 
-
 As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge.
 
-When researchers provide the code and data used for their work in a well-organized and reproducible format, readers are more easily able to determine the veracity of any findings by following the steps from raw data to conclusions. 
+Data-based research cannot be fully *reproducible* unless the requisite code and data files produce identical results when run by another analyst. When researchers provide the code and data used for their work in a well-organized and reproducible format, readers are more easily able to determine the veracity of any findings by following the steps from raw data to conclusions. 
 
 The creators of reproducible research can more easily receive more specific feedback (including bug fixes) on their work. Moreover, others interested in the research topic can use the code to apply the methods and ideas used in one project to their own work with minimal effort.
 
 However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research (@peng2009bio). Not only are the *components* of reproducible research up for discussion (e.g., need the software be open source?), but the corresponding *recommendations* for ensuring reproducibility also vary (e.g., should raw and processed data files be in separate directories?).
 
-Much of the discussion around reproducibility is also generalized---it is written to be applicable to users working with a variety of statistical software programs. Since all statistical software programs operate differently, generalized recommendations on reproducibility are often shallow and unspecific. While they provide useful guidelines, they can often be difficult to implement, particularly to new analysts who are unsure how to apply such recommendations within the software programs they are using.
+Much of the discussion around reproducibility is also generalized---it is written to be applicable to users working with a variety of statistical software programs. Since all statistical software programs operate differently, generalized recommendations on reproducibility are often shallow and unspecific. While they provide useful guidelines, they can often be difficult to implement, particularly to new analysts who are unsure how to apply such recommendations within the software programs they are using. Thus, reproducibility recommendations tailored to specific software programs are more likely to be adopted. 
 
-Thus, reproducibility recommendations tailored to specific software programs are more likely to be adopted. 
+In this paper, we focus on reproducibility in the R programming language with a concentration on projects that use the RStudio integrated development environment. R is an ideal candidate for reproducibility recommendations due to the language's popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
 
-In this paper, we focus on reproducibility in the R programming language with a concentration on projects that use the RStudio integrated development environment.
+A small body of papers and R packages focusing on reproducibility in the R community have been published.
 
-R is an ideal candidate for reproducibility recommendations due to the language's popularity for statistical analyses and the ease with which analysts can download and begin using the software.  
-Several researchers and R users have recognized this and worked to publish a small body of papers and R packages focusing on increasing reproducibility in the R community.
+Much of this work is narrowly tailored, with each package effectively addressising a small component of reproducibility---file structure, modularization of code, version control, etc. Many existing reproducibility packages, due to their focused nature, succeed at their area of focus, but at a cost. They are often difficult to learn and operate, providing a barrier to entry for less-experienced data analysts. 
 
-Much of this work is narrowly tailored, with each package effectively addressising a small component of reproducibility--file structure, modularization of code, version control, etc. 
-Many existing reproducibility packages, due to their focused nature, succeed at their area of focus well, but at a cost. They are often semi-complex to learn and operate, providing a barrier to entry for less-experienced data analysts. 
-
-There appear to be no existing tools that cater to analysts looking for an easy-to-learn, easy-to-implement, fast way to obtain a broad overview of their projects' reproducibility.
+There appear to be no existing tools that cater to analysts looking for an easy-to-learn, easy-to-implement, fast, way to obtain a broad overview of their projects' reproducibility.
 To address this, we present an R package called [**fertile**](https://github.com/baumer-lab/fertile) [^1].
 
-[^1]:{The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the **tidyverse** team.}, a low barrier-to-entry package which focuses on a series of common mistakes programmers make while conducting data science research in R.
+[^1]:The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the **tidyverse** team., a low barrier-to-entry package which focuses on a series of common mistakes programmers make while conducting data science research in R.
 
 
 # Literature Review
 
-As is becoming increasingly clear, reproducibility is critically important to the advancement of knowledge in all fields of scientific research. Researchers appear to be acknowledging this, as publications focusing on reproducibility seem to have increased in frequency over the last several years. 
+Reproducibility is critically important to the advancement of knowledge in all fields of scientific research. Researchers are acknowledging this; publications focusing on reproducibility seem to have increased in frequency over the last several years [**CITATIONS HERE**]
 
-Much of the available literature is focused on the methods for achieving reproducibility in specific disciplines, though much of this information is generalizable to all areas of scientific research. There is also a small body of work focusing on reproducibility within the R community specifically. Some of this work is in the form of academic papers, while other literature comes from the blog posts and websites of several highly-regarded R-focused websites and researchers.  In this section, we will discuss the reproducibility recommendations from both the formal and informal publications, which together influenced which features were included in **fertile**.
+Much of the available literature is focused on the methods for achieving reproducibility in specific disciplines, though much of this information is generalizable to all areas of scientific research. There is also work focusing specifically on reproducibility within the R community. Some of this work is in the form of academic papers, while other literature comes from blog posts, websites, and R packages, some of which are compiled by notable R-focused developers and researchers.  In this section, we will discuss the reproducibility recommendations from both the formal and informal publications, which together influence the development of **fertile**.
 
-There is also a small existing body of R packages focused on providing tools to assist researchers with achieving reproducibility. We will consider the functionality of these packages, identifying **fertile**'s unique role and functionality. 
 
-## Published Literature
+## Previous Work
 
-As argued by @Goodman341ps12, the language and conceptual framework of research reproducibility vary across the sciences. There are no clear standards agreed upon across fields. 
+@Goodman341ps12 argues that the language and conceptual framework of research reproducibility varies across the sciences. There are no clear standards agreed upon across fields. 
 
-The variety of recommendations and techniques for achieving reproducibility can be clearly seen in @kitzes2017practice, a collection of case studies on reproducibility practices from across the data-intensive sciences. Although the book idenfies no consensus on exact standards of reproducibility, several common trends and principles emerge from the case studies:
+@kitzes2017practice presents a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although the book does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from the case studies:
 
 1. Use clear separation, labeling and documentation.
 2. Automate processes when possible.
-3. Design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next.
+3. Design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. [**MENTION THE UNIX PHILOSOPHY**]
 
-@cooper2017guide, focused on data analysis in R, identifies similar important reproducibility components, reiterating the need to clearly labled, well-documented, and well-separated files. In addition, the paper recommends that a list of dependencies be published and version control be used.
+@cooper2017guide focuses on data analysis in R and identifies similar important reproducibility components, while reiterating the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control.
 
-Karl Broman, Professor of Biostatistics and Medical Informatics at the University of Wisconsin, Madison, reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a README. 
+Broman reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a README. [**ADD CITATION FOR BROMAN**]
 
 R OpenSci's reproducibility recommendations share similar components to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds when running code involving randomness.
 
 When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on:
 
 • A well-designed file structure:
+
   - Separate folders for different file types.
+  
   - No extraneous files.
+  
   - Minimal clutter.
   
 • Good documentation:
+
   - Files are clearly named, preferably in a way where the order in which they should be run is clear.
+  
   - A README is present.
+  
   - Dependencies are noted.
   
 • Reproducible file paths:
+
   - No absolute paths, or paths leading to locations outside of a project's directory, are used in code. Only portable (relative) paths.
   
 • Randomness is accounted for:
+
   - If randomness is used in code, a seed must also be set.
   
-• Code conforms to tidyverse style      
+[** NOTE ABOUT TIDYVERSE STYLE AND WHY WE ADD THAT**]
 
 Much of the available literature focuses on file structure, organization, and 
 naming, and **fertile**s features are consistent with this. The *ideal* file 
