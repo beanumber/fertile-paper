@@ -80,7 +80,7 @@ informal publications, which together influence the development of
 
 1. Use clear separation, labeling, and documentation.
 2. Automate processes when possible.
-3. Design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. [**MENTION THE UNIX PHILOSOPHY**]
+3. Design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy (@unix).  
 
 @cooper2017guide focuses on data analysis in R and identifies similar important reproducibility components, while reiterating the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control.
 
@@ -90,27 +90,29 @@ The reproducibility recommendations from R OpenSci, a non-profit initiative foun
 
 When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on:
 
-• A well-designed file structure:
+1. A well-designed file structure:
 
   - Separate folders for different file types.
   - No extraneous files.
   - Minimal clutter.
   
-• Good documentation:
+2. Good documentation:
 
   - Files are clearly named, preferably in a way where the order in which they should be run is clear.
   - A README is present.
   - Dependencies are noted.
   
-• Reproducible file paths:
+3. Reproducible file paths:
 
   - No absolute paths, or paths leading to locations outside of a project's directory, are used in code. Only portable (relative) paths.
   
-• Randomness is accounted for:
+4. Randomness is accounted for:
 
   - If randomness is used in code, a seed must also be set.
+
+5. Code conforms to tidyverse style:
   
-[** NOTE ABOUT TIDYVERSE STYLE AND WHY WE ADD THAT**]
+  - Although not discussed in any of the literature mentioned previously, we also believe **tidyverse** integration to be very important. Code conformation to **tidyverse** style helps ensure that analyses meeting **fertile**'s recommendations will be able to integrate seamlessly with packages from the **tidyverse**, an ever-expanding collection of packages designed to operate together with one another. 
 
 Much of the available literature focuses on file structure, organization, 
 and naming, and **fertile**'s features are consistent with this. The 
@@ -153,21 +155,13 @@ Proactively, the package identifies potential mistakes as they are made by the u
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```
 
-```{r, include = FALSE, message = FALSE}
-readr::write_csv(mtcars, "~/Desktop/my_data.csv")
-library(tidyverse)
-
-```
-
 ```{r, message = FALSE}
-file.exists("~/Desktop/my_data.csv")
 library(fertile)
-read_csv("~/Desktop/my_data.csv")
+file.exists("project_miceps/mice.csv")
+abs_path <- fs::path_abs("project_miceps/mice.csv")
+read_csv(abs_path)
 ```
 
-```{r}
-read.table("~/Desktop/my_data.csv")
-```
 
 **fertile** is even more aggressive with functions (like `setwd()`) that are almost certain to break reproducibility, causing them to throw errors that prevent their execution and providing recommendations for better alternatives.
 
@@ -197,14 +191,14 @@ Subsets of the fifteen tests can be invoked using the **tidyselect** helper func
 
 ```{r, message = FALSE}
 library(tidyselect)
-proj_check_some(".", contains("paths"))
+proj_check_some("project_miceps", contains("paths"))
 ```
 
 The `proj_analyze()` function creates a report documenting the structure of a data analysis project. This report contains information about all packages referenced in code, the files present in the directory and their types, suggestions for moving files to create a more organized structure, and a list of reproducibility-breaking file paths used in code.
 
 \tiny
 ```{r, message = FALSE}
-proj_analyze(".")
+proj_analyze("project_miceps")
 ```
 \normalsize
 
@@ -221,7 +215,7 @@ log_clear()
 library(purrr)
 library(forcats)
 library(fertile)
-read.csv("mtcars.csv")
+read.csv("project_miceps/mice.csv")
 ```
 
 \tiny
@@ -247,8 +241,9 @@ In addition to the interactive log, users can access a render log, [**define thi
 ```{r}
 is_path_portable("~")
 
-is_data_file("~/Desktop/my_data.csv")
-is_image_file("~/Desktop/my_data.csv")
+is_data_file("project_miceps/mice.csv")
+is_image_file("project_miceps/mice.csv")
+is_image_file("project_miceps/proteins_v_time.png")
 ```
 
 ```{r}
@@ -287,7 +282,7 @@ On future projects, she always loads and runs fertile to make sure her work is o
 
 Emma is a post-doc, with several years of R experience. She is familiar with some basic rules of reproducibility---file paths should always be relative and randomness should always be associated with a seed--but has never needed to pass any sort of reproducibility check before because her professors never emphasized that.
 
-She has just finished a research project and is looking to submit her work to a journal. When researching the journal to which she is interested in submitting, she discovers that it has high standards for research reproducibility and a dedicated editor focusing on that aspect of submission. She goes online and finds the journal's guidelines for reproducibility. They are more complete than any guidelines to which she has previously been required to conform. In addition to notes about file paths and randomness, the journal requires a clean, well-organized folder structure, broken down by file category and stripped of files that do not serve a purpose. [**add something about build chain and readme to requirements**]
+She has just finished a research project and is looking to submit her work to a journal. When researching the journal to which she is interested in submitting, she discovers that it has high standards for research reproducibility and a dedicated editor focusing on that aspect of submission. She goes online and finds the journal's guidelines for reproducibility. They are more complete than any guidelines to which she has previously been required to conform. In addition to notes about file paths and randomness, the journal requires a clean, well-organized folder structure, broken down by file category and stripped of files that do not serve a purpose. In order to be approved, submissions must also have a clear build chain and an informative README file.
 
 Unsure of the best way to achieve this structure, Emma goes online to find help. In her search, she comes across **fertile**. She downloads the package, and in only a handful of commands, she identifies and removes excess files in her directory and automatically organizes her files into a structure reminiscent of an R package. She now meets the guidelines for the journal and can submit her research. 
 
