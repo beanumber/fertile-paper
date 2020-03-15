@@ -55,9 +55,21 @@ To address this, we present an R package called [**fertile**](https://github.com
 
 # Literature Review
 
-Reproducibility is critically important to the advancement of knowledge in all fields of scientific research. Researchers are acknowledging this; publications focusing on reproducibility seem to have increased in frequency over the last several years [**CITATIONS HERE**]
+Reproducibility is critically important to the advancement of knowledge in
+all fields of scientific research. Researchers are acknowledging this; 
+publications and discussions focusing on reproducibility seem to have 
+increased in frequency over the last several years (@sep-scientific-reproducibility), (@plos-biology), (@bioessays-gosselin)
 
-Much of the available literature is focused on the methods for achieving reproducibility in specific disciplines, though much of this information is generalizable to all areas of scientific research. There is also work focusing specifically on reproducibility within the R community. Some of this work is in the form of academic papers, while other literature comes from blog posts, websites, and R packages, some of which are compiled by notable R-focused developers and researchers.  In this section, we will discuss the reproducibility recommendations from both the formal and informal publications, which together influence the development of **fertile**.
+Much of the available literature is focused on the methods for achieving 
+reproducibility in specific disciplines, though much of this information 
+is generalizable to all areas of scientific research. There is also work 
+focusing specifically on reproducibility within the R community. Some of 
+this work is in the form of academic papers, while other literature comes 
+from blog posts, websites, and R packages, some of which are compiled by 
+notable R-focused developers and researchers.  In this section, we will 
+discuss the reproducibility recommendations from both the formal and 
+informal publications, which together influence the development of 
+**fertile**.
 
 
 ## Previous Work
@@ -72,26 +84,22 @@ Much of the available literature is focused on the methods for achieving reprodu
 
 @cooper2017guide focuses on data analysis in R and identifies similar important reproducibility components, while reiterating the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control.
 
-Broman reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a README. [**ADD CITATION FOR BROMAN**]
+Broman reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a README (@broman).
 
-R OpenSci's [**EXPLAIN WHO THEY ARE**] reproducibility recommendations share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow  for the saving and restoring of the random number generator state, when running code involving randomness.
+The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow  for the saving and restoring of the random number generator state, when running code involving randomness @r-opensci.
 
 When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on:
 
 • A well-designed file structure:
 
   - Separate folders for different file types.
-  
   - No extraneous files.
-  
   - Minimal clutter.
   
 • Good documentation:
 
   - Files are clearly named, preferably in a way where the order in which they should be run is clear.
-  
   - A README is present.
-  
   - Dependencies are noted.
   
 • Reproducible file paths:
