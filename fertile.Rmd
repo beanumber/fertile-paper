@@ -48,9 +48,9 @@ A small body of papers and R packages focusing on reproducibility in the R commu
 Much of this work is narrowly tailored, with each package effectively addressising a small component of reproducibility---file structure, modularization of code, version control, etc. Many existing reproducibility packages, due to their focused nature, succeed at their area of focus, but at a cost. They are often difficult to learn and operate, providing a barrier to entry for less-experienced data analysts. 
 
 There appear to be no existing tools that cater to analysts looking for an easy-to-learn, easy-to-implement, fast, way to obtain a broad overview of their projects' reproducibility.
-To address this, we present an R package called [**fertile**](https://github.com/baumer-lab/fertile) [^1].
+To address this, we present an R package called [**fertile**](https://github.com/baumer-lab/fertile) [^1], a low barrier-to-entry package which focuses on a series of common mistakes programmers make while conducting data science research in R.
 
-[^1]:The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the **tidyverse** team., a low barrier-to-entry package which focuses on a series of common mistakes programmers make while conducting data science research in R.
+[^1]:The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the **tidyverse** team.
 
 
 # Literature Review
@@ -66,7 +66,7 @@ Much of the available literature is focused on the methods for achieving reprodu
 
 @kitzes2017practice presents a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although the book does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from the case studies:
 
-1. Use clear separation, labeling and documentation.
+1. Use clear separation, labeling, and documentation.
 2. Automate processes when possible.
 3. Design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. [**MENTION THE UNIX PHILOSOPHY**]
 
@@ -74,7 +74,7 @@ Much of the available literature is focused on the methods for achieving reprodu
 
 Broman reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a README. [**ADD CITATION FOR BROMAN**]
 
-R OpenSci's reproducibility recommendations share similar components to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds when running code involving randomness.
+R OpenSci's [**EXPLAIN WHO THEY ARE**] reproducibility recommendations share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow  for the saving and restoring of the random number generator state, when running code involving randomness.
 
 When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on:
 
@@ -104,33 +104,35 @@ When considered in combination, these sources provide a well-rounded picture of 
   
 [** NOTE ABOUT TIDYVERSE STYLE AND WHY WE ADD THAT**]
 
-Much of the available literature focuses on file structure, organization, and 
-naming, and **fertile**s features are consistent with this. The *ideal* file 
-structure is not agreed upon by academics, though there are some recommendations 
-focused on R that are available. @marwick2018packaging provides the framework for 
-file structure that **fertile** is based on: a structure similar to that of an R 
-package, with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
+Much of the available literature focuses on file structure, organization, 
+and naming, and **fertile**'s features are consistent with this. The 
+*ideal* file structure is not agreed upon by academics, though there are 
+some recommendations focused on R that are available.@marwick2018packaging
+provides the framework for file structure that **fertile** is based on: a 
+structure similar to that of an R package [**Cite Hadley's Writing R 
+Packages and the R Core Team's Writing R Extensions**], with an `R` 
+folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
 
 
 ## R Packages
 
+A small selection of R packages  work to address the issue of research reproducibility, although not all of them are available on `CRAN`. 
 
-There also exists a small selection of R packages that work to address the issue of research reproducibility, though not all of them are available on `CRAN`. 
-
-**rrtools** [@R-rrtools], developed to address some of the issues discussed in @marwick2018packaging, creates a basic R package structure for a data analysis project and implements a basic **testthat**::`check` functionality. The **orderly** [@R-orderly] package also focuses on file structure, requiring the user to declare a desired project structure (typically a step-by-step structure, where outputs from one step are inputs into the next) at the beginning and then creating the files necessary to achieve that structure. **workflowr**'s [@R-workflowr] functionality is based around version control and making code easily available online. It works to generate a website containing time-stamped, versioned, and documented results. **checkers** [@R-checkers] allows you to create custom checks that look at different aspects of reproducibility. **packrat** [@R-packrat] is focused on dependencies, creating a packaged folder containing a project as well as all of its dependencies, so that projects dependent on lesser-used packages can be easily shared across computers. Lastly, the **reproducible** [@R-reproducible] package focuses on the concept of caching--saving information so that projects can be run faster each time they are re-completed from the start. 
+**rrtools** [@R-rrtools] addresses some of the issues discussed in @marwick2018packaging by creating a basic R package structure for a data analysis project and implementing a basic **testthat**::`check` functionality. The **orderly** [@R-orderly] package also focuses on file structure, requiring the user to declare a desired project structure (typically a step-by-step structure, where outputs from one step are inputs into the next) at the beginning and then creating the files necessary to achieve that structure. **workflowr**'s [@R-workflowr] functionality is based around version control and making code easily available online. It works to generate a website containing time-stamped, versioned, and documented results. **checkers** [@R-checkers] allows you to create custom checks that examine different aspects of reproducibility. **packrat** [@R-packrat] is focused on dependencies, creating a packaged folder containing a project as well as all of its dependencies, so that projects dependent on lesser-used packages can be easily shared across computers. Lastly, the **reproducible** [@R-reproducible] package focuses on the concept of caching--saving information so that projects can be run faster each time they are re-completed from the start. 
 
 Many of these packages focus on one specific area of reproducibility, and while they each succeed well at their intended goal, they are not necessarily the most practical option for users trying to address a wide variety of factors influencing reproducibility at once. 
 
-Additionally, with the focused nature of these packages comes added complexity. The functions in these packages are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This complex nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their R journey, nor particularly useful to those looking for quick and easy reproducibility checks. 
-
+[**Clarify why fertile comes in handy**]
+Additionally, with the focused nature of these packages comes added complexity. The functions in these packages are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their R journey, nor particularly useful to those looking for quick and easy reproducibility checks. 
+[**Note that our recommendations are opinionated**]
 
 # Methods
 
-**fertile** looks to address these gaps, providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. 
+**fertile** addresses these gaps by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. 
 
 The package also provides flexibility--offering benefits to users at any stage in the data analysis workflow, unlike some other available packages which can only be used before the creation of a new project or after it is finished.
 
-It is designed to be used on data analyses organized as R Projects (i.e. folders containing a `.Rproj` file). Once an R Project is created, **fertile** provides benefits throughout the data anlaysis process, both while coding as well as after the fact.
+**fertile** is designed to be used on data analyses organized as R Projects (i.e. directories containing an `.Rproj` file). Once an R Project is created, **fertile** provides benefits throughout the data analysis process, both during development as well as after the fact.
 
 **fertile** achieves this by operating in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems). 
 
@@ -146,11 +148,12 @@ knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```{r, include = FALSE, message = FALSE}
 readr::write_csv(mtcars, "~/Desktop/my_data.csv")
 library(tidyverse)
-library(fertile)
+
 ```
 
 ```{r, message = FALSE}
 file.exists("~/Desktop/my_data.csv")
+library(fertile)
 read_csv("~/Desktop/my_data.csv")
 ```
 
@@ -165,12 +168,12 @@ setwd("~/Desktop")
 ```
 
 
-These proactive warning features are activated immediately after loading the **fertile** package and require no additional effort by the user to access.  
+These proactive warning features are activated immediately after attaching the **fertile** package and require no additional effort by the user.
 
 
 ## Retroactive Use
 
-Retroactively, **fertile** analyzes potential obstacles to reproducibility in an RStudio Project (i.e., a directory that contains an `.Rproj` file). The package considers several different aspects of the project which may influence reproducibility, including the directory structure, the analyst's use of file paths, and whether randomness is used thoughtfully.  
+Retroactively, **fertile** analyzes potential obstacles to reproducibility in an RStudio Project (i.e., a directory that contains an `.Rproj` file). The package considers several different aspects of the project which may influence reproducibility, including the directory structure, file paths, and whether randomness is used thoughtfully.  
 
 The end products of these analyses are reproducibility reports summarizing a project's adherence to reproducibility standards and recommending remedies for where the project falls short. For example, **fertile** might identify the use of randomness in code and recommend setting a seed if one is not present.
 
@@ -182,14 +185,14 @@ The `proj_check()` function runs fifteen different reproducibility tests, noting
 list_checks()
 ```
 
-Subsets of the fifteen tests can be invoked using the select helper functions from **dplyr** in combination with the `proj_check_some()` function. 
+Subsets of the fifteen tests can be invoked using the **tidyselect** helper functions in combination with the more limited `proj_check_some()` function. 
 
 ```{r, message = FALSE}
-library(tidyverse)
+library(tidyselect)
 proj_check_some(".", contains("paths"))
 ```
 
-The `proj_analyze()` function creates a report documenting the structure of a data analysis project. This report contains informations about all packages referenced in code, the files present in the directory and their types, suggestions for moving files to create a more organized structure, and a list of reproducibility-breaking file paths used in code.
+The `proj_analyze()` function creates a report documenting the structure of a data analysis project. This report contains information about all packages referenced in code, the files present in the directory and their types, suggestions for moving files to create a more organized structure, and a list of reproducibility-breaking file paths used in code.
 
 \tiny
 ```{r, message = FALSE}
@@ -197,7 +200,7 @@ proj_analyze(".")
 ```
 \normalsize
 
-**fertile** also contains a logging functionality, which records commands with the potential to affect reproducibility that are run in the console, enabling users to look at their past history at any time. The package focuses mostly on package loading and file opening, noting which function was used, the path or package it referenced, and the timestamp at which that event happened.
+**fertile** also contains  logging functionality, which records commands run in the console that have the potential to affect reproducibility, enabling users to look at their past history at any time. The package focuses mostly on package loading and file opening, noting which function was used, the path or package it referenced, and the timestamp at which that event happened.
 
 Users can access the log recording their commands at any time via the `log_report()` function:
 
@@ -219,14 +222,14 @@ log_report()
 ```
 \normalsize
 
-The log, if not managed, can grow very long over time. For users who do not desire such functionality, the `log_clear()` provides a way to erase the log and start it over.
+The log, if not managed, can grow very long over time. For users who do not desire such functionality, the `log_clear()` provides a way to erase the log and start  over.
 
 ```{r, message = FALSE}
 log_clear()
 log_report()
 ```
 
-In addition to the interactive log, users can access something called the render log, which contains much of the information used to create the output for `proj_analyze()` using the function `render_log_report()`.
+In addition to the interactive log, users can access a render log, [**define this**] which contains much of the information used to create the output for `proj_analyze()` using the function `render_log_report()`.
 
 
 ## Utility Functions
@@ -260,29 +263,31 @@ fs::dir_ls(new_dir) %>% head()
 
 ## Sample Use Cases
 
-**fertile** is designed in such a way as to be useful to users of all backgrounds and experiences. In this section, we provide two sample use cases demonstrating situations where users could benefit significantly from using the package. 
+**fertile** is designed in such a way as to be useful to users of all backgrounds and experiences. In this section, we provide two sample use cases demonstrating situations where users could benefit from using the package. 
 
 ### Introductory Data Science Student
 
 Susan is taking an introductory data science course. This is her first time learning how to code, and she has not yet been exposed to ideas of research reproducibility. Her professor has assigned a data analysis project which must be completed in R Markdown. The project requires her to read in a data file located on her computer and use it to produce a graph. 
 
-She reads in the data, makes the graph, and knits her .Rmd file. It compiles successfully, so she submits the assignment. The next day, she receives an email from her professor saying that her assignment failed to compile and that she needs to make changes and try again. 
+She reads in the data, makes the graph, and knits her `.Rmd` file. It compiles successfully, so she submits the assignment. The next day, she receives an email from her professor saying that her assignment failed to compile and that she needs to make changes and try again. 
 
 Susan doesn't understand why it didn't work on the professor's computer when it did on her own. The professor recommends that she install **fertile** and run `proj_check()` on her assignment. She does this and gets a message informing her she used an absolute path to open her dataset, and she should use a relative path. She looks up what this means and then uses the new information to update her assignment. She resubmits and her second attempt is successful. 
 
 On future projects, she always loads and runs fertile to make sure her work is okay before submitting.
 
-### 2. Experienced R User
+### Experienced R User
 
-Emma is a post-doc, with several years of R experience. She is familiar with some basic rules of reproducibility--file paths should always be relative and randomness should always be associated with a seed--but has never needed to pass any sort of reproducibility check before because her professors never emphasized that.
+Emma is a post-doc, with several years of R experience. She is familiar with some basic rules of reproducibility---file paths should always be relative and randomness should always be associated with a seed--but has never needed to pass any sort of reproducibility check before because her professors never emphasized that.
 
-She has just finished a research project and is looking to submit her work to a journal. When researching the journal she is interested in submitting to, she discovers that it has high standards for research reproducibility and a dedicated editor focusing on that aspect of submissions. She goes online and finds the journal's guidelines for reproducibility. They are more complete than any guidelines she has previously been required to conform to. In addition to notes about file paths and randomness, the journal requires a clean, well-organized folder structure, broken down by file category and cleaned of files that do not serve a purpose.
+She has just finished a research project and is looking to submit her work to a journal. When researching the journal to which she is interested in submitting, she discovers that it has high standards for research reproducibility and a dedicated editor focusing on that aspect of submission. She goes online and finds the journal's guidelines for reproducibility. They are more complete than any guidelines to which she has previously been required to conform. In addition to notes about file paths and randomness, the journal requires a clean, well-organized folder structure, broken down by file category and stripped of files that do not serve a purpose. [**add something about build chain and readme to requirements**]
 
-Unsure of the best way to achieve this structure, Emma goes online to find help. In her search, she comes across **fertile**. She downloads the package, and in only a handful of commands, she identifies and removes excess files in her directory and automatically organizes her files into a structure reminiscent of an R package. She now meets the guidelines for the journal and can submit her research.
+Unsure of the best way to achieve this structure, Emma goes online to find help. In her search, she comes across **fertile**. She downloads the package, and in only a handful of commands, she identifies and removes excess files in her directory and automatically organizes her files into a structure reminiscent of an R package. She now meets the guidelines for the journal and can submit her research. 
 
 # Results
 
-In an effort to understand the package's effectiveness, we also share preliminary results from a randomized, controlled experiment conducted on an undergraduate introductory data science course [^2]:{This study is approved by Smith College IRB, Protocol #19-032}. The purpose of the study is to determine whether **fertile** helps students produce data science research that is more likely to be reproducible. 
+In an effort to understand the package's effectiveness, we also share preliminary results from a randomized, controlled experiment conducted on an undergraduate introductory data science course [^2]. The purpose of the study is to determine whether **fertile** helps students produce data science research that is more likely to be reproducible. 
+
+[^2]: This study is approved by Smith College IRB, Protocol #19-032.
 
 # Results
 
@@ -292,9 +297,9 @@ In an effort to understand the package's effectiveness, we also share preliminar
 
 **fertile** is an R package that lowers barriers to reproducible data analysis projects in R, providing a wide array of checks and suggestions addressing many different aspects of project reproducibility. 
 
-**fertile** is meant to be educational, providing informative error messages showing how the ways in which the mistakes the user is making are problematic, as well as sharing recommendations on how to fix them. The package is designed in this way so as to promote a greater understanding of reproducibility concepts in its users, with the goal of increasing the overall awareness and understanding of reproducibility in the R community. 
+**fertile** is meant to be educational, providing informative error messages that show how the ways in which the mistakes the user is making are problematic, as well as sharing recommendations on how to fix them. The package is designed in this way so as to promote a greater understanding of reproducibility concepts in its users, with the goal of increasing the overall awareness and understanding of reproducibility in the R community. 
 
-The package has very low barriers to entry, making it accessible to users with various levels of background knowledge. Unlike with many other R packages focused on reproducibility that are currently available, the features of **fertile** can be accessed almost effortlessly. Many of the retroactive features can be accessed in only two lines of code requiring  minimal arguments, and some of the proactive features can be accessed with no additional effort beyond loading the package. This, in combination with the fact that **fertile** does not focus on one specific area of reproducibility, instead covering (in less detail) a wide variety of topics, means that **fertile** makes it easy for data analysts of all skill levels to quickly gain a better understanding of the reproducibility of the work. 
+The package has very low barriers to entry, making it accessible to users with various levels of background knowledge. Unlike many other R packages focused on reproducibility that are currently available, the features of **fertile** can be accessed almost effortlessly. Many of the retroactive features can be accessed in only two lines of code requiring  minimal arguments, and some of the proactive features can be accessed with no additional effort beyond loading the package. This, in combination with the fact that **fertile** does not focus on one specific area of reproducibility, instead covering (albeit in less detail) a wide variety of topics, means that **fertile** makes it easy for data analysts of all skill levels to quickly gain a better understanding of the reproducibility of the work. 
 
 In the moment, it often feels easiest to take a shortcut---to use an absolute path or change a working directory. However, when considering the long term path of a project, spending the extra time to improve reproducibility is worthwhile. **fertile**'s user-friendly features can help data analysts avoid these harmful shortcuts with minimal effort.
 
