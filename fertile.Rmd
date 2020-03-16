@@ -88,7 +88,7 @@ Broman reiterates the need for clear naming and file separation while sharing se
 
 The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow  for the saving and restoring of the random number generator state, when running code involving randomness @r-opensci.
 
-When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on:
+When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on. These recommendations are opinionated---due to the lack of agreement on which components of reproducibility are most important, we select those that are mentioned most often, as well as some that are mentioned less but that we view as important.
 
 1. A well-designed file structure:
 
@@ -117,7 +117,7 @@ When considered in combination, these sources provide a well-rounded picture of 
 Much of the available literature focuses on file structure, organization, 
 and naming, and **fertile**'s features are consistent with this. The 
 *ideal* file structure is not agreed upon by academics, though there are 
-some recommendations focused on R that are available.@marwick2018packaging
+some recommendations focused on R that are available. @marwick2018packaging
 provides the framework for file structure that **fertile** is based on: a 
 structure similar to that of an R package [**Cite Hadley's Writing R 
 Packages and the R Core Team's Writing R Extensions**], with an `R` 
@@ -132,9 +132,7 @@ A small selection of R packages  work to address the issue of research reproduci
 
 Many of these packages focus on one specific area of reproducibility, and while they each succeed well at their intended goal, they are not necessarily the most practical option for users trying to address a wide variety of factors influencing reproducibility at once. 
 
-[**Clarify why fertile comes in handy**]
 Additionally, with the focused nature of these packages comes added complexity. The functions in these packages are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their R journey, nor particularly useful to those looking for quick and easy reproducibility checks. 
-[**Note that our recommendations are opinionated**]
 
 # Methods
 
@@ -231,7 +229,7 @@ log_clear()
 log_report()
 ```
 
-In addition to the interactive log, users can access a render log, [**define this**] which contains much of the information used to create the output for `proj_analyze()` using the function `render_log_report()`.
+In addition to the interactive log, users can access a render log, which is created by running all of the `.R` and `.Rmd` files within a project in order to collect information on packages, file paths, and file structure used to create the output for `proj_analyze()`. This log can be accessed with the function `render_log_report()`.
 
 
 ## Utility Functions
