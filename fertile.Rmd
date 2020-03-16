@@ -58,7 +58,7 @@ To address this, we present an R package called [**fertile**](https://github.com
 Reproducibility is critically important to the advancement of knowledge in
 all fields of scientific research. Researchers are acknowledging this; 
 publications and discussions focusing on reproducibility seem to have 
-increased in frequency over the last several years (@sep-scientific-reproducibility), (@plos-biology), (@bioessays-gosselin)
+increased in frequency over the last several years [@sep-scientific-reproducibility, @plos-biology, @bioessays-gosselin, @eisner-reproducibility, @engineering-reproducibility].
 
 Much of the available literature is focused on the methods for achieving 
 reproducibility in specific disciplines, though much of this information 
@@ -119,9 +119,8 @@ and naming, and **fertile**'s features are consistent with this. The
 *ideal* file structure is not agreed upon by academics, though there are 
 some recommendations focused on R that are available. @marwick2018packaging
 provides the framework for file structure that **fertile** is based on: a 
-structure similar to that of an R package [**Cite Hadley's Writing R 
-Packages and the R Core Team's Writing R Extensions**], with an `R` 
-folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
+structure similar to that of an R package (@hadley-packages, @coreteam-extensions),
+with an `R` folder, as well as `data`, `data-raw`, `inst` and `vignettes`. 
 
 
 ## R Packages
