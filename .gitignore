@@ -41,4 +41,6 @@ rsconnect/
 *.log
 *.aux
 *.bbl
+*.pag
 *.synctex.gz
+*.fertile*.csv
