@@ -154,7 +154,7 @@ Proactively, the package identifies potential mistakes as they are made by the u
 readr::write_csv(mtcars, "~/Desktop/my_data.csv")
 @
 
-<<fertile, message = FALSE>>=
+<<fertile, message = FALSE, error = TRUE>>=
 library(fertile)
 search()
 file.exists("~/Desktop/my_data.csv")
@@ -163,7 +163,7 @@ read.csv("~/Desktop/my_data.csv")
 
 \pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility, causing them to throw errors that prevent their execution and providing recommendations for better alternatives.
 
-<<setwd, message=FALSE>>=
+<<setwd, message=FALSE, error = TRUE>>=
 setwd("~/Desktop")
 @
 
