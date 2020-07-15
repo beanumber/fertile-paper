@@ -187,7 +187,7 @@ list_checks()
 Subsets of the fifteen tests can be invoked using the \pkg{tidyselect} helper functions (\cite{R-tidyselect}) in combination with the more limited \func{proj\_check\_some} function.
 
 <<set-project>>=
-proj_dir <- "~/Dropbox/git/baumer-lab/fertile/tests/testthat/project_miceps"
+proj_dir <- "project_miceps"
 @
 
 <<echo=FALSE>>=
