@@ -202,7 +202,7 @@ if (file.exists(bad_file)) {
 @
 
 
-<<proj_check_some>>=
+<<proj_check_some, warning = FALSE>>=
 proj_check_some(proj_dir, contains("paths"))
 @
 
@@ -241,14 +241,28 @@ log_report()
 
 \pkg{fertile} also provides several useful utility functions that may assist with the process of data analysis. 
 
+\subsubsection{File Paths}
 
-\subsubsection{File Type Checks}
+For users focused on file paths, the \func{check\_path()} function analyzes a vector of paths (or a single path) to determine whether there are any absolute paths or paths that lead outside the project directory.
+
+<<path checks, error = TRUE>>=
+
+# Path inside the directory
+check_path("project_miceps")
+
+# Absolute path (current working directory)
+check_path(getwd())
+
+# Path outside the directory
+check_path("../fertile.Rmd")
+
+@
+
+
+\subsubsection{File Types}
 
 There are several functions that can be used to check the type of a file: 
 
-<<paths, message=FALSE>>=
-is_path_portable("~")
-@
 
 <<is_file>>=
 is_data_file(fs::path(proj_dir, "mice.csv"))
@@ -333,8 +347,6 @@ The package has very low barriers to entry, making it accessible to users with v
 In the moment, it often feels easiest to take a shortcut--to use an absolute path or change a working directory. However, when considering the long term path of a project, spending the extra time to improve reproducibility is worthwhile. \pkg{fertile}'s user-friendly features can help data analysts avoid these harmful shortcuts with minimal effort.
 
 \subsection{Future Work}\label{sec:future}
-
-\subsubsection{Package Features}
 
 The process of ensuring true reproducibility is highly complex and challenging. There are a significant number of components, many of which are described in \ref{sec:lit}, which must all be in place for work to be reproducibile. \pkg{fertile}, in its current version, addresses the vast majority of these in some way. However, there are several areas where further development to extend the available features of the package would be beneficial. These include the following:
 
