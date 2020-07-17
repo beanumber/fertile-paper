@@ -88,7 +88,7 @@ Much of the available literature is focused on methods for achieving reproducibi
 \item[1] Use clear separation, labeling, and documentation.
 \item[2] Automate processes when possible.
 \item[3] Design the data analysis workflow as a sequence of small steps glued together, with
-outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy (Gancarz (2002)).
+outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy \cite{unix}.
 \end{itemize}
 
 
@@ -130,7 +130,7 @@ When considered in combination, these sources provide a well-rounded picture of 
 
 Much of the available literature focuses on file structure, organization, and naming, and \pkg{fertile}'s features are consistent with this. The ideal file structure is not agreed upon by academics, though there are some recommendations focused on \R that are available. \cite{marwick2018packaging} provides the framework for file structure that \pkg{fertile} is based on: a structure similar to that of an \R package (\cite{hadley-packages}, \cite{coreteam-extensions}), with an \cmd{R} folder, as well as \cmd{data}, \cmd{data-raw}, \cmd{inst}, and \cmd{vignettes}.
 
-\subsection{R Packages}
+\subsection{R Packages and Other Software}
 
 A small selection of \R packages work to address the issue of research reproducibility, although not all of them are available on CRAN.
 
@@ -140,9 +140,13 @@ Many of these packages focus on one specific area of reproducibility, and while 
 
 Additionally, with the focused nature of these packages comes added complexity. The functions in these packages are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their \R journey, nor particularly useful to those looking for quick and easy reproducibility checks.
 
+There are also several development tools external to R that focus on continuous integration and can be configured to address different aspects of reproducibility. \pkg{Wercker}, a command line tool that leverages Docker, enables users to test whether their projects will successfully compile when run on a variety of operating systems without access to the user's local hard drive \cite{wercker}. \pkg{Travis CI} is integrated with GitHub and can be configured to do similar checks on projects hosted in repositories \cite{travis}. \pkg{Circle CI}, another popular continuous integration tool, can also be used to check R code \cite{circle}. 
+
+However, while these tools can be useful in some circumstances, they are generalized so as to be useful to the widest audience. As a result, their checks are not designed to be R-specific, which makes these tools sub-optimal for users looking to address reproducibility issues involving features specific to the R programming language, such as package installtion and seed setting.
+
 \section{Methods}\label{sec3}
 
-\pkg{fertile} addresses these gaps by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. The package also provides flexibility, offering benefits to users at any stage in the data analysis workflow, unlike some other available packages which can only be used before the creation of a new project or after it is finished.
+\pkg{fertile} addresses these gaps by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. The package also provides flexibility, offering benefits to users at any stage in the data analysis workflow, and R-specific features, which address certain aspects of reproducibility that can be missed by external project development software.
 
 \pkg{fertile} is designed to be used on data analyses organized as \R Projects (i.e. directories containing an \cmd{.Rproj} file). Once an \R Project is created, \pkg{fertile} provides benefits throughout the data analysis process, both during development as well as after the fact. \pkg{fertile} achieves this by operating in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems).
 
