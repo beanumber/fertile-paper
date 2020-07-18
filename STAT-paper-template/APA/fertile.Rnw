@@ -52,35 +52,29 @@
 
 \section{Introduction}\label{sec1}
 
-As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. 
-Data-based research cannot be fully reproducible unless the requisite code and data files
-produce identical results when run by another analyst. When researchers provide the code and data used for their work in a well-organized and reproducible format, readers are more easily able to determine the veracity of any findings by following the steps from raw data to conclusions.
+Data-based research is considered fully reproducible when the requisite code and data files
+produce identical results when run by another analyst. 
 
-The creators of reproducible research can more easily receive more specific feedback (including bug fixes) on their work. Moreover, others interested in the research topic can use the code to apply the methods and ideas used in one project to their own work with minimal effort.
+As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. Academics around the world have recognized this, and publications and discusions addressing reproducibility appear to have increased in the last several years (\cite{sep-scientific-reproducibility}, \cite{plos-biology}, \cite{bioessays-gosselin}, \cite{eisner-reproducibility}, \cite{engineering-reproducibility}). 
+
+Reproducible research has a wide variety of benefits. When researchers provide the code and data used for their work in a well-organized and reproducible format, readers are more easily able to determine the veracity of any findings by following the steps from raw data to conclusions. The creators of reproducible research can also more easily receive more specific feedback (including bug fixes) on their work. Moreover, others interested in the research topic can use the code to apply the methods and ideas used in one project to their own work with minimal effort.
 
 However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research (\cite{peng2009bio}). Not only are the components of reproducible research up for discussion (e.g., need the software be open source?), but the corresponding recommendations for ensuring reproducibility also vary (e.g., should raw and processed data files be in separate directories?).
 
-Much of the discussion around reproducibility is also generalized, written to be applicable to users working with a variety of statistical software programs. Because all statistical software programs operate differently, generalized recommendations regarding reproducibility are often shallow and vague. While they provide useful guidelines, they can often be difficult to implement, particularly to new analysts who are unsure of how to apply such recommendations within the software programs they are using. Thus, reproducibility recommendations tailored to specific software programs are more likely to be adopted.
+Existing attempts to address reproducibility in data science are often either too generalized, resulting in shallow and vague recommendations that are challenging to implement, or too specific, approaching one aspect of reproducibility well but doing so in a highly technical way failes to capture the bigger picture and creates challenges for inexperienced users.
 
-In this paper, we focus on reproducibility in the \R programming language, concentrating specifically on projects that use the RStudio integrated development environment. \R is an ideal candidate for reproducibility recommendations because of its accessibility and popularity as a tool for statistical analysis.
-
-A small body of \R packages which focus on reproducibility have been published in recent years. Much of this work is narrowly tailored, with each package effectively addressing a small component of reproducibility: file structure, modularization of code, version control, etc. These packages often  succeed in their area of focus, but at the cost of accessibility to a wider audience. They are often difficult to learn and operate, providing a barrier to entry for less-experienced data analysts. This can lead users to become discouraged and abandon attempts to achieve reproducibility.
-
-A much more effective way of realizing widespread reproducibility is to make the process for doing so simple enough that it takes little to no conscious effort to implement. However, there appear to be no existing tools that fit this model--catering to analysts looking for a simple, easy-to-implement, and fast way to obtain a broad overview of their projects' reproducibility. To address this, we present \pkg{fertile}, a low barrier-to-entry package focusing on common mistakes programmers make while conducting data science research in R.
-
+In order to address these challenges, we present \pkg{fertile}, a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R.
 
 
 \section{Literature Review}\label{sec:lit}
 
+\subsection{Written Work}\label{papers}
 
-Reproducibility is essential to the advancement of knowledge in all fields of scientific research. Researchers acknowledge this; publications and discussions focusing on reproducibility appear to have increased in frequency over the last several years (\cite{sep-scientific-reproducibility}, \cite{plos-biology}, \cite{bioessays-gosselin}, \cite{eisner-reproducibility}, \cite{engineering-reproducibility}).
+Papers and other published works focusing on reproducibility can be found in all areas of scientific research. However, as \cite{Goodman341ps12} argue, the language and conceptual framework of research reproducibility varies significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole.
 
-Much of the available literature is focused on methods for achieving reproducibility in specific disciplines and some of their recommendations are generalizable to all areas of scientific research. There is also work focusing specifically on reproducibility within the \R community. Some of this work is in the form of academic papers, while other literature comes from blog posts, websites, and \R packages, some of which are compiled by notable R-focused developers and researchers. In this section, we will discuss the reproducibility recommendations from both the formal and informal publications, which together have influenced the development of \pkg{fertile}.
+\pkg{fertile} considers recommendations from a variety of fields, attempting to determine the key aspects of reproducibility faced by scientists in different disciplines and address as many as possible in a single piece of software. 
 
-
-\subsection{Previous Work}
-
-\cite{Goodman341ps12} argue that the language and conceptual framework of research reproducibility varies across the sciences. There are no clear standards agreed upon across fields.
+Although reproducibility recommendations vary, further investigation identifies several common ideas across publications.
 
 \cite{kitzes2017practice} present a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although the book does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from their case studies:
 
@@ -127,26 +121,31 @@ When considered in combination, these sources provide a well-rounded picture of 
   \end{itemize}
 \end{itemize}
 
-
 Much of the available literature focuses on file structure, organization, and naming, and \pkg{fertile}'s features are consistent with this. The ideal file structure is not agreed upon by academics, though there are some recommendations focused on \R that are available. \cite{marwick2018packaging} provides the framework for file structure that \pkg{fertile} is based on: a structure similar to that of an \R package (\cite{hadley-packages}, \cite{coreteam-extensions}), with an \cmd{R} folder, as well as \cmd{data}, \cmd{data-raw}, \cmd{inst}, and \cmd{vignettes}.
 
 \subsection{R Packages and Other Software}
 
-A small selection of \R packages work to address the issue of research reproducibility, although not all of them are available on CRAN.
+Much of the written work discussed in Section \ref{papers} is highly generalized, written to be applicable to users working with a variety of statistical software programs. Because all statistical software programs operate differently, these recommendations are inherently vague and difficult to implement, particularly to new analysts who are relatively unfamiliar with their software. 
+
+Thus, attempts to address reproducibility that are specific to certain software programs are more likely to be successful. \R, due to its accessibility and popularity as a tool for statistical analysis, is an ideal candidate such recommendations.
+
+Acknowledging this, researchers and members of the \R community have created a small body of \R packages that focus on research reproducibility, although not all of them are available on CRAN:
 
 \pkg{rrtools} (\cite{R-rrtools}) addresses some of the issues discussed in \cite{marwick2018packaging} by creating a basic \R package structure for a data analysis project and implementing a basic \func{testthat::check} functionality. The \pkg{orderly} (\cite{R-orderly}) package also focuses on file structure, requiring the user to declare a desired project structure (typically a step-by-step structure, where outputs from one step are inputs into the next) at the beginning and then creating the files necessary to achieve that structure. \pkg{workflowr}'s (\cite{R-workflowr}) functionality is based around version control and making code easily available online. It works to generate a website containing time-stamped, versioned, and documented results. \pkg{checkers} (\cite{R-checkers}) allows you to create custom checks that examine different aspects of reproducibility. \pkg{packrat} (\cite{R-packrat}) is focused on dependencies, creating a packaged folder containing a project as well as all of its dependencies, so that projects dependent on lesser-used packages can be easily shared across computers. \pkg{drake} (\cite{R-drake}) analyzes workflows, skip steps where results are up to date, and provides evidence that results match the underlying code and data. Lastly, the \pkg{reproducible} (\cite{R-reproducible}) package focuses on the concept of caching: saving information so that projects can be run faster each time they are re-completed from the start.
 
-Many of these packages focus on one specific area of reproducibility, and while they each succeed well at their intended goal, they are not necessarily the most practical option for users trying to address a wide variety of factors influencing reproducibility at once.
 
-Additionally, with the focused nature of these packages comes added complexity. The functions in these packages are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their \R journey, nor particularly useful to those looking for quick and easy reproducibility checks.
+Many of these packages are narrowly tailored, with each effectively addressing a small component of reproducibility: file structure, modularization of code, version control, etc. These packages often  succeed in their area of focus, but at the cost of accessibility to a wider audience. Their functions are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their \R journey, nor particularly useful to those looking for quick and easy reproducibility checks.
 
-There are also several development tools external to R that focus on continuous integration and can be configured to address different aspects of reproducibility. \pkg{Wercker}, a command line tool that leverages Docker, enables users to test whether their projects will successfully compile when run on a variety of operating systems without access to the user's local hard drive \cite{wercker}. \pkg{Travis CI} is integrated with GitHub and can be configured to do similar checks on projects hosted in repositories \cite{travis}. \pkg{Circle CI}, another popular continuous integration tool, can also be used to check R code \cite{circle}. 
+A much more effective way of realizing widespread reproducibility is to make the process for doing so simple enough that it takes little to no conscious effort to implement. 
 
-However, while these tools can be useful in some circumstances, they are generalized so as to be useful to the widest audience. As a result, their checks are not designed to be R-specific, which makes these tools sub-optimal for users looking to address reproducibility issues involving features specific to the R programming language, such as package installtion and seed setting.
+Several continuous integration code development tools external to R attempt to do this, providing a way to address different aspects of reproducibility with minimal code. For example, \pkg{Wercker}, a command line tool that leverages Docker, enables users to test whether their projects will successfully compile when run on a variety of operating systems without access to the user's local hard drive \cite{wercker}. \pkg{Travis CI} is integrated with GitHub and can be configured to do similar checks on projects hosted in repositories \cite{travis}. \pkg{Circle CI}, another popular continuous integration tool, can also be used to check R code \cite{circle}. 
+
+However, while these tools can be useful in some circumstances, they are generalized so as to be useful to the widest audience. As a result, their checks are not designed to be R-specific, which makes them sub-optimal for users looking to address reproducibility issues involving features specific to the R programming language, such as package installtion and seed setting.
+
 
 \section{Methods}\label{sec3}
 
-\pkg{fertile} addresses these gaps by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. The package also provides flexibility, offering benefits to users at any stage in the data analysis workflow, and R-specific features, which address certain aspects of reproducibility that can be missed by external project development software.
+\pkg{fertile} attempts to address these gaps in existing software by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. \pkg{fertile} also allows for flexibility, offering benefits to users at any stage in the data analysis workflow, and provides R-specific features, which address certain aspects of reproducibility that can be missed by external project development software.
 
 \pkg{fertile} is designed to be used on data analyses organized as \R Projects (i.e. directories containing an \cmd{.Rproj} file). Once an \R Project is created, \pkg{fertile} provides benefits throughout the data analysis process, both during development as well as after the fact. \pkg{fertile} achieves this by operating in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems).
 
@@ -364,7 +363,7 @@ The process of ensuring true reproducibility is highly complex and challenging. 
 
 \section*{Author Biography}
 
-\begin{biography}{\includegraphics[width=70pt,height=70pt]{audrey_bio}}{\textbf{Audrey Bertin} is an undergraduate student at Smith College intending on completing a Bachelor of Arts in Statistical and Data Sciences and Public Policy in Spring 2021. Audrey is a recipient of Smith College's prestigious Zollman Scholarship and has participated in extensive research with faculty throughout her time at the college. Her research interests include data and science communication, data protection and privacy, algorithmic bias and injustice, and using data science for social good.
+\begin{biography}{\includegraphics[width=70pt,height=70pt]{audrey_bio}}{\textbf{Audrey M. Bertin} is an undergraduate student at Smith College intending on completing a Bachelor of Arts in Statistical and Data Sciences and Public Policy in Spring 2021. Audrey is a recipient of Smith College's prestigious Zollman Scholarship and has participated in extensive research with faculty throughout her time at the college. Her research interests include data and science communication, data protection and privacy, algorithmic bias and injustice, and using data science for social good.
 
 }
 \end{biography}
