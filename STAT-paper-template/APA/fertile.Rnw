@@ -235,7 +235,6 @@ log_report()
 @
 
 
-
 \subsection{Utility Functions}
 
 \pkg{fertile} also provides several useful utility functions that may assist with the process of data analysis. 
@@ -298,6 +297,12 @@ cat(readChar(install_script, 1e5))
 
 
 \subsection{Sample Use Cases}
+
+\pkg{fertile} is wide in scope. The package's simplicity enables users of any background to take advantage of its features, and its big-picture design gives \pkg{fertile} the potential to provide benefits across a variety of disciplines. 
+
+For example, professors could integrate \pkg{fertile} into their data science curricula, giving students an understanding and awareness of reproducibility early in their careers that can positively impact the reproducibility of their future work. It could also be used by experienced analysts working collaboratively who are looking to promote a smoother exchange of feedback and ideas. Journal reviewers may also find the package beneficial, allowing them to gain a fast overview of whether paper submissions meet reproducibility guidelines.
+
+The sample use cases in this section consider \pkg{fertile}'s applicability to some of these scenarios in detail.
 
 \subsubsection{Introductory Data Science Student}
 
