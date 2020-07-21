@@ -235,6 +235,21 @@ log_report()
 @
 
 
+\subsubsection{How It Works}
+
+In order to produce \pkg{fertile}'s warnings and reports, we take advantage of a function manipulation technique called \cmd{shimming}, which consists of the following steps:
+
+\begin{itemize}
+\item[1] We begin by choosing a function that exists in the R universe that we are interested in recording user interaction with. Popular functions linked to only one package, such as \cmd{read\_csv()} from \pkg{readr}, are ideal candidates.
+\item[2] Then, we creating a function with an identical name to this function within our own package.
+\item[3] We write this new function so that it calls the original function, captures the arguments that are passed in, and saves information of which function was called and which arguments were passed to it to a hidden log file. This process looks the same to the user as if they were calling the original function.
+\end{itemize}
+
+\pkg{fertile} shims many common functions, including those that read in a variety of data types, write data, and load packages. This allows us to track functions that may commonly be misused. For example, any time a user calls \cmd{read\_csv()} in their code, \pkg{fertile} captures this use, identifies the type of path the user supplied to the function, and uses that information to determine whether a warning is necessary. This works both proactively and retroactively, as the shimmed functions written in \pkg{fertile} are activated both when the user is coding interactively and when a file containing code is rendered.
+
+In order to ensure that the \pkg{fertile} versions of functions are always favored over their original forms when called, we manipulate the \R \cmd{search()} path so that \pkg{fertile} is always located in the first position using a shim of the \cmd{library()} function. In the \pkg{fertile} version of \cmd{library()}, we detach \pkg{fertile} from the search path, load the requested package, and then re-attach \pkg{fertile}. This makes certain that when a user executes a command, \R will check \pkg{fertile} for a matching function before considering other packages, enabling \pkg{fertile} to successfully record--and therefore report on--user behavior.   
+
+
 \subsection{Utility Functions}
 
 \pkg{fertile} also provides several useful utility functions that may assist with the process of data analysis. 
