@@ -356,7 +356,7 @@ Unsure of the best way to achieve this structure, Emma goes online to find help.
 
 Anecdotal evidence and user feedback is useful, providing a baseline knowledge of whether these goals are being met. However, in order to truly test whether the package is successful in achieving its design goals, an experiment is necessary.
 
-To test \pkg{fertile}'s effectiveness, we began an initial randomized control trial of the package on an introductory undergraduate data science course at Smith College in Spring 2020. Unfortunately, however, the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing.
+To test \pkg{fertile}'s effectiveness, we began an initial randomized control trial of the package on an introductory undergraduate data science course at Smith College in Spring 2020 \footnote{This study was approved by Smith College IRB, Protocol \#19-032}. Unfortunately, however, the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing.
 
 The experiment was structured as follows:
 
