@@ -237,17 +237,24 @@ log_report()
 
 \subsubsection{How It Works}
 
-In order to produce \pkg{fertile}'s warnings and reports, we take advantage of a function manipulation technique called \cmd{shimming}, which consists of the following steps:
+Much of the functionality in \pkg{fertile} is achieved by writing \href{https://en.wikipedia.org/wiki/Shim_(computing)}{shims}. \pkg{fertile}'s shimmed functions intercept the user's commands and perform various logging and checking tasks before executing the desired function. Our process is:
 
-\begin{itemize}
-\item[1] We begin by choosing a function that exists in the R universe that we are interested in recording user interaction with. Popular functions linked to only one package, such as \cmd{read\_csv()} from \pkg{readr}, are ideal candidates.
-\item[2] Then, we creating a function with an identical name to this function within our own package.
-\item[3] We write this new function so that it calls the original function, captures the arguments that are passed in, and saves information of which function was called and which arguments were passed to it to a hidden log file. This process looks the same to the user as if they were calling the original function.
-\end{itemize}
+\begin{enumerate}
+\item Identify an \R function is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
+\item Create a function in \pkg{fertile} with the same name, that takes the same arguments (and always the dots \cmd{...}).
+\item Write this new function so that it: 1) captures any arguments; 2) logs the name of the function called; 3) perform any checks on these arguments; and finally 4) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function.
+\end{enumerate}
+Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
 
-\pkg{fertile} shims many common functions, including those that read in a variety of data types, write data, and load packages. This allows us to track functions that may commonly be misused. For example, any time a user calls \cmd{read\_csv()} in their code, \pkg{fertile} captures this use, identifies the type of path the user supplied to the function, and uses that information to determine whether a warning is necessary. This works both proactively and retroactively, as the shimmed functions written in \pkg{fertile} are activated both when the user is coding interactively and when a file containing code is rendered.
+<<>>=
+fertile::read_csv
+@
 
-In order to ensure that the \pkg{fertile} versions of functions are always favored over their original forms when called, we manipulate the \R \cmd{search()} path so that \pkg{fertile} is always located in the first position using a shim of the \cmd{library()} function. In the \pkg{fertile} version of \cmd{library()}, we detach \pkg{fertile} from the search path, load the requested package, and then re-attach \pkg{fertile}. This makes certain that when a user executes a command, \R will check \pkg{fertile} for a matching function before considering other packages, enabling \pkg{fertile} to successfully record--and therefore report on--user behavior.   
+\pkg{fertile} shims many common functions, including those that read in a variety of data types, write data, and load packages. This works both proactively and retroactively, as the shimmed functions written in \pkg{fertile} are activated both when the user is coding interactively and when a file containing code is rendered.
+
+In order to ensure that the \pkg{fertile} versions of functions ("shims") are always favored over their original namesakes ("mask") when called, \pkg{fertile} uses its own shims of the \func{library} and \func{require} functions to  manipulate the \R \func{search} path so that it is always located in the first position. In the \pkg{fertile} version of \func{library}, we detach \pkg{fertile} from the search path, load the requested package, and then re-attach \pkg{fertile}. This ensures that when a user executes a command, \R will check \pkg{fertile} for a matching function before considering other packages. 
+
+While it is possible that this shifty behavior could lead to unintended consequences, our goal is to catch a good deal of problems before they become problematic. Users can easily disable \pkg{fertile} by detaching it, or not loading it in the first place. 
 
 
 \subsection{Utility Functions}
@@ -256,7 +263,7 @@ In order to ensure that the \pkg{fertile} versions of functions are always favor
 
 \subsubsection{File Paths}
 
-For users focused on file paths, the \func{check\_path()} function analyzes a vector of paths (or a single path) to determine whether there are any absolute paths or paths that lead outside the project directory.
+For users focused on file paths, the \func{check\_path} function analyzes a vector of paths (or a single path) to determine whether there are any absolute paths or paths that lead outside the project directory.
 
 <<path checks, error = TRUE>>=
 
@@ -341,33 +348,33 @@ Unsure of the best way to achieve this structure, Emma goes online to find help.
 
 \pkg{fertile} is designed to: 
 
-\begin{itemize}
-\item[1] Be simple enough that users with minimal \R experience can use the package without issue,
-\item[2] Increase the reproducibility of work produced by its users, and
-\item[3] Educate its users on why their work is or is not reproducibile and provide guidance on how to address any problems.
-\end{itemize}
+\begin{enumerate}
+\item Be simple enough that users with minimal \R experience can use the package without issue,
+\item Increase the reproducibility of work produced by its users, and
+\item Educate its users on why their work is or is not reproducible and provide guidance on how to address any problems.
+\end{enumerate}
 
 Anecdotal evidence and user feedback is useful, providing a baseline knowledge of whether these goals are being met. However, in order to truly test whether the package is successful in achieving its design goals, an experiment is necessary.
 
-To test \pkg{fertile}'s effectiveness, we began an initial randomized control trial of the package on an introductory undergraduate data science course at Smith College in Spring 2020. Unfortunately, however, the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing. \\
+To test \pkg{fertile}'s effectiveness, we began an initial randomized control trial of the package on an introductory undergraduate data science course at Smith College in Spring 2020. Unfortunately, however, the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing.
 
 The experiment was structured as follows:
 
 \begin{itemize}
 
-\item Students are given a form at the start of the semester asking whether they consent to participate in a study on data science education. In order to successfully consent, they must provide their system username, collected through the command \cmd{Sys.getenv("LOGNAME")}. Since these individuals each username belongs to are often easily identifiable, each email address is then transformed into a hexadecimal string via a hashing algorithm in to maintain privacy. 
+\item Students are given a form at the start of the semester asking whether they consent to participate in a study on data science education. In order to successfully consent, they must provide their system username, collected through the command \cmd{Sys.getenv("LOGNAME")}. To maintain privacy the results are then transformed into a hexadecimal string via the \func{md5} hashing function. 
 
 \item These hexadecimal strings are then randomly assigned into equally sized groups, one experimental group that receives the features of \pkg{fertile} and one group that receives a control.
 
-\item The students are then asked to download a package titled the same as the course number of the class: \pkg{sds192}, which was custom created for the purpose of this trial. It leverages an \cmd{.onAttach} function to scan the R environment and collect the username of the user who is loading the package and run it through the same hashing algorithm as used previously. It then identifies whether that user belongs to the experimental or the control group. Depending on the group they are in, they receive a different version of the package on loading:
+\item The students are then asked to download a package called \pkg{sds192} (the course number and prefix), which was created for the purpose of this trial. It leverages an \func{.onAttach} function to scan the \R environment and collect the username of the user who is loading the package and run it through the same hashing algorithm as used previously. It then identifies whether that user belongs to the experimental or the control group. Depending on the group they are in, they receive a different version of the package:
 
-\item The experimental group receives the basic \pkg{sds192} package, which consists of some data sets and RMarkdown templates necessary for completing homework assignments and projects in the class, but they also have \pkg{fertile} installed and loaded silently in the background. The package's proactive features are enabled without their knowledge, and they can receive warning messages when they use absolute or non-portable paths or attempt to change their working directory. The control group receives only the basic \pkg{sds192} package, including its data sets and RMarkdown templates. They do not have \pkg{fertile} installed and loaded in the background and do not receive proactive warning messages. All students from both groups then use their version of the package throughout the semester on a variety of projects.
+\item The experimental group receives the basic \pkg{sds192} package, which consists of some data sets and \R Markdown templates necessary for completing homework assignments and projects in the class, but they also have \pkg{fertile} installed and loaded silently in the background. The package's proactive features are enabled, and thus, for example, users will receive warning messages when they use absolute or non-portable paths or attempt to change their working directory. The control group receives only the basic \pkg{sds192} package, including its data sets and \R Markdown templates. All students from both groups then use their version of the package throughout the semester on a variety of projects.
 
 \item In order to test \pkg{fertile}'s effectiveness, both groups are given a short quiz on different components of reproducibility that are intended to be taught by \pkg{fertile} at both the beginning and end of the semester. Their scores are then compared to see whether one group learned more than the other group or whether their scores were essentially equivalent. 
 
 \end{itemize}
 
-Although the experiment was unsuccessful in its first attempt, we hope to run the same trial again and gather data on \pkg{fertile}'s effectiveness once the higher education environment returns to a relatively stable state. 
+Although the experiment was unsuccessful in its first attempt, we hope to run the same trial again and gather data on \pkg{fertile}'s effectiveness. 
 
 
 \section{Conclusion}\label{sec:conclusion}
