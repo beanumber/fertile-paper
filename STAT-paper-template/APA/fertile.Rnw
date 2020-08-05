@@ -54,100 +54,100 @@
 
 Data-based research is considered fully reproducible when the requisite code and data files
 produce identical results when run by another analyst. 
-
-As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. Academics around the world have recognized this, and publications and discusions addressing reproducibility appear to have increased in the last several years (\cite{sep-scientific-reproducibility}, \cite{plos-biology}, \cite{bioessays-gosselin}, \cite{eisner-reproducibility}, \cite{engineering-reproducibility}). 
+As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. Academics around the world have recognized this, and publications and discussions addressing reproducibility appear to have increased in the last several years (\cite{sep-scientific-reproducibility}, \cite{plos-biology}, \cite{bioessays-gosselin}, \cite{eisner-reproducibility}, \cite{engineering-reproducibility}). 
 
 Reproducible research has a wide variety of benefits. When researchers provide the code and data used for their work in a well-organized and reproducible format, readers are more easily able to determine the veracity of any findings by following the steps from raw data to conclusions. The creators of reproducible research can also more easily receive more specific feedback (including bug fixes) on their work. Moreover, others interested in the research topic can use the code to apply the methods and ideas used in one project to their own work with minimal effort.
 
 However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research (\cite{peng2009bio}). Not only are the components of reproducible research up for discussion (e.g., need the software be open source?), but the corresponding recommendations for ensuring reproducibility also vary (e.g., should raw and processed data files be in separate directories?).
 
-Existing attempts to address reproducibility in data science are often either too generalized, resulting in shallow and vague recommendations that are challenging to implement, or too specific, approaching one aspect of reproducibility well but doing so in a highly technical way failes to capture the bigger picture and creates challenges for inexperienced users.
+Existing attempts to address reproducibility in data science are often either too generalized---resulting in shallow and vague recommendations that are challenging to implement---or too specific---approaching one aspect of reproducibility well but doing so in a highly technical way that fails to capture the bigger picture and creates challenges for inexperienced users.
 
 In order to address these challenges, we present \pkg{fertile}, a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R.
 
 
-\section{Literature Review}\label{sec:lit}
+\section{Related Work}\label{sec:lit}
 
-\subsection{Written Work}\label{papers}
+\subsection{Literature Review}\label{sec:papers}
 
-Papers and other published works focusing on reproducibility can be found in all areas of scientific research. However, as \cite{Goodman341ps12} argue, the language and conceptual framework of research reproducibility varies significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole.
+Publications on reproducibility can be found in all areas of scientific research. However, as \cite{Goodman341ps12} argue, the language and conceptual framework of research reproducibility varies significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole.
 
-\pkg{fertile} considers recommendations from a variety of fields, attempting to determine the key aspects of reproducibility faced by scientists in different disciplines and address as many as possible in a single piece of software. 
-
-Although reproducibility recommendations vary, further investigation identifies several common ideas across publications.
+We consider recommendations from a variety of fields, and determine the key aspects of reproducibility faced by scientists in different disciplines. 
 
 \cite{kitzes2017practice} present a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although the book does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from their case studies:
 
-\begin{itemize}
-\item[1] Use clear separation, labeling, and documentation.
-\item[2] Automate processes when possible.
-\item[3] Design the data analysis workflow as a sequence of small steps glued together, with
-outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy \cite{unix}.
-\end{itemize}
+\begin{enumerate}
+\item Use clear separation, labeling, and documentation.
+\item Automate processes when possible.
+\item Design the data analysis workflow as a sequence of small steps glued together, with
+outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy (\cite{unix}).
+\end{enumerate}
 
 
 \cite{cooper2017guide} focuses on data analysis in \R and identifies a similar list of important reproducibility components and reiterates the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control.
-
-Broman reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README} (\cite{broman}).
+\cite{broman} reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README}.
 
 The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow for the saving and restoring of the random number generator state, when running code involving randomness (\cite{r-opensci}).
 
-When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work to focus on. These recommendations are opinionated---due to the lack of agreement on which components of reproducibility are most important, we select those that are mentioned most often, as well as some that are mentioned less but that we view as important.
+When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work. These recommendations are opinionated---due to the lack of agreement on which components of reproducibility are most important, we select those that are mentioned most often, as well as some that are mentioned less but that we view as important.
 
-\begin{itemize}
-\item[1] A well-designed file structure:
+\begin{enumerate}
+\item A well-designed file structure:
   \begin{itemize}
   \item Separate folders for different file types.
   \item No extraneous files.
   \item Minimal clutter.
   \end{itemize}
-\item[2] Good documentation:
+\item Good documentation:
   \begin{itemize}
   \item Files are clearly named, preferably in a way where the order in which they should be run is clear.
   \item A README is present.
   \item Dependencies are noted.
   \end{itemize}
-\item[3] Reproducible file paths:
+\item Reproducible file paths:
   \begin{itemize}
-  \item No absolute paths, or paths leading to locations outside of a project's directory, are used in code. Only portable (relative) paths.
+  \item No absolute paths, or paths leading to locations outside of a project's directory, are used in code---only portable (relative) paths.
   \end{itemize}
-\item[4] Randomness is accounted for:
+\item Randomness is accounted for:
   \begin{itemize}
   \item If randomness is used in code, a seed must also be set.
   \end{itemize}
-\item[5] Code conforms to \pkg{tidyverse} style:
+\item Readable, styled code:
   \begin{itemize}
-  \item Although not discussed in any of the literature mentioned previously, we believe \pkg{tidyverse} integration to be very important. Code conformation to \pkg{tidyverse} style helps ensure that analyses meeting \pkg{fertile}'s recommendations will be able to integrate seamlessly with packages from the \pkg{tidyverse}, an ever-expanding collection of packages designed to operate together with one another.
+  \item Code should be written in a coherent style. Code that conforms to a style guide or is written in a consistent dialect is easier to read (\cite{hermans2017programming}). We believe that the \pkg{tidyverse} provides the most accessible dialect of \R.
   \end{itemize}
-\end{itemize}
+\end{enumerate}
 
-Much of the available literature focuses on file structure, organization, and naming, and \pkg{fertile}'s features are consistent with this. The ideal file structure is not agreed upon by academics, though there are some recommendations focused on \R that are available. \cite{marwick2018packaging} provides the framework for file structure that \pkg{fertile} is based on: a structure similar to that of an \R package (\cite{hadley-packages}, \cite{coreteam-extensions}), with an \cmd{R} folder, as well as \cmd{data}, \cmd{data-raw}, \cmd{inst}, and \cmd{vignettes}.
+Much of the available literature focuses on file structure, organization, and naming, and \pkg{fertile}'s features are consistent with this. 
+\cite{marwick2018packaging} provide the framework for file structure that \pkg{fertile} is based on: a structure similar to that of an \R package (\cite{hadley-packages}, \cite{coreteam-extensions}), with an \cmd{R} folder, as well as \cmd{data}, \cmd{data-raw}, \cmd{inst}, and \cmd{vignettes}.
 
 \subsection{R Packages and Other Software}
 
-Much of the written work discussed in Section \ref{papers} is highly generalized, written to be applicable to users working with a variety of statistical software programs. Because all statistical software programs operate differently, these recommendations are inherently vague and difficult to implement, particularly to new analysts who are relatively unfamiliar with their software. 
+Much of the work discussed in Section \ref{sec:papers} is highly generalized, written to be applicable to users working with a variety of statistical software programs. Because all statistical software programs operate differently, these recommendations are inherently vague and difficult to implement, particularly to new analysts who are relatively unfamiliar with their software. 
 
-Thus, attempts to address reproducibility that are specific to certain software programs are more likely to be successful. \R, due to its accessibility and popularity as a tool for statistical analysis, is an ideal candidate such recommendations.
+Focused attempts to address reproducibility in specific certain software programs are more likely to be successful. 
+We focus on \R, due to its open-source nature, accessibility, and popularity as a tool for statistical analysis.
 
-Acknowledging this, researchers and members of the \R community have created a small body of \R packages that focus on research reproducibility, although not all of them are available on CRAN:
+A small body of \R packages focus on research reproducibility.
 
 \pkg{rrtools} (\cite{R-rrtools}) addresses some of the issues discussed in \cite{marwick2018packaging} by creating a basic \R package structure for a data analysis project and implementing a basic \func{testthat::check} functionality. The \pkg{orderly} (\cite{R-orderly}) package also focuses on file structure, requiring the user to declare a desired project structure (typically a step-by-step structure, where outputs from one step are inputs into the next) at the beginning and then creating the files necessary to achieve that structure. \pkg{workflowr}'s (\cite{R-workflowr}) functionality is based around version control and making code easily available online. It works to generate a website containing time-stamped, versioned, and documented results. \pkg{checkers} (\cite{R-checkers}) allows you to create custom checks that examine different aspects of reproducibility. \pkg{packrat} (\cite{R-packrat}) is focused on dependencies, creating a packaged folder containing a project as well as all of its dependencies, so that projects dependent on lesser-used packages can be easily shared across computers. \pkg{drake} (\cite{R-drake}) analyzes workflows, skip steps where results are up to date, and provides evidence that results match the underlying code and data. Lastly, the \pkg{reproducible} (\cite{R-reproducible}) package focuses on the concept of caching: saving information so that projects can be run faster each time they are re-completed from the start.
 
 
-Many of these packages are narrowly tailored, with each effectively addressing a small component of reproducibility: file structure, modularization of code, version control, etc. These packages often  succeed in their area of focus, but at the cost of accessibility to a wider audience. Their functions are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their \R journey, nor particularly useful to those looking for quick and easy reproducibility checks.
-
+Many of these packages are narrow, with each effectively addressing a small component of reproducibility: file structure, modularization of code, version control, etc. These packages often  succeed in their area of focus, but at the cost of accessibility to a wider audience. Their functions are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their \R journey, nor particularly useful to those looking for quick and easy reproducibility checks.
 A more effective way of realizing widespread reproducibility is to make the process for doing so simple enough that it takes little to no conscious effort to implement. You want users to "fall into a hole"\footnote{We paraphrase Hadley Wickham.} of good practice. 
 
-Several continuous integration code development tools external to \R attempt to do this, providing a way to address different aspects of reproducibility with minimal code. For example, \pkg{wercker}---a command line tool that leverages Docker---enables users to test whether their projects will successfully compile when run on a variety of operating systems without access to the user's local hard drive \cite{wercker}. GitHub Actions is integrated with GitHub and can be configured to do similar checks on projects hosted in repositories. \href{https://travis-ci.com}{Travis CI} and \href{https://circleci.com/product}{Circle CI} are popular continuous integration tools which can also be used to check \R code. 
+\emph{Continuous integration} tools provide more general approaches to automated checking; which can enhance reproducibility with minimal code. For example, \pkg{wercker}---a command line tool that leverages Docker---enables users to test whether their projects will successfully compile when run on a variety of operating systems without access to the user's local hard drive (\cite{wercker}). GitHub Actions is integrated into GitHub and can be configured to do similar checks on projects hosted in repositories. \href{https://travis-ci.com}{Travis CI} and \href{https://circleci.com/product}{Circle CI} are popular continuous integration tools which can also be used to check \R code. 
 
-However, while these tools can be useful in some circumstances, they are generalized so as to be useful to the widest audience. As a result, their checks are not designed to be \R-specific, which makes them sub-optimal for users looking to address reproducibility issues involving features specific to the \R programming language, such as package installation and seed setting.
+However, while these tools can be useful, they are generalized so as to be useful to the widest audience. As a result, their checks are not designed to be \R-specific, which makes them sub-optimal for users looking to address reproducibility issues involving features specific to the \R programming language, such as package installation and seed setting.
+
+\subsection{Our contribution}
+
+\pkg{fertile} attempts to address these gaps in existing software by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. \pkg{fertile} is flexible, offering benefits to users at any stage in the data analysis workflow, and provides \R-specific features, which address certain aspects of reproducibility that can be missed by external project development software.
+
+\pkg{fertile} is designed to be used on data analyses organized as \R Projects (i.e. directories containing an \cmd{.Rproj} file). Once an \R Project is created, \pkg{fertile} provides benefits throughout the data analysis process, both during development as well as after the fact. \pkg{fertile} achieves this by operating in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems).
 
 
 \section{Methods}\label{sec3}
 
-\pkg{fertile} attempts to address these gaps in existing software by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. \pkg{fertile} also allows for flexibility, offering benefits to users at any stage in the data analysis workflow, and provides R-specific features, which address certain aspects of reproducibility that can be missed by external project development software.
-
-\pkg{fertile} is designed to be used on data analyses organized as \R Projects (i.e. directories containing an \cmd{.Rproj} file). Once an \R Project is created, \pkg{fertile} provides benefits throughout the data analysis process, both during development as well as after the fact. \pkg{fertile} achieves this by operating in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems).
 
 \subsection{Proactive Use}
 
@@ -159,9 +159,9 @@ readr::write_csv(mtcars, "~/Desktop/my_data.csv")
 
 <<fertile, message = FALSE, error = TRUE>>=
 library(fertile)
-search()
 file.exists("~/Desktop/my_data.csv")
 read.csv("~/Desktop/my_data.csv")
+read.csv("../../../Desktop/my_data.csv")
 @
 
 \pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility, causing them to throw errors that prevent their execution and providing recommendations for better alternatives.
@@ -180,8 +180,7 @@ Retroactively, \pkg{fertile} analyzes potential obstacles to reproducibility in 
 The end products of these analyses are reproducibility reports summarizing a project's adherence to reproducibility standards and recommending remedies for where the project falls short. For example, \pkg{fertile} might identify the use of randomness in code and recommend setting a seed if one is not present.
 
 Users can access the majority of \pkg{fertile}'s retroactive features through two primary functions, \func{proj\_check} and \func{proj\_analyze}.
-
-The \func{proj\_check} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that to not have a call to \func{set.seed} present. A full list is provided below:
+The \func{proj\_check} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that do not have a call to \func{set.seed} present. A full list is provided below:
 
 <<list-checks>>=
 list_checks()
@@ -212,6 +211,8 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 proj_analyze(proj_dir)
 @
 
+\subsection{Logging}
+
 \pkg{fertile} also contains logging functionality, which records commands run in the console that have the potential to affect reproducibility, enabling users to look at their past history at any time. The package focuses mostly on package loading and file opening, noting which function was used, the path or package it referenced, and the timestamp at which that event happened.
 Users can access the log recording their commands at any time via the \func{log\_report} function:
 
@@ -229,19 +230,19 @@ log_report()
 
 The log, if not managed, can grow very long over time. For users who do not desire such functionality, \func{log\_clear} provides a way to erase the log and start over.
 
-<<log-clear>>=
+<<log-clear, include=FALSE>>=
 log_clear()
 log_report()
 @
 
 
-\subsubsection{How It Works}
+\subsection{How It Works}
 
 Much of the functionality in \pkg{fertile} is achieved by writing \href{https://en.wikipedia.org/wiki/Shim_(computing)}{shims}. \pkg{fertile}'s shimmed functions intercept the user's commands and perform various logging and checking tasks before executing the desired function. Our process is:
 
 \begin{enumerate}
-\item Identify an \R function is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
-\item Create a function in \pkg{fertile} with the same name, that takes the same arguments (and always the dots \cmd{...}).
+\item Identify an \R function that is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
+\item Create a function in \pkg{fertile} with the same name that takes the same arguments (and always the dots \cmd{...}).
 \item Write this new function so that it: 1) captures any arguments; 2) logs the name of the function called; 3) perform any checks on these arguments; and finally 4) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function.
 \end{enumerate}
 Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
@@ -252,7 +253,7 @@ fertile::read_csv
 
 \pkg{fertile} shims many common functions, including those that read in a variety of data types, write data, and load packages. This works both proactively and retroactively, as the shimmed functions written in \pkg{fertile} are activated both when the user is coding interactively and when a file containing code is rendered.
 
-In order to ensure that the \pkg{fertile} versions of functions ("shims") are always favored over their original namesakes ("mask") when called, \pkg{fertile} uses its own shims of the \func{library} and \func{require} functions to  manipulate the \R \func{search} path so that it is always located in the first position. In the \pkg{fertile} version of \func{library}, we detach \pkg{fertile} from the search path, load the requested package, and then re-attach \pkg{fertile}. This ensures that when a user executes a command, \R will check \pkg{fertile} for a matching function before considering other packages. 
+In order to ensure that the \pkg{fertile} versions of functions ("shims") are always favored ("mask") over their original namesakes when called, \pkg{fertile} uses its own shims of the \func{library} and \func{require} functions to  manipulate the \R \func{search} path so that it is always located in the first position. In the \pkg{fertile} version of \func{library}, we detach \pkg{fertile} from the search path, load the requested package, and then re-attach \pkg{fertile}. This ensures that when a user executes a command, \R will check \pkg{fertile} for a matching function before considering other packages. 
 
 While it is possible that this shifty behavior could lead to unintended consequences, our goal is to catch a good deal of problems before they become problematic. Users can easily disable \pkg{fertile} by detaching it, or not loading it in the first place. 
 
@@ -263,7 +264,7 @@ While it is possible that this shifty behavior could lead to unintended conseque
 
 \subsubsection{File Paths}
 
-For users focused on file paths, the \func{check\_path} function analyzes a vector of paths (or a single path) to determine whether there are any absolute paths or paths that lead outside the project directory.
+The \func{check\_path} function analyzes a vector of paths (or a single path) to determine whether there are any absolute paths or paths that lead outside the project directory.
 
 <<path checks, error = TRUE>>=
 
@@ -299,9 +300,9 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 dir <- getwd()
 new_dir <- sandbox(dir)
 dir
-fs::dir_ls(dir) %>% head()
+fs::dir_ls(dir) %>% head(3)
 new_dir
-fs::dir_ls(new_dir) %>% head()
+fs::dir_ls(new_dir) %>% head(3)
 @
 
 
@@ -320,7 +321,7 @@ cat(readChar(install_script, 1e5))
 
 \subsection{Sample Use Cases}
 
-\pkg{fertile} is wide in scope. The package's simplicity enables users of any background to take advantage of its features, and its big-picture design gives \pkg{fertile} the potential to provide benefits across a variety of disciplines. 
+\pkg{fertile}'s simplicity enables users of any background to take advantage of its features, and its big-picture design gives \pkg{fertile} the potential to provide benefits across a variety of disciplines. 
 
 For example, professors could integrate \pkg{fertile} into their data science curricula, giving students an understanding and awareness of reproducibility early in their careers that can positively impact the reproducibility of their future work. It could also be used by experienced analysts working collaboratively who are looking to promote a smoother exchange of feedback and ideas. Journal reviewers may also find the package beneficial, allowing them to gain a fast overview of whether paper submissions meet reproducibility guidelines.
 
@@ -331,14 +332,13 @@ The sample use cases in this section consider \pkg{fertile}'s applicability to s
 Susan is taking an introductory data science course. This is her first time learning how to code, and she has not yet been exposed to ideas of research reproducibility. Her professor has assigned a data analysis project which must be completed in \R Markdown. The project requires her to read in a data file located on her computer and use it to produce a graph.
 
 She reads in the data, makes the graph, and knits her \cmd{.Rmd} file. It compiles successfully, so she submits the assignment. The next day, she receives an email from her professor saying that her assignment failed to compile and that she needs to make changes and try again.
-
 Susan doesn't understand why it didn't work on the professor's computer when it did on her own. The professor recommends that she install \pkg{fertile} and run \func{proj\_check} on her assignment. She does this and gets a message informing her she used an absolute path to open her dataset, and she should use a relative path. She looks up what this means and then uses the new information to update her assignment. She resubmits and her second attempt is successful.
 
 On future projects, she always loads and runs \pkg{fertile} to make sure her work is okay before submitting.
 
 \subsubsection{Experienced \R User}
 
-Emma is a post-doc, with several years of \R experience. She is familiar with some basic rules of reproducibility--file paths should always be relative and randomness should always be associated with a seed--but has never needed to pass any sort of reproducibility check before because her professors never emphasized that.
+Emma is a post-doc, with several years of \R experience. She is familiar with some basic rules of reproducibility---file paths should always be relative and randomness should always be associated with a seed---but has never needed to pass any sort of reproducibility check before because her professors never emphasized that.
 
 She has just finished a research project and is looking to submit her work to a journal. When researching the journal to which she is interested in submitting, she discovers that it has high standards for research reproducibility and a dedicated editor focusing on that aspect of submission. She goes online and finds the journal's guidelines for reproducibility. They are more complete than any guidelines to which she has previously been required to conform. In addition to notes about file paths and randomness, the journal requires a clean, well-organized folder structure, broken down by file category and stripped of files that do not serve a purpose. In order to be approved, submissions must also have a clear build chain and an informative \cmd{README} file.
 
@@ -346,17 +346,10 @@ Unsure of the best way to achieve this structure, Emma goes online to find help.
 
 \section{Results}
 
-\pkg{fertile} is designed to: 
+\pkg{fertile} is designed to: 1) be simple enough that users with minimal \R experience can use the package without issue; 2) increase the reproducibility of work produced by its users, and; 3) educate its users on why their work is or is not reproducible and provide guidance on how to address any problems.
 
-\begin{enumerate}
-\item Be simple enough that users with minimal \R experience can use the package without issue,
-\item Increase the reproducibility of work produced by its users, and
-\item Educate its users on why their work is or is not reproducible and provide guidance on how to address any problems.
-\end{enumerate}
-
-Anecdotal evidence and user feedback is useful, providing a baseline knowledge of whether these goals are being met. However, in order to truly test whether the package is successful in achieving its design goals, an experiment is necessary.
-
-To test \pkg{fertile}'s effectiveness, we began an initial randomized control trial of the package on an introductory undergraduate data science course at Smith College in Spring 2020 \footnote{This study was approved by Smith College IRB, Protocol \#19-032}. Unfortunately, however, the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing.
+To test \pkg{fertile}'s effectiveness, we began an initial randomized control trial of the package on an introductory undergraduate data science course at Smith College in Spring 2020 \footnote{This study was approved by Smith College IRB, Protocol \#19-032}. Unfortunately, the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing.
+Although the experiment was unsuccessful in its first attempt, we hope to run the same trial again and gather data on \pkg{fertile}'s effectiveness. 
 
 The experiment was structured as follows:
 
@@ -366,7 +359,7 @@ The experiment was structured as follows:
 
 \item These hexadecimal strings are then randomly assigned into equally sized groups, one experimental group that receives the features of \pkg{fertile} and one group that receives a control.
 
-\item The students are then asked to download a package called \pkg{sds192} (the course number and prefix), which was created for the purpose of this trial. It leverages an \func{.onAttach} function to scan the \R environment and collect the username of the user who is loading the package and run it through the same hashing algorithm as used previously. It then identifies whether that user belongs to the experimental or the control group. Depending on the group they are in, they receive a different version of the package:
+\item The students are then asked to download a package called \pkg{sds192} (the course number and prefix), which was created for the purpose of this trial. It leverages an \func{.onAttach} function to scan the \R environment and collect the username of the user who is loading the package and run it through the same hashing algorithm as used previously. It then identifies whether that user belongs to the experimental or the control group. Depending on the group they are in, they receive a different version of the package.
 
 \item The experimental group receives the basic \pkg{sds192} package, which consists of some data sets and \R Markdown templates necessary for completing homework assignments and projects in the class, but they also have \pkg{fertile} installed and loaded silently in the background. The package's proactive features are enabled, and thus, for example, users will receive warning messages when they use absolute or non-portable paths or attempt to change their working directory. The control group receives only the basic \pkg{sds192} package, including its data sets and \R Markdown templates. All students from both groups then use their version of the package throughout the semester on a variety of projects.
 
@@ -374,23 +367,21 @@ The experiment was structured as follows:
 
 \end{itemize}
 
-Although the experiment was unsuccessful in its first attempt, we hope to run the same trial again and gather data on \pkg{fertile}'s effectiveness. 
 
 
 \section{Conclusion}\label{sec:conclusion}
 
 
 \pkg{fertile} is an \R package that lowers barriers to reproducible data analysis projects in \R, providing a wide array of checks and suggestions addressing many different aspects of project reproducibility, including file organization, file path usage, documentation, and dependencies.
-
 \pkg{fertile} is meant to be educational, providing informative error messages that show how the ways in which the mistakes the user is making are problematic, as well as sharing recommendations on how to fix them. The package is designed in this way so as to promote a greater understanding of reproducibility concepts in its users, with the goal of increasing the overall awareness and understanding of reproducibility in the \R community.
 
 The package has very low barriers to entry, making it accessible to users with various levels of background knowledge. Unlike many other \R packages focused on reproducibility that are currently available, the features of \pkg{fertile} can be accessed almost effortlessly. Many of the retroactive features can be accessed in only two lines of code requiring minimal arguments, and some of the proactive features can be accessed with no additional effort beyond loading the package. This, in combination with the fact that \pkg{fertile} does not focus on one specific area of reproducibility, instead covering (albeit in less detail) a wide variety of topics, means that \pkg{fertile} makes it easy for data analysts of all skill levels to quickly gain a better understanding of the reproducibility of the work.
 
-In the moment, it often feels easiest to take a shortcut--to use an absolute path or change a working directory. However, when considering the long term path of a project, spending the extra time to improve reproducibility is worthwhile. \pkg{fertile}'s user-friendly features can help data analysts avoid these harmful shortcuts with minimal effort.
+In the moment, it often feels easiest to take a shortcut---to use an absolute path or change a working directory. However, when considering the long term path of a project, spending the extra time to improve reproducibility is worthwhile. \pkg{fertile}'s user-friendly features can help data analysts avoid these harmful shortcuts with minimal effort.
 
 \subsection{Future Work}\label{sec:future}
 
-The process of ensuring true reproducibility is highly complex and challenging. There are a significant number of components, many of which are described in \ref{sec:lit}, which must all be in place for work to be reproducibile. \pkg{fertile}, in its current version, addresses the vast majority of these in some way. However, there are several areas where further development to extend the available features of the package would be beneficial. These include the following:
+\pkg{fertile}, in its current version, addresses the vast majority of the aspects of reproducibility identified in Section \ref{sec:papers} in some way. However, there are several areas where further development to extend the available features of the package would be beneficial. These include the following:
 
 \begin{itemize}
   \item Expanding dependency management features to include \R session information and package version numbers in addition to package names.
