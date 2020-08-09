@@ -389,9 +389,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 3 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-08-09 15:36:09
-## 2 package:for~ <NA>                                 base::l~ 2020-08-09 15:36:09
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-08-09 15:36:09
+## 1 package:pur~ <NA>                                 base::l~ 2020-08-09 15:41:03
+## 2 package:for~ <NA>                                 base::l~ 2020-08-09 15:41:03
+## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-08-09 15:41:03
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -426,7 +426,7 @@ Most shims are quite simple and look something like what is shown below for \fun
 ##         readr::read_csv(file, ...)
 ##     }
 ## }
-## <bytecode: 0x7fc56efc82c8>
+## <bytecode: 0x7fa5dc340718>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -527,13 +527,13 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmp0zg9IT/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpJ7VyPP/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmp0zg9IT/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpJ7VyPP/project_miceps/Blot_data_updated.csv
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
