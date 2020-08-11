@@ -114,7 +114,7 @@ Reproducible research has a wide variety of benefits. When researchers provide t
 However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation and no clear consensus on standards of what constitutes reproducibility in published research (\cite{peng2009bio}). Not only are the components of reproducible research up for discussion (e.g., need the software be open source?), but the corresponding recommendations for ensuring reproducibility also vary (e.g., should raw and processed data files be in separate directories?).
 Existing attempts to address reproducibility in data science are often either too generalized---resulting in shallow and vague recommendations that are challenging to implement---or too specific---approaching one aspect of reproducibility well but doing so in a highly technical way that fails to capture the bigger picture and creates challenges for inexperienced users.
 
-In order to address these challenges, we present \pkg{fertile}, a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R.
+In order to address these challenges, we present \pkg{fertile}(\cite{R-fertile}), a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R.
 
 
 \section{Related Work}\label{sec:lit}
@@ -387,9 +387,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 3 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-08-11 21:28:23
-## 2 package:for~ <NA>                                 base::l~ 2020-08-11 21:28:23
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-08-11 21:28:23
+## 1 package:pur~ <NA>                                 base::l~ 2020-08-11 21:44:30
+## 2 package:for~ <NA>                                 base::l~ 2020-08-11 21:44:30
+## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-08-11 21:44:30
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -424,7 +424,7 @@ Most shims are quite simple and look something like what is shown below for \fun
 ##         readr::read_csv(file, ...)
 ##     }
 ## }
-## <bytecode: 0x7f8f8c998438>
+## <bytecode: 0x7ff9e192df58>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -526,15 +526,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpGDaHPo/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpGDaHPo/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpGDaHPo/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpGDaHPo/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

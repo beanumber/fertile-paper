@@ -64,7 +64,7 @@ Reproducible research has a wide variety of benefits. When researchers provide t
 However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation and no clear consensus on standards of what constitutes reproducibility in published research (\cite{peng2009bio}). Not only are the components of reproducible research up for discussion (e.g., need the software be open source?), but the corresponding recommendations for ensuring reproducibility also vary (e.g., should raw and processed data files be in separate directories?).
 Existing attempts to address reproducibility in data science are often either too generalized---resulting in shallow and vague recommendations that are challenging to implement---or too specific---approaching one aspect of reproducibility well but doing so in a highly technical way that fails to capture the bigger picture and creates challenges for inexperienced users.
 
-In order to address these challenges, we present \pkg{fertile}, a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R.
+In order to address these challenges, we present \pkg{fertile}(\cite{R-fertile}), a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R.
 
 
 \section{Related Work}\label{sec:lit}
