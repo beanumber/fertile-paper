@@ -3,12 +3,12 @@
 \articletype{Article Type}%
 
 \usepackage{listings}
+\usepackage{NJDapacite}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{xspace}
 \usepackage{enumitem}
 \usepackage{titlesec}
-\graphicspath{{images/}}
 \titlespacing{\section}{0pt}{10pt plus 2pt minus 1pt}{10pt plus 2pt minus 1pt}
 \titlespacing{\subsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
 \titlespacing{\subsubsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
@@ -368,7 +368,8 @@ In the moment, it often feels easiest to take a shortcut---to use an absolute pa
 \end{itemize}
 
 
-
+\section*{Data Availability Statement}
+The sample project ("project\_miceps") and package code associated with this paper can be found in the "R" and "tests" folders at \href{https://github.com/baumer-lab/fertile}{https://github.com/baumer-lab/fertile}.
 
 \nocite{*}% Show all bib entries - both cited and uncited; comment this line to view only cited bib entries;
 \bibliography{refs}%
