@@ -73,10 +73,9 @@ In order to address these challenges, we present \pkg{fertile}, a low barrier-to
 
 Publications on reproducibility can be found in all areas of scientific research. However, as \cite{Goodman341ps12} argue, the language and conceptual framework of research reproducibility varies significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole. We consider recommendations from a variety of fields, and determine the key aspects of reproducibility faced by scientists in different disciplines. 
 
-\cite{kitzes2017practice} present a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although the book does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from their case studies: 1) Use clear separation, labeling, and documentation, 2) Automate processes when possible, and 3) Design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy (\cite{unix}).
+\cite{kitzes2017practice} present a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although the book does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from their case studies: 1) use clear separation, labeling, and documentation, 2) automate processes when possible, and 3) design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy (\cite{unix}).
 
 \cite{cooper2017guide} focuses on data analysis in \R and identifies a similar list of important reproducibility components and reiterates the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control. 
-
 \cite{broman} reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README}.
 
 The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow for the saving and restoring of the random number generator state, when running code involving randomness (\cite{r-opensci}).
@@ -162,7 +161,6 @@ These proactive warning features are activated immediately after attaching the \
 \subsection{Retroactive Use}
 
 Retroactively, \pkg{fertile} analyzes potential obstacles to reproducibility in an RStudio Project (i.e., a directory that contains an \cmd{.Rproj} file). The package considers several different aspects of the project which may influence reproducibility, including the directory structure, file paths, and whether randomness is used thoughtfully.
-
 The end products of these analyses are reproducibility reports summarizing a project's adherence to reproducibility standards and recommending remedies for where the project falls short. For example, \pkg{fertile} might identify the use of randomness in code and recommend setting a seed if one is not present.
 
 Users can access the majority of \pkg{fertile}'s retroactive features through two primary functions, \func{proj\_check} and \func{proj\_analyze}. 
@@ -228,7 +226,7 @@ Much of the functionality in \pkg{fertile} is achieved by writing \href{https://
 \begin{enumerate}[noitemsep]
 \item Identify an \R function that is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
 \item Create a function in \pkg{fertile} with the same name that takes the same arguments (and always the dots \cmd{...}).
-\item Write this new function so that it: A) Captures any arguments, B) Logs the name of the function called, C) Performs any checks on these arguments, and D) Calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function.
+\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function.
 \end{enumerate}
 Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
 
@@ -238,7 +236,7 @@ fertile::read_csv
 
 \pkg{fertile} shims many common functions, including those that read in a variety of data types, write data, and load packages. This works both proactively and retroactively, as the shimmed functions written in \pkg{fertile} are activated both when the user is coding interactively and when a file containing code is rendered.
 
-In order to ensure that the \pkg{fertile} versions of functions ("shims") are always favored ("masked") over their original namesakes when called, \pkg{fertile} uses its own shims of the \func{library} and \func{require} functions to  manipulate the \R \func{search} path so that it is always located in the first position. In the \pkg{fertile} version of \func{library}, we detach \pkg{fertile} from the search path, load the requested package, and then re-attach \pkg{fertile}. This ensures that when a user executes a command, \R will check \pkg{fertile} for a matching function before considering other packages. While it is possible that this shifty behavior could lead to unintended consequences, our goal is to catch a good deal of problems before they become problematic. Users can easily disable \pkg{fertile} by detaching it, or not loading it in the first place. 
+In order to ensure that the \pkg{fertile} versions of functions ("shims") always supersede ("mask") their original namesakes when called, \pkg{fertile} uses its own shims of the \func{library} and \func{require} functions to  manipulate the \R \func{search} path so that it is always located in the first position. In the \pkg{fertile} version of \func{library}, we detach \pkg{fertile} from the search path, load the requested package, and then re-attach \pkg{fertile}. This ensures that when a user executes a command, \R will check \pkg{fertile} for a matching function before considering other packages. While it is possible that this shifty behavior could lead to unintended consequences, our goal is to catch a good deal of problems before they become problematic. Users can easily disable \pkg{fertile} by detaching it, or not loading it in the first place. 
 
 
 \subsection{Utility Functions}
@@ -278,10 +276,10 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 
 <<sandbox>>=
 proj_dir
-fs::dir_ls(proj_dir) %>% head(1)
+fs::dir_ls(proj_dir) %>% head(3)
 temp_dir <- sandbox(proj_dir)
 temp_dir
-fs::dir_ls(temp_dir) %>% head(1)
+fs::dir_ls(temp_dir) %>% head(3)
 @
 
 
@@ -323,7 +321,7 @@ Unsure of the best way to achieve this structure, Emma goes online to find help.
 
 \section{Results}
 
-\pkg{fertile} is designed to: 1) Be simple enough that users with minimal \R experience can use the package without issue, 2) Increase the reproducibility of work produced by its users, and 3) Educate its users on why their work is or is not reproducible and provide guidance on how to address any problems.
+\pkg{fertile} is designed to: 1) be simple enough that users with minimal \R experience can use the package without issue, 2) increase the reproducibility of work produced by its users, and 3) educate its users on why their work is or is not reproducible and provide guidance on how to address any problems.
 
 To test \pkg{fertile}'s effectiveness, we began an initial randomized control trial of the package on an introductory undergraduate data science course at Smith College in Spring 2020 \footnote{This study was approved by Smith College IRB, Protocol \#19-032}.
 
@@ -343,9 +341,9 @@ The experiment was structured as follows:
 
 \end{itemize}
 
-Based on the results, we could determine whether \pkg{fertile} was successful at achieving its intended goals. A lack of notable difference between the \emph{experimental} and \emph{control} groups in terms of the number of code-related questions asked throughout the semester would indicate that \pkg{fertile} achieved its goal of simplicity. A higher average for the \emph{experimental} group in terms of the number of homework assignments that compiled successfully would indicate that \pkg{fertile} was successful in increasing reproducibility. A greater increase over the semester in the reproducibility quiz scores for students in the \emph{experimental} group compared with the \emph{control} group would indicate that \pkg{fertile} achieved its goal of educating users on reproducibility. Success according to these guidelines would provide valuable evidence showing \pkg{fertile}'s benefit as tool to help educators introduce reproducibility concepts in the classrom.
+Based on the results, we hope to determine whether \pkg{fertile} was successful at achieving its intended goals. A lack of notable difference between the \emph{experimental} and \emph{control} groups in terms of the number of code-related questions asked throughout the semester would indicate that \pkg{fertile} achieved its goal of simplicity. A higher average for the \emph{experimental} group in terms of the number of homework assignments that compiled successfully would indicate that \pkg{fertile} was successful in increasing reproducibility. A greater increase over the semester in the reproducibility quiz scores for students in the \emph{experimental} group compared with the \emph{control} group would indicate that \pkg{fertile} achieved its goal of educating users on reproducibility. Success according to these metrics would provide evidence showing \pkg{fertile}'s benefit as tool to help educators introduce reproducibility concepts in the classroom.
 
- Unfortunately, we were unable to complete the analysis as intended as the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing. Although the experiment was unsuccessful in its first attempt, we hope to run the same trial again and gather data on \pkg{fertile}'s effectiveness. 
+Unfortunately, we were unable to complete the analysis as intended as the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing. Although the experiment was unsuccessful in its first attempt, we hope to run the same trial again and gather data on \pkg{fertile}'s effectiveness. 
 
 
 
