@@ -1,17 +1,28 @@
-\documentclass[APA,LATO1COL]{WileyNJD-v2}
-
-\articletype{Article Type}%
-
-\usepackage{listings}
-\usepackage{NJDapacite}
+% !TeX program = pdfLaTeX
+\documentclass[12pt,notitlepage]{article}
+\usepackage{amsmath}
+\usepackage{graphicx,psfrag,epsf}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage{textcomp}
+\usepackage[hyphens]{url} % not crucial - just used below for the URL
 \usepackage{hyperref}
-\usepackage{graphicx}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+%\pdfminorversion=4
+
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-.5in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+
+%% load any required packages here
 \usepackage{xspace}
 \usepackage{enumitem}
-\usepackage{titlesec}
-\titlespacing{\section}{0pt}{10pt plus 2pt minus 1pt}{10pt plus 2pt minus 1pt}
-\titlespacing{\subsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
-\titlespacing{\subsubsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
 
 % custom macros
 
@@ -22,38 +33,28 @@
 \newcommand{\func}[1]{\textit{#1}()}
 
 
-\received{26 April 2016}
-\revised{6 June 2016}
-\accepted{6 June 2016}
-
-\raggedbottom
-
 \begin{document}
+
+
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
 
 \title{Creating optimal conditions for reproducible data analysis in \R with `fertile'\protect\thanks{The authors gratefully acknowledge contributions from Hadley Wickham, Jenny Bryan, Greg Wilson, Edgar Ruiz, and other members of the \pkg{tidyverse} team.}}
 
-\author[1]{Audrey M. Bertin}
-
-\author[2]{Benjamin S. Baumer}
-
-
-\authormark{Bertin and Baumer, 2020}
-
-
-\address[1]{\orgdiv{Program in Statistical and Data Sciences}, \orgname{Smith College}, \orgaddress{\city{Northampton}, \state{MA}}}
-
-\address[2]{\orgdiv{Associate Professor of Statistical and Data Sciences}, \orgname{Smith College}, \orgaddress{\city{Northampton}, \state{MA}}}
-
-
-\corres{Audrey Bertin, Program in Statistical and Data Sciences, Smith College, Northampton, MA. \email{abertin@smith.edu}}
-
-
-\abstract[Summary]{The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We present \pkg{fertile}, an R package that focuses on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. \pkg{fertile} operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, \pkg{fertile} is designed to educate users on why their mistakes are problematic and how to fix them.}
-
-\keywords{reproducibility, statistical software, workflow, collaboration, education}
-
+\author{Audrey M. Bertin\\
+Statistical and Data Sciences\\
+Smith College\\
+\and
+Benjamin S. Baumer\\
+Statistical and Data Sciences\\
+Smith College\\
+}
 
 \maketitle
+
+\abstract{The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We present \pkg{fertile}, an R package that focuses on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. \pkg{fertile} operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, \pkg{fertile} is designed to educate users on why their mistakes are problematic and how to fix them.}
 
 \section{Introduction}\label{sec1}
 
@@ -371,18 +372,8 @@ In the moment, it often feels easiest to take a shortcut---to use an absolute pa
 \section*{Data Availability Statement}
 The sample project \cmd{project\_miceps} and package code associated with this paper can be found in the \cmd{R} and \cmd{tests} folders at \url{https://github.com/baumer-lab/fertile}.
 
-\nocite{*}% Show all bib entries - both cited and uncited; comment this line to view only cited bib entries;
+\bibliographystyle{agsm}
 \bibliography{refs}%
 
-\section*{Author Biography}
-
-\begin{biography}{\includegraphics[width=70pt,height=70pt]{audrey_bio}}{\textbf{Audrey M. Bertin} is an undergraduate student at Smith College intending on completing a Bachelor of Arts in Statistical and Data Sciences and Public Policy in Spring 2021. Audrey is a recipient of Smith College's prestigious Zollman Scholarship and has participated in extensive research with faculty throughout her time at the college. Her research interests include data and science communication, data protection and privacy, algorithmic bias and injustice, and using data science for social good.
-
-}
-\end{biography}
-
-
-\begin{biography}{\includegraphics[width=70pt,height=70pt]{ben_bio}}{\textbf{Benjamin S. Baumer} is an associate professor in the Statistical and Data Sciences program at Smith College. Ben is a co-author of \textit{The Sabermetric Revolution}, \textit{Modern Data Science with R}, and the second edition of \textit{Analyzing Baseball Data with R}. Ben has received the Waller Education Award from the ASA Section on Statistics and Data Science Education, the Significant Contributor Award from the ASA Section on Statistics in Sports, and the Contemporary Baseball Analysis Award from the Society for American Baseball Research. His research interests include sports analytics, data science, statistics and data science education, statistical computing, and network science.}
-\end{biography}
 
 \end{document}
