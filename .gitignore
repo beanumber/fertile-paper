@@ -44,3 +44,5 @@ rsconnect/
 *.pag
 *.synctex.gz
 *.fertile*.csv
+*cache*
+
