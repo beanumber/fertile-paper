@@ -52,6 +52,7 @@
 
 \articletype{Article Type}%
 
+\let\nofiles\relax
 \usepackage{listings}
 \usepackage{NJDapacite}
 \usepackage{hyperref}
@@ -59,6 +60,8 @@
 \usepackage{xspace}
 \usepackage{enumitem}
 \usepackage{titlesec}
+\usepackage{soul}
+\usepackage{natbib}
 \titlespacing{\section}{0pt}{10pt plus 2pt minus 1pt}{10pt plus 2pt minus 1pt}
 \titlespacing{\subsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
 \titlespacing{\subsubsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
@@ -98,37 +101,37 @@
 \corres{Audrey Bertin, Program in Statistical and Data Sciences, Smith College, Northampton, MA. \email{abertin@smith.edu}}
 
 
-\abstract[Summary]{The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation, and no clear consensus on standards of what constitutes reproducibility in published research. We present \pkg{fertile}, an R package that focuses on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. \pkg{fertile} operates in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that is already written for potential problems). Furthermore, \pkg{fertile} is designed to educate users on why their mistakes are problematic and how to fix them.}
+\abstract[Summary]{The advancement of scientific knowledge increasingly depends on ensuring that data-driven research is reproducible: that two people with the same data obtain the same results. However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation and no clear consensus on standards of what constitutes reproducibility in published research. We present \pkg{fertile}, an R package that focuses on a series of common mistakes programmers make while conducting data science projects in R, primarily through the RStudio integrated development environment. \pkg{fertile} operates in two modes: proactively, to prevent reproducibility mistakes from happening in the first place, and retroactively, analyzing code that is already written for potential problems. Furthermore, \pkg{fertile} is designed to educate users on why their mistakes are problematic and how to fix them.}
 
-\keywords{reproducibility, statistical software, workflow, collaboration, education}
+\keywords{Quality control, Statistical computing, Statistical process control, Teaching Statistics}
 
 
 \maketitle
 
 \section{Introduction}\label{sec1}
 
-Data-based research is considered fully reproducible when the requisite code and data files produce identical results when run by another analyst. As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. Academics around the world have recognized this, and publications and discussions addressing reproducibility appear to have increased in the last several years (\cite{eisner-reproducibility}; \cite{sep-scientific-reproducibility}; \cite{bioessays-gosselin}; \cite{engineering-reproducibility}; \cite{plos-biology}). 
+Data-based research is considered fully reproducible when the requisite code and data files produce identical results when run by another analyst. As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. Academics around the world have recognized this, and publications and discussions addressing reproducibility appear to have increased in the last several years \citep{eisner-reproducibility, sep-scientific-reproducibility, bioessays-gosselin, engineering-reproducibility, plos-biology}. 
 
 Reproducible research has a wide variety of benefits. When researchers provide the code and data used for their work in a well-organized and reproducible format, readers are more easily able to determine the veracity of any findings by following the steps from raw data to conclusions. The creators of reproducible research can also more easily receive more specific feedback (including bug fixes) on their work. Moreover, others interested in the research topic can use the code to apply the methods and ideas used in one project to their own work with minimal effort.
 
-However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation and no clear consensus on standards of what constitutes reproducibility in published research (\cite{peng2009bio}). Not only are the components of reproducible research up for discussion (e.g., need the software be open source?), but the corresponding recommendations for ensuring reproducibility also vary (e.g., should raw and processed data files be in separate directories?).
+However, while the necessity of reproducibility is clear, there are significant behavioral and technical challenges that impede its widespread implementation and no clear consensus on standards of what constitutes reproducibility in published research \citep{peng2009bio}. Not only are the components of reproducible research up for discussion (e.g., need the software be open source?), but the corresponding recommendations for ensuring reproducibility also vary (e.g., should raw and processed data files be in separate directories?).
 Existing attempts to address reproducibility in data science are often either too generalized---resulting in shallow and vague recommendations that are challenging to implement---or too specific---approaching one aspect of reproducibility well but doing so in a highly technical way that fails to capture the bigger picture and creates challenges for inexperienced users.
 
-In order to address these challenges, we present \pkg{fertile}(\cite{R-fertile}), a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R.
+In order to address these challenges, we present \pkg{fertile}\citep{R-fertile}, a low barrier-to-entry package focusing on common reproducibility mistakes programmers make while conducting data science research in R \citep{r-software}.
 
 
 \section{Related Work}\label{sec:lit}
 
 \subsection{Literature Review}\label{sec:papers}
 
-Publications on reproducibility can be found in all areas of scientific research. However, as \cite{Goodman341ps12} argue, the language and conceptual framework of research reproducibility varies significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole. We consider recommendations from a variety of fields and determine the key aspects of reproducibility faced by scientists in different disciplines. 
+Publications on reproducibility can be found in all areas of scientific research. However, as \citet{Goodman341ps12} argue, the language and conceptual framework of research reproducibility \st{varies} \textbf{vary} significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole. We consider recommendations from a variety of fields and determine the key aspects of reproducibility faced by scientists in different disciplines. 
 
-\cite{kitzes2017practice} present a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although their work does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from their case studies: 1) use clear separation, labeling, and documentation, 2) automate processes when possible, and 3) design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy (\cite{unix}).
+\citet{kitzes2017practice} present a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although their work does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from their case studies: 1) use clear separation, labeling, and documentation, 2) automate processes when possible, and 3) design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy \citep{unix}.
 
-\cite{cooper2017guide} focus on data analysis in \R and identify a similar list of important reproducibility components, reinforcing the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control. 
-\cite{broman} reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README}.
+\citet{cooper2017guide} focus on data analysis in \R and identify a similar list of important reproducibility components, reinforcing the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control. 
+\citet{broman} reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README}.
 
-The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow for the saving and restoring of the random number generator state, when running code involving randomness (\cite{r-opensci}).
+The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow for the saving and restoring of the random number generator state, when running code involving randomness \citep{r-opensci}.
 
 When considered in combination, these sources provide a well-rounded picture of the components important to research reproducibility. Using this literature as a guideline, we identify several key features of reproducible work. These recommendations are a matter of opinion---due to the lack of agreement on which components of reproducibility are most important, we select those that are mentioned most often, as well as some that are mentioned less but that we view as important. 
 \vspace{3mm}
@@ -156,23 +159,23 @@ When considered in combination, these sources provide a well-rounded picture of 
   \end{itemize}
 \item Readable, styled code:
   \begin{itemize}
-  \item Code should be written in a coherent style. Code that conforms to a style guide or is written in a consistent dialect is easier to read (\cite{hermans2017programming}). We believe that the \pkg{tidyverse} provides the most accessible dialect of \R.
+  \item Code should be written in a coherent style. Code that conforms to a style guide or is written in a consistent dialect is easier to read \citep{hermans2017programming}. We believe that the \pkg{tidyverse} provides the most accessible dialect of \R.
   \end{itemize}
 \end{enumerate}
 
-Much of the available literature focuses on file structure, organization, and naming, and \pkg{fertile}'s features are consistent with this. \cite{marwick2018packaging} provide the framework for file structure that \pkg{fertile} is based on: a structure similar to that of an \R package (\cite{coreteam-extensions}, \cite{hadley-packages}), with an \cmd{R} folder, as well as \cmd{data}, \cmd{data-raw}, \cmd{inst}, and \cmd{vignettes}.
+Much of the available literature focuses on file structure, organization, and naming, and \pkg{fertile}'s features are consistent with this. \citet{marwick2018packaging} provide the framework for file structure that \pkg{fertile} is based on: a structure similar to that of an \R package \citep{coreteam-extensions, hadley-packages}, with an \cmd{R} folder, as well as \cmd{data}, \cmd{data-raw}, \cmd{inst}, and \cmd{vignettes}.
 
 \subsection{R Packages and Other Software}
 
 Much of the work discussed in Section \ref{sec:papers} is highly generalized, written to be applicable to users working with a variety of statistical software programs. Because all statistical software programs operate differently, these recommendations are inherently vague and difficult to implement, particularly to new analysts who are relatively unfamiliar with their software. Focused attempts to address reproducibility in specific certain software programs are more likely to be successful. We focus on \R, due to its open-source nature, accessibility, and popularity as a tool for statistical analysis.
 
-A small body of \R packages focuses on research reproducibility. \pkg{rrtools} (\cite{R-rrtools}) addresses some of the issues discussed in \cite{marwick2018packaging} by creating a basic \R package structure for a data analysis project and implementing a basic \func{testthat::check} functionality. The \pkg{orderly} (\cite{R-orderly}) package also focuses on file structure, requiring the user to declare a desired project structure (typically a step-by-step structure, where outputs from one step are inputs into the next) at the beginning and then creating the files necessary to achieve that structure. \pkg{workflowr}'s (\cite{R-workflowr}) functionality is based around version control and making code easily available online. It works to generate a website containing time-stamped, versioned, and documented results. \pkg{checkers} (\cite{R-checkers}) allows you to create custom checks that examine different aspects of reproducibility. \pkg{packrat} (\cite{R-packrat}) is focused on dependencies, creating a packaged folder containing a project as well as all of its dependencies so that projects dependent on lesser-used packages can be easily shared across computers. \pkg{drake} (\cite{R-drake}) analyzes workflows, skips steps where results are up to date, and provides evidence that results match the underlying code and data. Lastly, the \pkg{reproducible} (\cite{R-reproducible}) package focuses on the concept of caching: saving information so that projects can be run faster each time they are re-completed from the start.
+A small body of \R packages focuses on research reproducibility. \pkg{rrtools} \citep{R-rrtools} addresses some of the issues discussed in \citet{marwick2018packaging} by creating a basic \R package structure for a data analysis project and implementing a basic \func{testthat::check} functionality. The \pkg{orderly} \citep{R-orderly} package also focuses on file structure, requiring the user to declare a desired project structure (typically a step-by-step structure, where outputs from one step are inputs into the next) at the beginning and then creating the files necessary to achieve that structure. \pkg{workflowr}'s \citep{R-workflowr} functionality is based around version control and making code easily available online. It works to generate a website containing time-stamped, versioned, and documented results. \pkg{checkers} \citep{R-checkers} allows you to create custom checks that examine different aspects of reproducibility. \pkg{packrat} \citep{R-packrat} is focused on dependencies, creating a packaged folder containing a project as well as all of its dependencies so that projects dependent on lesser-used packages can be easily shared across computers. \pkg{drake} \citep{R-drake} analyzes workflows, skips steps where results are up to date, and provides evidence that results match the underlying code and data. Lastly, the \pkg{reproducible} \citep{R-reproducible} package focuses on the concept of caching: saving information so that projects can be run faster each time they are re-completed from the start.
 
 
 Many of these packages are narrow, with each effectively addressing a small component of reproducibility: file structure, modularization of code, version control, etc. These packages often  succeed in their area of focus, but at the cost of accessibility to a wider audience. Their functions are often quite complex to use, and many steps must be completed to achieve the required reproducibility goal. This cumbersome nature means that most reproducibility packages currently available are not easily accessible to users near the beginning of their \R journey, nor particularly useful to those looking for quick and easy reproducibility checks.
 A more effective way of realizing widespread reproducibility is to make the process for doing so simple enough that it takes little to no conscious effort to implement. You want users to "fall into a hole"\footnote{We paraphrase Hadley Wickham.} of good practice. 
 
-\emph{Continuous integration} tools provide more general approaches to automated checking, which can enhance reproducibility with minimal code. For example, \pkg{wercker}---a command line tool that leverages Docker---enables users to test whether their projects will successfully compile when run on a variety of operating systems without access to the user's local hard drive (\cite{wercker}). \pkg{GitHub Actions} is integrated into GitHub and can be configured to do similar checks on projects hosted in repositories. \href{https://travis-ci.com}{\pkg{Travis CI}} and \href{https://circleci.com/product}{\pkg{Circle CI}} are popular continuous integration tools that can also be used to check \R code. 
+\emph{Continuous integration} tools provide more general approaches to automated checking, which can enhance reproducibility with minimal code. For example, \pkg{wercker}---a command line tool that leverages Docker---enables users to test whether their projects will successfully compile when run on a variety of operating systems without access to the user's local hard drive \citep{wercker}. \pkg{GitHub Actions} is integrated into GitHub and can be configured to do similar checks on projects hosted in repositories. \href{https://travis-ci.com}{\pkg{Travis CI}} and \href{https://circleci.com/product}{\pkg{Circle CI}} are popular continuous integration tools that can also be used to check \R code. 
 
 However, while these tools can be useful, they are generalized so as to be useful to the widest audience. As a result, their checks are not designed to be \R-specific, which makes them sub-optimal for users looking to address reproducibility issues involving features specific to the \R programming language, such as package installation and seed setting.
 
@@ -180,7 +183,7 @@ However, while these tools can be useful, they are generalized so as to be usefu
 
 \pkg{fertile} attempts to address these gaps in existing software by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area, provides some information about a wide variety of aspects influencing reproducibility. \pkg{fertile} is flexible, offering benefits to users at any stage in the data analysis workflow, and provides \R-specific features, which address certain aspects of reproducibility that can be missed by external project development software.
 
-\pkg{fertile} is designed to be used on data analyses organized as \R Projects (i.e. directories containing an \cmd{.Rproj} file). Once an \R Project is created, \pkg{fertile} provides benefits throughout the data analysis process, both during development as well as after the fact. \pkg{fertile} achieves this by operating in two modes: proactively (to prevent reproducibility mistakes from happening in the first place), and retroactively (analyzing code that has already been written for potential problems).
+\pkg{fertile} is designed to be used on data analyses organized as \R Projects (i.e. directories containing an \cmd{.Rproj} file). Once an \R Project is created, \pkg{fertile} provides benefits throughout the data analysis process, both during development as well as after the fact. \pkg{fertile} achieves this by operating in two modes: proactively, to prevent reproducibility mistakes from happening in the first place, and retroactively, analyzing code that has already been written for potential problems.
 
 
 \section{Methods}\label{sec3}
@@ -225,7 +228,6 @@ Proactively, the package identifies potential mistakes as they are made by the u
 {\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: setwd() is likely to break reproducibility. Use here::here() instead.}}\end{kframe}
 \end{knitrout}
 
-These proactive warning features are activated immediately after attaching the \pkg{fertile} package and require no additional effort by the user.
 
 \subsection{Retroactive Use}
 
@@ -234,29 +236,13 @@ The end products of these analyses are reproducibility reports summarizing a pro
 
 Users can access the majority of \pkg{fertile}'s retroactive features through two primary functions, \func{proj\_check} and \func{proj\_analyze}. 
 
-The \func{proj\_check} function runs fifteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that do not have a call to \func{set.seed} present. A full list is provided below:
+The \func{proj\_check} function runs sixteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that do not have a call to \func{set.seed} present. A full list is provided below:
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{list_checks}\hlstd{()}
-\end{alltt}
+\vspace{2mm}
 
+\includegraphics[width=500pt,height=280pt]{list-checks}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- The available checks in `fertile` are as follows: ------------------------ fertile 0.0.0.9027 --}}\begin{verbatim}
-##  [1] "has_tidy_media"          "has_tidy_images"        
-##  [3] "has_tidy_code"           "has_tidy_raw_data"      
-##  [5] "has_tidy_data"           "has_tidy_scripts"       
-##  [7] "has_readme"              "has_no_lint"            
-##  [9] "has_proj_root"           "has_no_nested_proj_root"
-## [11] "has_only_used_files"     "has_clear_build_chain"  
-## [13] "has_no_absolute_paths"   "has_only_portable_paths"
-## [15] "has_no_randomness"
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-Subsets of the fifteen tests can be invoked using the \pkg{tidyselect} helper functions (\cite{R-tidyselect}) in combination with the more limited \func{proj\_check\_some} function.
+Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list in \func{list\_checks} whose names match a certain condition (i.e. ending with "root").
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -276,18 +262,18 @@ Subsets of the fifteen tests can be invoked using the \pkg{tidyselect} helper fu
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... ------------------------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... --------------------------------------------------------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... --------------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ----------------------------------------------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks ------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks --------------------------------------------------------- fertile 0.0.0.9027 --}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for no absolute paths}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for only portable paths}}\end{kframe}
 \begin{kframe}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ------------------------------------------------ fertile 0.0.0.9027 --}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks -------------------------------------------------------------- fertile 0.0.0.9027 --}}\end{kframe}
 \begin{kframe}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Reproducibility checks passed: 2}}\end{kframe}
@@ -304,9 +290,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps --------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps ----------------------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code ------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code --------------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## # A tibble: 9 x 3
 ##   package       N used_in                    
 ##   <chr>     <int> <chr>                      
@@ -322,55 +308,43 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory --------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
-##                      file   ext    size
-## 1 Estrogen_Receptors.docx  docx  10.97K
-## 2      citrate_v_time.png   png 188.08K
-## 3     proteins_v_time.png   png 378.45K
-## 4   Blot_data_updated.csv   csv  14.43K
-## 5      CS_data_redone.csv   csv   7.39K
-## 6                mice.csv   csv  14.33K
-## 7               README.md    md      39
-## 8            miceps.Rproj Rproj     204
-## 9            analysis.Rmd   Rmd   4.94K
-##                                                                      mime
-## 1 application/vnd.openxmlformats-officedocument.wordprocessingml.document
-## 2                                                               image/png
-## 3                                                               image/png
-## 4                                                                text/csv
-## 5                                                                text/csv
-## 6                                                                text/csv
-## 7                                                           text/markdown
-## 8                                                            text/rstudio
-## 9                                                         text/x-markdown
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory ----------------------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+## # A tibble: 9 x 4
+##   file               ext        size mime                                       
+##   <fs::path>         <chr> <fs::byt> <chr>                                      
+## 1 Estrogen_Receptor~ docx     10.97K application/vnd.openxmlformats-officedocum~
+## 2 citrate_v_time.png png     184.04K image/png                                  
+## 3 proteins_v_time.p~ png     377.02K image/png                                  
+## 4 Blot_data_updated~ csv      14.43K text/csv                                   
+## 5 CS_data_redone.csv csv       7.39K text/csv                                   
+## 6 mice.csv           csv      14.33K text/csv                                   
+## 7 README.md          md           39 text/markdown                              
+## 8 miceps.Rproj       Rproj       204 text/rstudio                               
+## 9 analysis.Rmd       Rmd       4.94K text/x-markdown
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files ------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
-##                  path_rel    dir_rel
-## 1   Blot_data_updated.csv   data-raw
-## 2      CS_data_redone.csv   data-raw
-## 3 Estrogen_Receptors.docx inst/other
-## 4            analysis.Rmd  vignettes
-## 5      citrate_v_time.png inst/image
-## 6                mice.csv   data-raw
-## 7     proteins_v_time.png inst/image
-##                                                                                                cmd
-## 1     file_move('project_miceps/Blot_data_updated.csv', fs::dir_create('project_miceps/data-raw'))
-## 2        file_move('project_miceps/CS_data_redone.csv', fs::dir_create('project_miceps/data-raw'))
-## 3 file_move('project_miceps/Estrogen_Receptors.docx', fs::dir_create('project_miceps/inst/other'))
-## 4             file_move('project_miceps/analysis.Rmd', fs::dir_create('project_miceps/vignettes'))
-## 5      file_move('project_miceps/citrate_v_time.png', fs::dir_create('project_miceps/inst/image'))
-## 6                  file_move('project_miceps/mice.csv', fs::dir_create('project_miceps/data-raw'))
-## 7     file_move('project_miceps/proteins_v_time.png', fs::dir_create('project_miceps/inst/image'))
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files --------------------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+## # A tibble: 7 x 3
+##   path_rel           dir_rel    cmd                                             
+##   <fs::path>         <fs::path> <chr>                                           
+## 1 Blot_data_updated~ data-raw   file_move('project_miceps/Blot_data_updated.csv~
+## 2 CS_data_redone.csv data-raw   file_move('project_miceps/CS_data_redone.csv', ~
+## 3 Estrogen_Receptor~ inst/other file_move('project_miceps/Estrogen_Receptors.do~
+## 4 analysis.Rmd       vignettes  file_move('project_miceps/analysis.Rmd', fs::di~
+## 5 citrate_v_time.png inst/image file_move('project_miceps/citrate_v_time.png', ~
+## 6 mice.csv           data-raw   file_move('project_miceps/mice.csv', fs::dir_cr~
+## 7 proteins_v_time.p~ inst/image file_move('project_miceps/proteins_v_time.png',~
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ----------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ------------------------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## NULL
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+\textbf{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those looking to only use the proactive features can do so by refraining from using the retroactive-specific functions while those looking to only use the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
 
 \subsection{Logging}
 
@@ -387,9 +361,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 3 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-08-11 21:44:30
-## 2 package:for~ <NA>                                 base::l~ 2020-08-11 21:44:30
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-08-11 21:44:30
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-06 21:01:26
+## 2 package:for~ <NA>                                 base::l~ 2020-10-06 21:01:26
+## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-06 21:01:26
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -401,12 +375,13 @@ The log, if not managed, can grow very long over time. For users who do not desi
 
 \subsection{How It Works}
 
-Much of the functionality in \pkg{fertile} is achieved by writing \href{https://en.wikipedia.org/wiki/Shim_(computing)}{shims}. \pkg{fertile}'s shimmed functions intercept the user's commands and perform various logging and checking tasks before executing the desired function. Our process is:
+Much of the functionality in \pkg{fertile} is achieved by writing \href{https://en.wikipedia.org/wiki/Shim_(computing)}{shims}. \textbf{In computer programming generally, a shim is a function that intercepts a user's call, changes the arguments passed to it, and/or modifies the execution of the function in some way.} In the case of \pkg{fertile} specifically, shims are used to intercept the user's commands and perform various logging and path-checking tasks before executing the desired function. Our process is:
 
 \begin{enumerate}[noitemsep]
 \item Identify an \R function that is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
-\item Create a function in \pkg{fertile} with the same name that takes the same arguments (and always the dots \cmd{...}).
-\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function.
+\item Create a function in \pkg{fertile} with the same name that takes the same arguments \st{(and always the dots ...)}.
+\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. Since \pkg{fertile} only needs access to the file path argument, "file" is the only declared argument for most shims. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (i.e. \func{readr::read\_csv}).
+
 \end{enumerate}
 Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
 
@@ -416,15 +391,14 @@ Most shims are quite simple and look something like what is shown below for \fun
 \hlstd{fertile}\hlopt{::}\hlstd{read_csv}
 \end{alltt}
 \begin{verbatim}
-## function (file, ...) 
-## {
-##     if (interactive_log_on()) {
-##         log_push(file, "readr::read_csv")
-##         check_path_safe(file)
-##         readr::read_csv(file, ...)
-##     }
+## function(file, ...) {
+##   if (interactive_log_on()) {
+##     log_push(file, "readr::read_csv")
+##     check_path_safe(file)
+##     readr::read_csv(file, ...)
+##   }
 ## }
-## <bytecode: 0x7ff9e192df58>
+## <bytecode: 0x7fbd9847b260>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -526,15 +500,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmp54U9ou/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpr51HxJ/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmp54U9ou/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmp54U9ou/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmp54U9ou/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -545,13 +519,18 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 One of the challenges with ensuring that work is reproducible is the issue of dependencies. Many data analysis projects reference a variety of \R packages in their code. When such projects are shared with other users who may not have the required packages downloaded, it can cause errors that prevent the project from running properly. 
 
 The \func{proj\_pkg\_script} function assists with this issue by making it simple and fast to download dependencies. When run on an \R project directory, the function creates a \cmd{.R} script file that contains the code needed to install all of the packages referenced in the project, differentiating between packages located on CRAN and those located on GitHub.
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{install_script} \hlkwb{<-} \hlkwd{proj_pkg_script}\hlstd{(proj_dir)}
-\hlkwd{cat}\hlstd{(}\hlkwd{readChar}\hlstd{(install_script,} \hlnum{1e5}\hlstd{))}
 \end{alltt}
+\end{kframe}
+\end{knitrout}
+
+The package installation script for project miceps looks as follows:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
 ## # Run this script to install the required packages for this R project.
 ## # Packages hosted on CRAN...
@@ -560,6 +539,38 @@ The \func{proj\_pkg\_script} function assists with this issue by making it simpl
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+\textbf{\pkg{fertile} also keeps track of dependencies in additional detail. Every time the code contained within a project is rendered by `fertile`, the package generates a file capturing the `sessionInfo()` just after the code was run. This file contains information about the R version in which the code was run, the list of packages that were loaded, and their specific versions.}
+
+\textbf{Users can access this file via the \func{proj\_dependency\_report} function. Its output appears as a new window in RStudio with contents that look like the text below:}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{##  The R project located at '/Users/audreybertin/Documents/fertile-paper2/STAT-paper-template}
+\hlcom{##  /APA/project_miceps' was last run in the following software environment:}
+
+\hlcom{##  R version 4.0.2 (2020-06-22)}
+\hlcom{##  Platform: x86_64-apple-darwin17.0 (64-bit)}
+\hlcom{##  Running under: macOS Catalina 10.15.5}
+
+\hlcom{##  Matrix products: default}
+\hlcom{##  BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib}
+\hlcom{##  LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib}
+
+\hlcom{##  locale:}
+\hlcom{##  en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8}
+
+\hlcom{##  attached base packages:}
+\hlcom{##  stats     graphics  grDevices utils     datasets  methods   base     }
+
+\hlcom{##  other attached packages:}
+\hlcom{##  stargazer_5.2.2    skimr_2.1.2        purrr_0.3.4       }
+\hlcom{##  ggplot2_3.3.2      tidyr_1.1.2        readr_1.3.1        dplyr_1.0.2}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
 
 
 \subsection{Sample Use Cases}
@@ -586,7 +597,7 @@ She has just finished a research project and is looking to submit her work to a 
 
 Unsure of the best way to achieve this structure, Emma goes online to find help. In her search, she comes across \pkg{fertile}. She downloads the package, and in only a handful of commands, she identifies and removes excess files in her directory and automatically organizes her files into a structure reminiscent of an \R package. She now meets the guidelines for the journal and can submit her research.
 
-\section{Results}
+\section{Experimental Testing}
 
 \pkg{fertile} is designed to: 1) be simple enough that users with minimal \R experience can use the package without issue, 2) increase the reproducibility of work produced by its users, and 3) educate its users on why their work is or is not reproducible and provide guidance on how to address any problems.
 
@@ -610,7 +621,7 @@ The experiment was structured as follows:
 
 Based on the results, we hope to determine whether \pkg{fertile} was successful at achieving its intended goals. A lack of notable difference between the \emph{experimental} and \emph{control} groups in terms of the number of code-related questions asked throughout the semester would indicate that \pkg{fertile} achieved its goal of simplicity. A higher average for the \emph{experimental} group in terms of the number of homework assignments that compiled successfully would indicate that \pkg{fertile} was successful in increasing reproducibility. A greater increase over the semester in the reproducibility quiz scores for students in the \emph{experimental} group compared with the \emph{control} group would indicate that \pkg{fertile} achieved its goal of educating users on reproducibility. Success according to these metrics would provide evidence showing \pkg{fertile}'s benefit as tool to help educators introduce reproducibility concepts in the classroom.
 
-Unfortunately, we were unable to complete the analysis as intended as the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing. Although the experiment was unsuccessful in its first attempt, we hope to run the same trial again and gather data on \pkg{fertile}'s effectiveness. 
+Unfortunately, we were unable to complete the analysis as intended as the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing. Although the experiment was unsuccessful in its first attempt, \st{we hope to run the same trial again and gather data on fertile's effectiveness} \textbf{conditions at Smith College have now stabilized and we are currently running a second trial in the new online-only classroom environment}. 
 
 
 
@@ -629,9 +640,11 @@ In the moment, it often feels easiest to take a shortcut---to use an absolute pa
 \pkg{fertile}, in its current version, addresses the vast majority of the aspects of reproducibility identified in Section \ref{sec:papers} in some way. However, there are several areas where further development to extend the available features of the package would be beneficial. These include the following:
 
 \begin{itemize} [noitemsep]
-  \item Expanding dependency management features to include \R session information and package version numbers in addition to package names.
-  \item Expanding code and documentation style features to analyze whether code has been properly commented in addition to checking for a \cmd{README} and tidy code style.
+  \item \st{Expanding dependency management features to include R session information and package version numbers in addition to package names.}
+  \item \st{Expanding code and documentation style features to analyze whether code has been properly commented in addition to checking for a README and tidy code style}.
   \item Adding \cmd{make}-like functionality that can analyze an \R project structure and files and use this information to generate a Makefile. This Makefile would have information about target files and their prerequisites and would assist with making sure that re-running an analysis is done as quickly as possible by ensuring that only the necessary code and files that have been updated are run when rebuilding and re-running code.
+  \item \textbf{Adding a badge system to improve user experience and simplify the process of understanding how reproducible any given project is. Under this system, projects would receive badges from \pkg{fertile} based on the sets of reproducibility checks they pass. For example, projects that pass all of the checks on file paths would receive a badge on their project for "Reproducible File Paths" while those who pass checks involving file clutter and project structure might be awarded a badge for "Exellent File Organization."}
+  \item \textbf{Implementing a method through which users can add their own shims to the package. This would allow users to modify \pkg{fertile} to fit the functions they use most often. }
 \end{itemize}
 
 
@@ -640,6 +653,10 @@ The sample project ("project\_miceps") and package code associated with this pap
 
 \nocite{*}% Show all bib entries - both cited and uncited; comment this line to view only cited bib entries;
 \bibliography{refs}%
+
+
+
+
 
 \section*{Author Biography}
 
