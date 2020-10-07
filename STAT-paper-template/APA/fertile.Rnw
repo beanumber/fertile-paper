@@ -209,7 +209,7 @@ checks_list <- tidyr::tibble(check_name, description)
 
 \includegraphics[width=500pt,height=280pt]{list-checks}
 
-Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list provided by \func{list\_checks} whose names match a certain condition (i.e. ending with "root")}.
+Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list provided by \func{list\_checks} whose names match a certain condition (e.g. ending with "root")}.
 
 <<set-project>>=
 proj_dir <- "project_miceps"
@@ -266,7 +266,7 @@ Much of the functionality in \pkg{fertile} is achieved by writing \href{https://
 \begin{enumerate}[noitemsep]
 \item Identify an \R function that is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
 \item Create a function in \pkg{fertile} with the same name that takes the same arguments \textcolor{red}{\st{(and always the dots ...)}}.
-\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. \textcolor{blue}{Since \pkg{fertile} only needs access to the file path argument, "file" is the only declared argument for most shims. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (i.e. \func{readr::read\_csv})}.
+\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. \textcolor{blue}{Since \pkg{fertile} only needs access to the file path argument, "file" is the only declared argument for most shims. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (e.g. \func{readr::read\_csv})}.
 
 \end{enumerate}
 Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
