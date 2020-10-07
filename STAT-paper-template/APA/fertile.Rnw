@@ -172,9 +172,39 @@ The \func{proj\_check} function runs sixteen different reproducibility tests, no
 
 \vspace{2mm}
 
+<<list of checks, echo = FALSE>>=
+check_name <- c("has_proj_root()",
+           "has_no_nested_proj_root()",
+           "has_clear_build_chain()",
+           "has_tidy_[media/images/code/raw_data/data/scripts]()",
+           "has_only_used_files()",
+           "has_readme()",
+           "has_well_commented_code()",
+           "has_no_absolute_paths()",
+           "has_only_portable_paths()",
+           "has_no_randomness()",
+           "has_no_lint()")
+
+description <- c(
+  "Checks to make sure a single .Rproj file is found in the root directory of the project.",
+  "Checks to make sure there are no nested .Rproj files in subfolders of the project.",
+  "Looks for indication of a clear order in which to run R scripts.",
+  "There are six different ”has_tidy_...” functions. Each checks to make sure that no files of its given type (images, code, data, etc.) are located in the root directory of the project",
+  "Ensures that all files located in the project directory are being referenced or created by other files in the project.",
+  "Checks to make sure there is a README file in the root directory.",
+  "Checks to ensure that all code files contain an adequate number of comments (>10% of lines).",
+  "Checks to make sure that no absolute paths are referenced in code.",
+  "Checks to make sure that no paths in code lead outside the project directory.",
+  "Checks to make sure code does not contain uncontrolled randomness.",
+  "Examines code to determine whether it conforms to ”tidy” style guide recommendations.")
+
+checks_list <- tidyr::tibble(check_name, description)
+@
+
+
 \includegraphics[width=500pt,height=280pt]{list-checks}
 
-Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list in \func{list\_checks} whose names match a certain condition (i.e. ending with "root")}.
+Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list provided by \func{list\_checks} whose names match a certain condition (i.e. ending with "root")}.
 
 <<set-project>>=
 proj_dir <- "project_miceps"
