@@ -159,7 +159,7 @@ read.csv("../../../Desktop/my_data.csv")
 \textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a explanation of how to do so.}
 
 
-\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute an alternative function that produces the same behavior but in a reproducible way.}
+\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute an alternative function that produces the same behavior but in a reproducible way.}
 
 <<setwd, message=FALSE, error = TRUE>>=
 setwd("~/Desktop")

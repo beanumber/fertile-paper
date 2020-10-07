@@ -222,7 +222,7 @@ Proactively, the package identifies potential mistakes as they are made by the u
 \textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a explanation of how to do so.}
 
 
-\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute an alternative function that produces the same behavior but in a reproducible way.}
+\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute an alternative function that produces the same behavior but in a reproducible way.}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -370,9 +370,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 3 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-10-07 20:50:29
-## 2 package:for~ <NA>                                 base::l~ 2020-10-07 20:50:29
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-07 20:50:30
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-07 21:00:13
+## 2 package:for~ <NA>                                 base::l~ 2020-10-07 21:00:13
+## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-07 21:00:13
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -407,7 +407,7 @@ Most shims are quite simple and look something like what is shown below for \fun
 ##     readr::read_csv(file, ...)
 ##   }
 ## }
-## <bytecode: 0x7fd40f5adbf0>
+## <bytecode: 0x7fa3a7975308>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -509,15 +509,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpFsW2WL/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnSVnsZ/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpFsW2WL/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpFsW2WL/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpFsW2WL/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnSVnsZ/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnSVnsZ/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnSVnsZ/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
