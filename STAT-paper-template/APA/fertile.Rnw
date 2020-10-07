@@ -12,6 +12,7 @@
 \usepackage{titlesec}
 \usepackage{soul}
 \usepackage{natbib}
+\usepackage{xcolor}
 \titlespacing{\section}{0pt}{10pt plus 2pt minus 1pt}{10pt plus 2pt minus 1pt}
 \titlespacing{\subsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
 \titlespacing{\subsubsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
@@ -74,7 +75,7 @@ In order to address these challenges, we present \pkg{fertile}\citep{R-fertile},
 
 \subsection{Literature Review}\label{sec:papers}
 
-Publications on reproducibility can be found in all areas of scientific research. However, as \citet{Goodman341ps12} argue, the language and conceptual framework of research reproducibility \st{varies} \textbf{vary} significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole. We consider recommendations from a variety of fields and determine the key aspects of reproducibility faced by scientists in different disciplines. 
+Publications on reproducibility can be found in all areas of scientific research. However, as \citet{Goodman341ps12} argue, the language and conceptual framework of research reproducibility \textcolor{red}{\st{varies}} \textcolor{blue}{vary} significantly across the sciences, and there are no clear standards on reproducibility agreed upon by the scientific community as a whole. We consider recommendations from a variety of fields and determine the key aspects of reproducibility faced by scientists in different disciplines. 
 
 \citet{kitzes2017practice} present a collection of case studies on reproducibility practices from across the data-intensive sciences, illustrating a variety of recommendations and techniques for achieving reproducibility. Although their work does not come to a consensus on the exact standards of reproducibility that should be followed, several common trends and principles emerge from their case studies: 1) use clear separation, labeling, and documentation, 2) automate processes when possible, and 3) design the data analysis workflow as a sequence of small steps glued together, with outputs from one step serving as inputs into the next. This is a common suggestion within the computing community, originating as part of the Unix philosophy \citep{unix}.
 
@@ -173,7 +174,7 @@ The \func{proj\_check} function runs sixteen different reproducibility tests, no
 
 \includegraphics[width=500pt,height=280pt]{list-checks}
 
-Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list in \func{list\_checks} whose names match a certain condition (i.e. ending with "root").
+Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list in \func{list\_checks} whose names match a certain condition (i.e. ending with "root")}.
 
 <<set-project>>=
 proj_dir <- "project_miceps"
@@ -199,7 +200,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 proj_analyze(proj_dir)
 @
 
-\textbf{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those looking to only use the proactive features can do so by refraining from using the retroactive-specific functions while those looking to only use the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
+\textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those looking to only use the proactive features can do so by refraining from using the retroactive-specific functions while those looking to only use the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
 
 \subsection{Logging}
 
@@ -225,12 +226,12 @@ log_report()
 
 \subsection{How It Works}
 
-Much of the functionality in \pkg{fertile} is achieved by writing \href{https://en.wikipedia.org/wiki/Shim_(computing)}{shims}. \textbf{In computer programming generally, a shim is a function that intercepts a user's call, changes the arguments passed to it, and/or modifies the execution of the function in some way.} In the case of \pkg{fertile} specifically, shims are used to intercept the user's commands and perform various logging and path-checking tasks before executing the desired function. Our process is:
+Much of the functionality in \pkg{fertile} is achieved by writing \href{https://en.wikipedia.org/wiki/Shim_(computing)}{shims}. \textcolor{blue}{{In computer programming generally, a shim is a function that intercepts a user's call, changes the arguments passed to it, and/or modifies the execution of the function in some way.}} In the case of \pkg{fertile} specifically, shims are used to intercept the user's commands and perform various logging and path-checking tasks before executing the desired function. Our process is:
 
 \begin{enumerate}[noitemsep]
 \item Identify an \R function that is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
-\item Create a function in \pkg{fertile} with the same name that takes the same arguments \st{(and always the dots ...)}.
-\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. Since \pkg{fertile} only needs access to the file path argument, "file" is the only declared argument for most shims. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (i.e. \func{readr::read\_csv}).
+\item Create a function in \pkg{fertile} with the same name that takes the same arguments \textcolor{red}{\st{(and always the dots ...)}}.
+\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. \textcolor{blue}{Since \pkg{fertile} only needs access to the file path argument, "file" is the only declared argument for most shims. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (i.e. \func{readr::read\_csv})}.
 
 \end{enumerate}
 Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
@@ -303,9 +304,9 @@ The package installation script for project miceps looks as follows:
 cat(readChar(install_script, 1e5))
 @
 
-\textbf{\pkg{fertile} also keeps track of dependencies in additional detail. Every time the code contained within a project is rendered by `fertile`, the package generates a file capturing the `sessionInfo()` just after the code was run. This file contains information about the R version in which the code was run, the list of packages that were loaded, and their specific versions.}
+\textcolor{blue}{\pkg{fertile} also keeps track of dependencies in additional detail. Every time the code contained within a project is rendered by `fertile`, the package generates a file capturing the `sessionInfo()` just after the code was run. This file contains information about the R version in which the code was run, the list of packages that were loaded, and their specific versions.}
 
-\textbf{Users can access this file via the \func{proj\_dependency\_report} function. Its output appears as a new window in RStudio with contents that look like the text below:}
+\textcolor{blue}{Users can access this file via the \func{proj\_dependency\_report} function. Its output appears as a new window in RStudio with contents that look like the text below:}
 
 <<dependency report text>>=
 ##  The R project located at '/Users/audreybertin/Documents/fertile-paper2/STAT-paper-template
@@ -381,7 +382,7 @@ The experiment was structured as follows:
 
 Based on the results, we hope to determine whether \pkg{fertile} was successful at achieving its intended goals. A lack of notable difference between the \emph{experimental} and \emph{control} groups in terms of the number of code-related questions asked throughout the semester would indicate that \pkg{fertile} achieved its goal of simplicity. A higher average for the \emph{experimental} group in terms of the number of homework assignments that compiled successfully would indicate that \pkg{fertile} was successful in increasing reproducibility. A greater increase over the semester in the reproducibility quiz scores for students in the \emph{experimental} group compared with the \emph{control} group would indicate that \pkg{fertile} achieved its goal of educating users on reproducibility. Success according to these metrics would provide evidence showing \pkg{fertile}'s benefit as tool to help educators introduce reproducibility concepts in the classroom.
 
-Unfortunately, we were unable to complete the analysis as intended as the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing. Although the experiment was unsuccessful in its first attempt, \st{we hope to run the same trial again and gather data on fertile's effectiveness} \textbf{conditions at Smith College have now stabilized and we are currently running a second trial in the new online-only classroom environment}. 
+Unfortunately, we were unable to complete the analysis as intended as the trial had to be postponed after the COVID-19 pandemic significantly altered the experimental conditions at the midpoint of testing. Although the experiment was unsuccessful in its first attempt, \textcolor{red}{\st{we hope to run the same trial again and gather data on fertile's effectiveness}} \textcolor{blue}{conditions at Smith College have now stabilized and we are currently running a second trial in the new online-only classroom environment}. 
 
 
 
@@ -400,11 +401,11 @@ In the moment, it often feels easiest to take a shortcut---to use an absolute pa
 \pkg{fertile}, in its current version, addresses the vast majority of the aspects of reproducibility identified in Section \ref{sec:papers} in some way. However, there are several areas where further development to extend the available features of the package would be beneficial. These include the following:
 
 \begin{itemize} [noitemsep]
-  \item \st{Expanding dependency management features to include R session information and package version numbers in addition to package names.}
-  \item \st{Expanding code and documentation style features to analyze whether code has been properly commented in addition to checking for a README and tidy code style}.
+  \item \textcolor{red}{\st{Expanding dependency management features to include R session information and package version numbers in addition to package names.}}
+  \item \textcolor{red}{\st{Expanding code and documentation style features to analyze whether code has been properly commented in addition to checking for a README and tidy code style}}.
   \item Adding \cmd{make}-like functionality that can analyze an \R project structure and files and use this information to generate a Makefile. This Makefile would have information about target files and their prerequisites and would assist with making sure that re-running an analysis is done as quickly as possible by ensuring that only the necessary code and files that have been updated are run when rebuilding and re-running code.
-  \item \textbf{Adding a badge system to improve user experience and simplify the process of understanding how reproducible any given project is. Under this system, projects would receive badges from \pkg{fertile} based on the sets of reproducibility checks they pass. For example, projects that pass all of the checks on file paths would receive a badge on their project for "Reproducible File Paths" while those who pass checks involving file clutter and project structure might be awarded a badge for "Exellent File Organization."}
-  \item \textbf{Implementing a method through which users can add their own shims to the package. This would allow users to modify \pkg{fertile} to fit the functions they use most often. }
+  \item \textcolor{blue}{Adding a badge system to improve user experience and simplify the process of understanding how reproducible any given project is. Under this system, projects would receive badges from \pkg{fertile} based on the sets of reproducibility checks they pass. For example, projects that pass all of the checks on file paths would receive a badge on their project for "Reproducible File Paths" while those who pass checks involving file clutter and project structure might be awarded a badge for "Exellent File Organization."}
+  \item \textcolor{blue}{Implementing a method through which users can add their own shims to the package. This would allow users to modify \pkg{fertile} to fit the functions they use most often. }
 \end{itemize}
 
 
