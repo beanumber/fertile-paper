@@ -61,7 +61,7 @@
 
 \section{Introduction}\label{sec1}
 
-Data-based research is considered fully reproducible when the requisite code and data files produce identical results when run by another analyst. As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. Academics around the world have recognized this, and publications and discussions addressing reproducibility appear to have increased in the last several years \citep{eisner-reproducibility, sep-scientific-reproducibility, bioessays-gosselin, engineering-reproducibility, plos-biology}. 
+Data-based research is considered fully reproducible when the requisite code and data files produce identical results when run by another analyst \citep{patil2019visual}. As research is becoming increasingly data-driven, and because knowledge can be shared worldwide so rapidly, reproducibility is critical to the advancement of scientific knowledge. Academics around the world have recognized this, and publications and discussions addressing reproducibility appear to have increased in the last several years \citep{eisner-reproducibility, sep-scientific-reproducibility, bioessays-gosselin, engineering-reproducibility, plos-biology}. 
 
 Reproducible research has a wide variety of benefits. When researchers provide the code and data used for their work in a well-organized and reproducible format, readers are more easily able to determine the veracity of any findings by following the steps from raw data to conclusions. The creators of reproducible research can also more easily receive more specific feedback (including bug fixes) on their work. Moreover, others interested in the research topic can use the code to apply the methods and ideas used in one project to their own work with minimal effort.
 
@@ -81,6 +81,8 @@ Publications on reproducibility can be found in all areas of scientific research
 
 \citet{cooper2017guide} focus on data analysis in \R and identify a similar list of important reproducibility components, reinforcing the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control. 
 \citet{broman} reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README}.
+\textcolor{blue}{\citet{wilson2017good} argue that, to follow good practice, an analysis must be located in a well-organized directory, be supplemented by a file containing information about the project (i.e. a README), and a provide an explicit list of dependencies.}
+\textcolor{blue}{\citet{wilson2014best}} emphasize communication, recommending that code be human-readable and consistently styled for ease of understanding once shared.}
 
 The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow for the saving and restoring of the random number generator state, when running code involving randomness \citep{r-opensci}.
 
