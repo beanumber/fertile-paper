@@ -132,7 +132,7 @@ Publications on reproducibility can be found in all areas of scientific research
 \citet{cooper2017guide} focus on data analysis in \R and identify a similar list of important reproducibility components, reinforcing the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control. 
 \citet{broman} reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README}.
 \textcolor{blue}{\citet{wilson2017good} argue that, to follow good practice, an analysis must be located in a well-organized directory, be supplemented by a file containing information about the project (i.e. a README), and a provide an explicit list of dependencies.}
-\textcolor{blue}{\citet{wilson2014best}} emphasize communication, recommending that code be human-readable and consistently styled for ease of understanding once shared.}
+\textcolor{blue}{{\citet{wilson2014best}} emphasize communication, recommending that code be human-readable and consistently styled for ease of understanding once shared.}
 
 The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow for the saving and restoring of the random number generator state, when running code involving randomness \citep{r-opensci}.
 
@@ -271,18 +271,18 @@ Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper fu
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... ------------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... -------------------------------------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... --------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ---------------------------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks ------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks -------------------------------------- fertile 0.0.0.9027 --}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for no absolute paths}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for only portable paths}}\end{kframe}
 \begin{kframe}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ------------------------------------ fertile 0.0.0.9027 --}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ------------------------------------------- fertile 0.0.0.9027 --}}\end{kframe}
 \begin{kframe}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Reproducibility checks passed: 2}}\end{kframe}
@@ -299,9 +299,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps --------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps ---------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code ------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code -------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## # A tibble: 9 x 3
 ##   package       N used_in                    
 ##   <chr>     <int> <chr>                      
@@ -317,7 +317,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory --------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory ---------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## # A tibble: 9 x 4
 ##   file               ext        size mime                                       
 ##   <fs::path>         <chr> <fs::byt> <chr>                                      
@@ -333,7 +333,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files ------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files -------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## # A tibble: 7 x 3
 ##   path_rel           dir_rel    cmd                                             
 ##   <fs::path>         <fs::path> <chr>                                           
@@ -347,7 +347,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ----------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ------------------------------------------ fertile 0.0.0.9027 --}}\begin{verbatim}
 ## NULL
 \end{verbatim}
 \end{kframe}
@@ -370,9 +370,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 3 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-10-07 22:16:42
-## 2 package:for~ <NA>                                 base::l~ 2020-10-07 22:16:42
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-07 22:16:42
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-08 14:49:12
+## 2 package:for~ <NA>                                 base::l~ 2020-10-08 14:49:12
+## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-08 14:49:12
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -407,7 +407,7 @@ Most shims are quite simple and look something like what is shown below for \fun
 ##     readr::read_csv(file, ...)
 ##   }
 ## }
-## <bytecode: 0x7fe560195598>
+## <bytecode: 0x7fc745046ad8>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -509,15 +509,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnHOZCD/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnHOZCD/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnHOZCD/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpnHOZCD/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
