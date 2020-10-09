@@ -63,6 +63,19 @@
 \usepackage{soul}
 \usepackage{natbib}
 \usepackage{xcolor}
+% kableExtra packages: https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+%\usepackage[normalem]{ulem}
+\usepackage{makecell}
 \titlespacing{\section}{0pt}{10pt plus 2pt minus 1pt}{10pt plus 2pt minus 1pt}
 \titlespacing{\subsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
 \titlespacing{\subsubsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
@@ -202,6 +215,7 @@ Proactively, the package identifies potential mistakes as they are made by the u
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(fertile)}
+\hlkwd{library}\hlstd{(readr)}
 \hlkwd{file.exists}\hlstd{(}\hlstr{"~/Desktop/my_data.csv"}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
@@ -212,16 +226,15 @@ Proactively, the package identifies potential mistakes as they are made by the u
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected absolute paths. Absolute paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, re-execute your command by typing the name of the package it originates from followed by :: and the function call, e.g. if you previously typed 'read\_csv(path)', instead use 'readr::read\_csv(path)'}}\begin{alltt}
-\hlkwd{read.csv}\hlstd{(}\hlstr{"../../../Desktop/my_data.csv"}\hlstd{)}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected absolute paths. Absolute paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, please execute the following command: utils::read.csv('\textasciitilde{}/Desktop/my\_data.csv')}}\begin{alltt}
+\hlkwd{read_csv}\hlstd{(}\hlstr{"../../../Desktop/my_data.csv"}\hlstd{)}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected paths that lead outside the project directory. Such paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, re-execute your command by typing the name of the package it originates from followed by :: and the function call, e.g. if you previously typed 'read\_csv(path)', instead use 'readr::read\_csv(path)'}}\end{kframe}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected paths that lead outside the project directory. Such paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, please execute the following command: readr::read\_csv('../../../Desktop/my\_data.csv')}}\end{kframe}
 \end{knitrout}
 
-\textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a explanation of how to do so.}
-
+\textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a piece of code to execute that will achieve this for them.}
 
 \pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute an alternative function that produces the same behavior but in a reproducible way.}
 
@@ -243,14 +256,38 @@ The end products of these analyses are reproducibility reports summarizing a pro
 
 Users can access the majority of \pkg{fertile}'s retroactive features through two primary functions, \func{proj\_check} and \func{proj\_analyze}. 
 
-The \func{proj\_check} function runs sixteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that do not have a call to \func{set.seed} present. A full list is provided below:
+The \func{proj\_check} function runs sixteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that do not have a call to \func{set.seed} present. A full list is provided in Table \ref{tab:list-of-checks}:
 
 \vspace{2mm}
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{table}
+
+\caption{\label{tab:list-of-checks}Table illustrating the list of check available in fertile. }
+\centering
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright\arraybackslash}p{4in}}
+\toprule
+Check & Functionality\\
+\midrule
+\cellcolor{gray!6}{has\_proj\_root()} & \cellcolor{gray!6}{Checks to make sure a single .Rproj file is found in the root directory of the project.}\\
+has\_no\_nested\_proj\_root() & Checks to make sure there are no nested .Rproj files in subfolders of the project.\\
+\cellcolor{gray!6}{has\_clear\_build\_chain()} & \cellcolor{gray!6}{Looks for indication of a clear order in which to run R scripts.}\\
+has\_tidy\_[media/images/code/raw\_data/data/scripts]() & There are six different 'has\_tidy\_...' functions. Each checks to make sure that no files of its given type (images, code, data, etc.) are located in the root directory of the project\\
+\cellcolor{gray!6}{has\_only\_used\_files()} & \cellcolor{gray!6}{Ensures that all files located in the project directory are being referenced or created by other files in the project.}\\
+\addlinespace
+has\_readme() & Checks to make sure there is a README file in the root directory.\\
+\cellcolor{gray!6}{has\_well\_commented\_code()} & \cellcolor{gray!6}{Checks to ensure that all code files contain an adequate number of comments (>10\% of lines).}\\
+has\_no\_absolute\_paths() & Checks to make sure that no absolute paths are referenced in code.\\
+\cellcolor{gray!6}{has\_only\_portable\_paths()} & \cellcolor{gray!6}{Checks to make sure that no paths in code lead outside the project directory.}\\
+has\_no\_randomness() & Checks to make sure code does not contain uncontrolled randomness.\\
+\addlinespace
+\cellcolor{gray!6}{has\_no\_lint()} & \cellcolor{gray!6}{Examines code to determine whether it conforms to 'tidy' style guide recommendations.}\\
+\bottomrule
+\end{tabu}
+\end{table}
 
 
-
-\includegraphics[width=500pt,height=280pt]{list-checks}
+\end{knitrout}
 
 Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list provided by \func{list\_checks} whose names match a certain condition (e.g. ending with "root")}.
 
@@ -272,21 +309,15 @@ Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper fu
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... ----------------------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... --------------------------------------------------- fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ------------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ----------------------------------------- fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks ----------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Error in eval\_tidy(xs[[j]], mask): object '.Random.seed' not found}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for no absolute paths}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks --------------------------------- fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for only portable paths}}\end{kframe}
-\begin{kframe}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ---------------------------------------------- fertile 0.0.0.9027 --}}\end{kframe}
-\begin{kframe}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Reproducibility checks passed: 2}}\end{kframe}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: arrange() failed at implicit mutate() step. \\\#\# x Could not create a temporary column for `..1`.\\\#\# i `..1` is `timestamp`.}}\end{kframe}
 \end{knitrout}
 
 Each test can also be run individually by calling the function matching its check name.
@@ -300,58 +331,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps ------------------------- fertile 0.0.0.9027 --}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code ----------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
-## # A tibble: 9 x 3
-##   package       N used_in                    
-##   <chr>     <int> <chr>                      
-## 1 broom         1 project_miceps/analysis.Rmd
-## 2 dplyr         1 project_miceps/analysis.Rmd
-## 3 ggplot2       1 project_miceps/analysis.Rmd
-## 4 purrr         1 project_miceps/analysis.Rmd
-## 5 readr         1 project_miceps/analysis.Rmd
-## 6 rmarkdown     1 project_miceps/analysis.Rmd
-## 7 skimr         1 project_miceps/analysis.Rmd
-## 8 stargazer     1 project_miceps/analysis.Rmd
-## 9 tidyr         1 project_miceps/analysis.Rmd
-\end{verbatim}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory ------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
-## # A tibble: 9 x 4
-##   file               ext        size mime                                       
-##   <fs::path>         <chr> <fs::byt> <chr>                                      
-## 1 Estrogen_Receptor~ docx     10.97K application/vnd.openxmlformats-officedocum~
-## 2 citrate_v_time.png png     184.04K image/png                                  
-## 3 proteins_v_time.p~ png     377.02K image/png                                  
-## 4 Blot_data_updated~ csv      14.43K text/csv                                   
-## 5 CS_data_redone.csv csv       7.39K text/csv                                   
-## 6 mice.csv           csv      14.33K text/csv                                   
-## 7 README.md          md           39 text/markdown                              
-## 8 miceps.Rproj       Rproj       204 text/rstudio                               
-## 9 analysis.Rmd       Rmd       4.94K text/x-markdown
-\end{verbatim}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files ----------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
-## # A tibble: 7 x 3
-##   path_rel           dir_rel    cmd                                             
-##   <fs::path>         <fs::path> <chr>                                           
-## 1 Blot_data_updated~ data-raw   file_move('project_miceps/Blot_data_updated.csv~
-## 2 CS_data_redone.csv data-raw   file_move('project_miceps/CS_data_redone.csv', ~
-## 3 Estrogen_Receptor~ inst/other file_move('project_miceps/Estrogen_Receptors.do~
-## 4 analysis.Rmd       vignettes  file_move('project_miceps/analysis.Rmd', fs::di~
-## 5 citrate_v_time.png inst/image file_move('project_miceps/citrate_v_time.png', ~
-## 6 mice.csv           data-raw   file_move('project_miceps/mice.csv', fs::dir_cr~
-## 7 proteins_v_time.p~ inst/image file_move('project_miceps/proteins_v_time.png',~
-\end{verbatim}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged --------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
-## NULL
-\end{verbatim}
-\end{kframe}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: arrange() failed at implicit mutate() step. \\\#\# x Could not create a temporary column for `..1`.\\\#\# i `..1` is `timestamp`.}}\end{kframe}
 \end{knitrout}
 
 \textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those looking to only use the proactive features can do so by refraining from using the retroactive-specific functions while those looking to only use the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
@@ -371,9 +351,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 3 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-10-09 15:45:45
-## 2 package:for~ <NA>                                 base::l~ 2020-10-09 15:45:45
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-09 15:45:45
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-09 23:56:28
+## 2 package:for~ <NA>                                 base::l~ 2020-10-09 23:56:28
+## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-09 23:56:28
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -404,11 +384,11 @@ Most shims are quite simple and look something like what is shown below for \fun
 ## function(file, ...) {
 ##   if (interactive_log_on()) {
 ##     log_push(file, "readr::read_csv")
-##     check_path_safe(file)
+##     check_path_safe(file, ... = "readr::read_csv")
 ##     readr::read_csv(file, ...)
 ##   }
 ## }
-## <bytecode: 0x7fb02d55d1b0>
+## <bytecode: 0x7fe67a348478>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -443,13 +423,13 @@ The \func{check\_path} function analyzes a vector of paths (or a single path) to
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected absolute paths. Absolute paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, re-execute your command by typing the name of the package it originates from followed by :: and the function call, e.g. if you previously typed 'read\_csv(path)', instead use 'readr::read\_csv(path)'}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected absolute paths. Absolute paths are not reproducible and will likely only work on your computer.}}\begin{alltt}
 \hlcom{# Path outside the directory}
 \hlkwd{check_path}\hlstd{(}\hlstr{"../fertile.Rmd"}\hlstd{)}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected paths that lead outside the project directory. Such paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, re-execute your command by typing the name of the package it originates from followed by :: and the function call, e.g. if you previously typed 'read\_csv(path)', instead use 'readr::read\_csv(path)'}}\end{kframe}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected paths that lead outside the project directory. Such paths are not reproducible and will likely only work on your computer.}}\end{kframe}
 \end{knitrout}
 
 \subsubsection{File Types}
@@ -510,15 +490,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpisOoIV/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpisOoIV/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpisOoIV/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpisOoIV/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
