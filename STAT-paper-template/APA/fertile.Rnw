@@ -13,6 +13,19 @@
 \usepackage{soul}
 \usepackage{natbib}
 \usepackage{xcolor}
+% kableExtra packages: https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+%\usepackage[normalem]{ulem}
+\usepackage{makecell}
 \titlespacing{\section}{0pt}{10pt plus 2pt minus 1pt}{10pt plus 2pt minus 1pt}
 \titlespacing{\subsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
 \titlespacing{\subsubsection}{0pt}{7pt plus 2pt minus 1pt}{7pt plus 2pt minus 1pt}
@@ -174,11 +187,11 @@ The end products of these analyses are reproducibility reports summarizing a pro
 
 Users can access the majority of \pkg{fertile}'s retroactive features through two primary functions, \func{proj\_check} and \func{proj\_analyze}. 
 
-The \func{proj\_check} function runs sixteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that do not have a call to \func{set.seed} present. A full list is provided below:
+The \func{proj\_check} function runs sixteen different reproducibility tests, noting which ones passed, which ones failed, the reason for failure, a recommended solution, and a guide to where to look for help. These tests include: looking for a clear build chain, checking to make sure the root level of the project is clear of clutter, confirming that there are no files present that are not being directly used by or created by the code, and looking for uses of randomness that do not have a call to \func{set.seed} present. A full list is provided in Table \ref{tab:list-of-checks}:
 
 \vspace{2mm}
 
-<<list of checks, echo = FALSE>>=
+<<list-of-checks, echo = FALSE>>=
 check_name <- c("has_proj_root()",
            "has_no_nested_proj_root()",
            "has_clear_build_chain()",
@@ -195,20 +208,26 @@ description <- c(
   "Checks to make sure a single .Rproj file is found in the root directory of the project.",
   "Checks to make sure there are no nested .Rproj files in subfolders of the project.",
   "Looks for indication of a clear order in which to run R scripts.",
-  "There are six different ”has_tidy_...” functions. Each checks to make sure that no files of its given type (images, code, data, etc.) are located in the root directory of the project",
+  "There are six different 'has_tidy_...' functions. Each checks to make sure that no files of its given type (images, code, data, etc.) are located in the root directory of the project",
   "Ensures that all files located in the project directory are being referenced or created by other files in the project.",
   "Checks to make sure there is a README file in the root directory.",
   "Checks to ensure that all code files contain an adequate number of comments (>10% of lines).",
   "Checks to make sure that no absolute paths are referenced in code.",
   "Checks to make sure that no paths in code lead outside the project directory.",
   "Checks to make sure code does not contain uncontrolled randomness.",
-  "Examines code to determine whether it conforms to ”tidy” style guide recommendations.")
+  "Examines code to determine whether it conforms to 'tidy' style guide recommendations.")
 
-checks_list <- tidyr::tibble(check_name, description)
+library(magrittr)
+tibble::tibble("Check" = check_name, "Functionality" = description) %>%
+  kableExtra::kbl( 
+    caption = "Table illustrating the list of check available in fertile. ",
+    format = "latex",
+    booktabs = TRUE
+  ) %>%
+  kableExtra::kable_styling(latex_options = c("striped"), full_width = TRUE) %>%
+#  kableExtra::column_spec(1, width = "2in") %>%
+  kableExtra::column_spec(2, width = "4in")
 @
-
-
-\includegraphics[width=500pt,height=280pt]{list-checks}
 
 Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list provided by \func{list\_checks} whose names match a certain condition (e.g. ending with "root")}.
 
