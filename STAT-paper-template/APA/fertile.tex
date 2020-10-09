@@ -151,6 +151,7 @@ When considered in combination, these sources provide a well-rounded picture of 
   \item Files are clearly named, preferably in a way where the order in which they should be run is clear.
   \item A README is present.
   \item Dependencies are noted.
+  \item \textcolor{blue}{Code files contain descriptive comments.}
   \end{itemize}
 \item Reproducible file paths:
   \begin{itemize}
@@ -271,18 +272,18 @@ Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper fu
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... -------------------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... ----------------------------------------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ---------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ------------------------------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks -------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks ----------------------------------------- fertile 0.0.0.9027 --}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for no absolute paths}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for only portable paths}}\end{kframe}
 \begin{kframe}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ------------------------------------------- fertile 0.0.0.9027 --}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ---------------------------------------------- fertile 0.0.0.9027 --}}\end{kframe}
 \begin{kframe}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Reproducibility checks passed: 2}}\end{kframe}
@@ -299,9 +300,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps ---------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps ------------------------- fertile 0.0.0.9027 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code -------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code ----------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## # A tibble: 9 x 3
 ##   package       N used_in                    
 ##   <chr>     <int> <chr>                      
@@ -317,7 +318,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory ---------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory ------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## # A tibble: 9 x 4
 ##   file               ext        size mime                                       
 ##   <fs::path>         <chr> <fs::byt> <chr>                                      
@@ -333,7 +334,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files -------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files ----------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## # A tibble: 7 x 3
 ##   path_rel           dir_rel    cmd                                             
 ##   <fs::path>         <fs::path> <chr>                                           
@@ -347,7 +348,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ------------------------------------------ fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged --------------------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
 ## NULL
 \end{verbatim}
 \end{kframe}
@@ -370,9 +371,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 3 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-10-08 14:49:12
-## 2 package:for~ <NA>                                 base::l~ 2020-10-08 14:49:12
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-08 14:49:12
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-09 15:45:45
+## 2 package:for~ <NA>                                 base::l~ 2020-10-09 15:45:45
+## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-09 15:45:45
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -407,7 +408,7 @@ Most shims are quite simple and look something like what is shown below for \fun
 ##     readr::read_csv(file, ...)
 ##   }
 ## }
-## <bytecode: 0x7fc745046ad8>
+## <bytecode: 0x7fb02d55d1b0>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -509,15 +510,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpWD3heO/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpOuHj47/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

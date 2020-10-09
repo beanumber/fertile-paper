@@ -101,6 +101,7 @@ When considered in combination, these sources provide a well-rounded picture of 
   \item Files are clearly named, preferably in a way where the order in which they should be run is clear.
   \item A README is present.
   \item Dependencies are noted.
+  \item \textcolor{blue}{Code files contain descriptive comments.}
   \end{itemize}
 \item Reproducible file paths:
   \begin{itemize}

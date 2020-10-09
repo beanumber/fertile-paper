@@ -90,4 +90,8 @@ There is not currently a functionality for this, but it is definitely something 
 
 **Additional Changes**
 
-*The first two bullets in the future work section have been completed since the submission of the original manuscript. Due to this, those bullets have been removed and replaced with new future steps.*
+The first two bullets in the future work section have been completed since the submission of the original manuscript. Due to this, those bullets have been removed and replaced with new future steps.
+
+Additionally, a new bullet point on code commenting (relevant to the has_well_commented_code() function as well as one of the added sources, has been added to the summary of reproducibility components.
+
+
