@@ -261,7 +261,12 @@ proj_analyze(proj_dir)
 
 \pkg{fertile} also contains logging functionality, which records commands run in the console that have the potential to affect reproducibility, enabling users to look at their past history at any time. The package focuses mostly on package loading and file opening, noting which function was used, the path or package it referenced, and the timestamp at which that event happened. Users can access the log recording their commands at any time via the \func{log\_report} function:
 
-<<read-csv, message=FALSE, include=FALSE>>=
+<<include = FALSE>>=
+log_clear()
+@
+
+
+<<read-csv, message=FALSE, results = 'hide'>>=
 library(purrr)
 library(forcats)
 read_csv(fs::path(proj_dir, "mice.csv"))
