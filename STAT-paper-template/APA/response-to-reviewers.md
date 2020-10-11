@@ -43,10 +43,11 @@ General:
 This is an excellent point! Part of the reason that fertile is so strict on this behavior is that in my own personal experience, many R coders (particularly those with little experience) tend to ignore warnings as long as their code executes properly. Having fertile’s path-related behavior be error based ensures that no one will skip over the messages that come up. However, my co-author and I do recognize that some users may still want to run these functions despite the warnings. In order to take this into account, we have added detail to the error messages produced by the shims. The new messages provide users with a method to override the error produced by fertile.
 
 Specific minor suggestions (in order of manuscript):
-*- A few suggested references to include in Intro and/or 2.1:* 
-   - *reproducibility framework: Patil et al. (https://www.nature.com/articles/s41562-019-0629-z)*
-   - *good enough practices: Wilson et al. (https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)*
-   - *best practices: Wilson et al (https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745)*
+
+- *A few suggested references to include in Intro and/or 2.1:* 
+    - *reproducibility framework: Patil et al. (https://www.nature.com/articles/s41562-019-0629-z)*
+    - *good enough practices: Wilson et al. (https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)*
+    - *best practices: Wilson et al (https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745)*
 
 The first reference was an excellent fit for the introduction, and has been added there, while the second and third fit well into the literature review and have been mentioned accordingly.  
 
@@ -64,7 +65,7 @@ This table has been added! Since list_checks() provides no additional benefit to
 
 - *in 3.1 and 3.2, it may be nice to describe explicitly whether it's possible to just use one or the other (proactive vs retroactive)....similar to how in 3.3 it's described how logging can be turned off (or reset). I could envision one wanting to develop without error and then check at the end (retroactive only). Philosophically, I could see that you would not want to build that in and that people could then just load your package at the end...but this may be something explicitly stated in the manuscript.*
 
-A comment on this has been added to the end of the description of retroactive behavior. 
+Thank you for pointing this out. A comment to this effect has been added to the end of the description of retroactive behavior. 
 
 - *Section 3.2: The average user may not know what the tidyselect helper functions are.  A bit more explanation here would likely help readers/users.*
 
@@ -76,7 +77,7 @@ The original “and always the dots” mention has been removed and slightly mor
 
 - *Section 3.5.4: the line of code `cat(readChar(install_script, 1e5))` is not intuitive, and that line may benefit from a comment with a brief explanation within the code itself (or in the text above)*
 
-Since the code is intuitive, it has now been hidden from view. Instead, there is now a sentence stating that we are looking into the contents of the file.
+That code has been hidden from view. Instead, there is now a sentence stating that we are looking into the contents of the file.
 
 - *Section 4: Suggestion to rename to future directions or something other than results, given the lack of results here (no fault of the authors, here! simply beyond one's control.) But, I did read and was bummed to see no results here after the section header was Results. Excited to see these results in the future, regardless!*
 
@@ -85,7 +86,7 @@ Agreed on this point. No results are discussed so that warrants a name change. S
 *Very minor* (feel free to ignore)
 - *I haven't dug into the code fully so I may have missed it, but I could imagine that a user may want the ability to add their own shim to make a check for something as new packages/functions come out or for something specific to their own uses. Is there functionality for one to create/add their own shim to their installation of fertile?*
 
-There is not currently a functionality for this, but it is definitely something of interest for the future. As a result, we have added it to the future work section!
+Thank you for this excellent idea. There is not currently a functionality for this, but it is definitely something of interest for the future. As a result, we have added it to the future work section.
 
 
 **Additional Changes**
