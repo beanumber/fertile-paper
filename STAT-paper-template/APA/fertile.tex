@@ -144,7 +144,7 @@ Publications on reproducibility can be found in all areas of scientific research
 
 \citet{cooper2017guide} focus on data analysis in \R and identify a similar list of important reproducibility components, reinforcing the need for clearly labeled, well-documented, and well-separated files. In addition, they recommend publishing a list of dependencies and using version control. 
 \citet{broman} reiterates the need for clear naming and file separation while sharing several additional suggestions: keep the project contained in one directory, use relative paths, and include a \cmd{README}.
-\textcolor{blue}{\citet{wilson2017good} argue that, to follow good practice, an analysis must be located in a well-organized directory, be supplemented by a file containing information about the project (i.e. a README), and a provide an explicit list of dependencies.}
+\textcolor{blue}{\citet{wilson2017good} argue that to follow good practice, an analysis must be located in a well-organized directory, be supplemented by a file containing information about the project (i.e., a README), and a provide an explicit list of dependencies.}
 \textcolor{blue}{{\citet{wilson2014best}} emphasize communication, recommending that code be human-readable and consistently styled for ease of understanding once shared.}
 
 The reproducibility recommendations from R OpenSci, a non-profit initiative founded in 2011 to make scientific data retrieval reproducible, share similar principles to those discussed previously. They focus on a need for a well-developed file system, with no extraneous files and clear labeling. They also reiterate the need to note dependencies and use automation when possible, while making clear a suggestion not present in the previously-discussed literature: the need to use seeds, which allow for the saving and restoring of the random number generator state, when running code involving randomness \citep{r-opensci}.
@@ -198,7 +198,8 @@ However, while these tools can be useful, they are generalized so as to be usefu
 
 \subsection{Our contribution}
 
-\pkg{fertile} attempts to address these gaps in existing software by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area \textcolor{blue}{(such as file structure)}, provides some information about a wide variety of aspects influencing reproducibility. \textcolor{blue}{For example, \pkg{fertile} addresses file structure in part but also considers the quality of project documentation, the use of file paths, and the behavior of random number generation}. \pkg{fertile} is flexible, \textcolor{red}{\st{offering benefits}} \textcolor{blue}{providing reports on reproducibility} to users at any stage in the data analysis workflow, and provides \R-specific features, \textcolor{blue}{such as tools to manage package dependencies}, which address certain aspects of reproducibility that can be missed by external project development software.
+\pkg{fertile} attempts to address these gaps in existing software by providing a simple, easy-to-learn reproducibility package that, rather than focusing intensely on a specific area \textcolor{blue}{(such as file structure)}, provides some information about a wide variety of aspects influencing reproducibility. \textcolor{blue}{For example, \pkg{fertile} addresses file structure in part but also considers the quality of project documentation, the use of file paths, and the behavior of random number generation}. \pkg{fertile} is flexible, \textcolor{red}{\st{offering benefits}} \textcolor{blue}{providing reports on reproducibility} to users at any stage in the data analysis workflow.
+It also provides \R-specific features, \textcolor{blue}{such as tools to manage package dependencies}, which address certain aspects of reproducibility that can be missed by external project development software.
 
 \pkg{fertile} is designed to be used on data analyses organized as \R Projects (i.e. directories containing an \cmd{.Rproj} file). Once an \R Project is created, \pkg{fertile} provides \textcolor{red}{\st{benefits}} \textcolor{blue} {the user with feedback on their adherence to reproducibility standards} throughout the data analysis process, both during development as well as after the fact. \pkg{fertile} achieves this by operating in two modes: proactively, to prevent reproducibility mistakes from happening in the first place, and retroactively, analyzing code that has already been written for potential problems.
 
@@ -234,9 +235,9 @@ Proactively, the package identifies potential mistakes as they are made by the u
 {\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected paths that lead outside the project directory. Such paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, please execute the following command: readr::read\_csv('../../../Desktop/my\_data.csv')}}\end{kframe}
 \end{knitrout}
 
-\textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a piece of code to execute that will achieve this for them.}
+\textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a snipped of code to execute that will achieve this for them.}
 
-\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute an alternative function that produces the same behavior but in a reproducible way.}
+\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute a different function that produces the same behavior but in a reproducible way.}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -272,7 +273,7 @@ Check & Functionality\\
 \cellcolor{gray!6}{has\_proj\_root()} & \cellcolor{gray!6}{Checks to make sure a single .Rproj file is found in the root directory of the project.}\\
 has\_no\_nested\_proj\_root() & Checks to make sure there are no nested .Rproj files in subfolders of the project.\\
 \cellcolor{gray!6}{has\_clear\_build\_chain()} & \cellcolor{gray!6}{Looks for indication of a clear order in which to run R scripts.}\\
-has\_tidy\_[media/images/code/raw\_data/data/scripts]() & There are six different 'has\_tidy\_...' functions. Each checks to make sure that no files of its given type (images, code, data, etc.) are located in the root directory of the project\\
+has\_tidy\_[media/images/code/raw\_data/data/scripts]() & There are six different 'has\_tidy\_*()' functions. Each checks to make sure that no files of its given type (images, code, data, etc.) are located in the root directory of the project\\
 \cellcolor{gray!6}{has\_only\_used\_files()} & \cellcolor{gray!6}{Ensures that all files located in the project directory are being referenced or created by other files in the project.}\\
 \addlinespace
 has\_readme() & Checks to make sure there is a README file in the root directory.\\
@@ -289,7 +290,7 @@ has\_no\_randomness() & Checks to make sure code does not contain uncontrolled r
 
 \end{knitrout}
 
-Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables--in this case, searching for checks from the list provided by \func{list\_checks} whose names match a certain condition (e.g. ending with "root")}.
+Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper functions \citep{R-tidyselect} in combination with the more limited \func{proj\_check\_some} function. \textcolor{blue}{These helper functions, which include \func{starts\_with}, \func{ends\_with}, \func{contains}, and \func{matches}, allow users to check for matches between a string or regular expression and a list of variables. In this case, we search for checks whose names match a certain condition (e.g., contain the string "paths")}.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -391,7 +392,8 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{kframe}
 \end{knitrout}
 
-\textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those looking to only use the proactive features can do so by refraining from using the retroactive-specific functions while those looking to only use the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
+\textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those who want to use the proactive features can simply  refrain from using the retroactive-specific functions.
+Conversely, those who want to use only the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
 
 \subsection{Logging}
 
@@ -419,11 +421,11 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 ## # A tibble: 5 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-10-11 15:10:40
-## 2 package:for~ <NA>                                 base::l~ 2020-10-11 15:10:40
-## 3 Seed Before  <NA>                                 14       2020-10-11 15:10:40
-## 4 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-11 15:10:40
-## 5 Seed After   <NA>                                 28       2020-10-11 15:10:40
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-11 15:12:26
+## 2 package:for~ <NA>                                 base::l~ 2020-10-11 15:12:26
+## 3 Seed Before  <NA>                                 21       2020-10-11 15:12:26
+## 4 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-11 15:12:26
+## 5 Seed After   <NA>                                 35       2020-10-11 15:12:26
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -440,7 +442,7 @@ Much of the functionality in \pkg{fertile} is achieved by writing \href{https://
 \begin{enumerate}[noitemsep]
 \item Identify an \R function that is likely to be involved in operations that may break reproducibility. Popular functions associated with only one package (e.g., \func{read\_csv} from \pkg{readr}) are ideal candidates.
 \item Create a function in \pkg{fertile} with the same name that takes the same arguments \textcolor{red}{\st{(and always the dots ...)}}.
-\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. \textcolor{blue}{Since \pkg{fertile} only needs access to the file path argument, "file" is the only declared argument for most shims. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (e.g. \func{readr::read\_csv})}.
+\item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. \textcolor{blue}{For most shims, "file" is the only argument of interest. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (e.g. \func{readr::read\_csv})}.
 
 \end{enumerate}
 Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
@@ -471,7 +473,7 @@ Most shims are quite simple and look something like what is shown below for \fun
 ##     return (data)
 ##   }
 ## }
-## <bytecode: 0x7f9a68cb9468>
+## <bytecode: 0x7fb05e74f770>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -573,15 +575,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpo24pt6/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpo24pt6/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpo24pt6/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpo24pt6/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -613,7 +615,7 @@ The package installation script for project miceps looks as follows:
 \end{kframe}
 \end{knitrout}
 
-\textcolor{blue}{\pkg{fertile} also keeps track of dependencies in additional detail. Every time the code contained within a project is rendered by `fertile`, the package generates a file capturing the `sessionInfo()` just after the code was run. This file contains information about the R version in which the code was run, the list of packages that were loaded, and their specific versions.}
+\textcolor{blue}{\pkg{fertile} also keeps track of dependencies in additional detail. Every time the code contained within a project is rendered by \pkg{fertile}, the package generates a file capturing the \func{sessionInfo} just after the code was run. This file contains information about the \R version in which the code was run, the list of packages that were loaded, and their specific versions.}
 
 \textcolor{blue}{Users can access this file via the \func{proj\_dependency\_report} function. Its output appears as a new window in RStudio with contents that look like the text below:}
 
@@ -716,7 +718,7 @@ In the moment, it often feels easiest to take a shortcut---to use an absolute pa
   \item \textcolor{red}{\st{Expanding dependency management features to include R session information and package version numbers in addition to package names.}}
   \item \textcolor{red}{\st{Expanding code and documentation style features to analyze whether code has been properly commented in addition to checking for a README and tidy code style}}.
   \item Adding \cmd{make}-like functionality that can analyze an \R project structure and files and use this information to generate a Makefile. This Makefile would have information about target files and their prerequisites and would assist with making sure that re-running an analysis is done as quickly as possible by ensuring that only the necessary code and files that have been updated are run when rebuilding and re-running code.
-  \item \textcolor{blue}{Adding a badge system to improve user experience and simplify the process of understanding how reproducible any given project is. Under this system, projects would receive badges from \pkg{fertile} based on the sets of reproducibility checks they pass. For example, projects that pass all of the checks on file paths would receive a badge on their project for "Reproducible File Paths" while those who pass checks involving file clutter and project structure might be awarded a badge for "Exellent File Organization."}
+  \item \textcolor{blue}{Adding a badge system to improve user experience and simplify the process of understanding how reproducible any given project is. Under this system, projects would receive badges from \pkg{fertile} based on the sets of reproducibility checks they pass. For example, projects that pass all of the checks on file paths would receive a badge on their project for "Reproducible File Paths" while those who pass checks involving file clutter and project structure might be awarded a badge for "Excellent File Organization."}
   \item \textcolor{blue}{Implementing a method through which users can add their own shims to the package. This would allow users to modify \pkg{fertile} to fit the functions they use most often. }
 \end{itemize}
 
