@@ -309,23 +309,22 @@ Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper fu
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... ---------------------------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... ------------------------------------------------------------ fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ------------------------------------ fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... -------------------------------------------------- fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks ---------------------------- fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks ------------------------------------------ fertile 0.0.0.9028 --}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for no absolute paths}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for only portable paths}}\end{kframe}
 \begin{kframe}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks --------------------------------- fertile 0.0.0.9027 --}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ----------------------------------------------- fertile 0.0.0.9028 --}}\end{kframe}
 \begin{kframe}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Reproducibility checks passed: 2}}\end{kframe}
 \end{knitrout}
-
 
 Each test can also be run individually by calling the function matching its check name.
 
@@ -338,9 +337,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps ------------ fertile 0.0.0.9027 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps -------------------------- fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code ---------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code ------------------------------------ fertile 0.0.0.9028 --}}\begin{verbatim}
 ## # A tibble: 9 x 3
 ##   package       N used_in                    
 ##   <chr>     <int> <chr>                      
@@ -356,51 +355,37 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory ------------------------------ fertile 0.0.0.9027 --}}\begin{verbatim}
-##                      file   ext    size
-## 1 Estrogen_Receptors.docx  docx  10.97K
-## 2      citrate_v_time.png   png 188.08K
-## 3     proteins_v_time.png   png 378.45K
-## 4   Blot_data_updated.csv   csv  14.43K
-## 5      CS_data_redone.csv   csv   7.39K
-## 6                mice.csv   csv  14.33K
-## 7               README.md    md      39
-## 8            miceps.Rproj Rproj     204
-## 9            analysis.Rmd   Rmd   4.94K
-##                                                                      mime
-## 1 application/vnd.openxmlformats-officedocument.wordprocessingml.document
-## 2                                                               image/png
-## 3                                                               image/png
-## 4                                                                text/csv
-## 5                                                                text/csv
-## 6                                                                text/csv
-## 7                                                           text/markdown
-## 8                                                            text/rstudio
-## 9                                                         text/x-markdown
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory -------------------------------------------- fertile 0.0.0.9028 --}}\begin{verbatim}
+## # A tibble: 9 x 4
+##   file               ext        size mime                                       
+##   <fs::path>         <chr> <fs::byt> <chr>                                      
+## 1 Estrogen_Receptor~ docx     10.97K application/vnd.openxmlformats-officedocum~
+## 2 citrate_v_time.png png     188.68K image/png                                  
+## 3 proteins_v_time.p~ png     379.22K image/png                                  
+## 4 Blot_data_updated~ csv      14.43K text/csv                                   
+## 5 CS_data_redone.csv csv       7.39K text/csv                                   
+## 6 mice.csv           csv      14.33K text/csv                                   
+## 7 README.md          md           39 text/markdown                              
+## 8 miceps.Rproj       Rproj       204 text/rstudio                               
+## 9 analysis.Rmd       Rmd       4.94K text/x-markdown
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files ---------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
-##                  path_rel    dir_rel
-## 1   Blot_data_updated.csv   data-raw
-## 2      CS_data_redone.csv   data-raw
-## 3 Estrogen_Receptors.docx inst/other
-## 4            analysis.Rmd  vignettes
-## 5      citrate_v_time.png inst/image
-## 6                mice.csv   data-raw
-## 7     proteins_v_time.png inst/image
-##                                                                                                cmd
-## 1     file_move('project_miceps/Blot_data_updated.csv', fs::dir_create('project_miceps/data-raw'))
-## 2        file_move('project_miceps/CS_data_redone.csv', fs::dir_create('project_miceps/data-raw'))
-## 3 file_move('project_miceps/Estrogen_Receptors.docx', fs::dir_create('project_miceps/inst/other'))
-## 4             file_move('project_miceps/analysis.Rmd', fs::dir_create('project_miceps/vignettes'))
-## 5      file_move('project_miceps/citrate_v_time.png', fs::dir_create('project_miceps/inst/image'))
-## 6                  file_move('project_miceps/mice.csv', fs::dir_create('project_miceps/data-raw'))
-## 7     file_move('project_miceps/proteins_v_time.png', fs::dir_create('project_miceps/inst/image'))
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files ------------------------------------------ fertile 0.0.0.9028 --}}\begin{verbatim}
+## # A tibble: 7 x 3
+##   path_rel           dir_rel    cmd                                             
+##   <fs::path>         <fs::path> <chr>                                           
+## 1 Blot_data_updated~ data-raw   file_move('project_miceps/Blot_data_updated.csv~
+## 2 CS_data_redone.csv data-raw   file_move('project_miceps/CS_data_redone.csv', ~
+## 3 Estrogen_Receptor~ inst/other file_move('project_miceps/Estrogen_Receptors.do~
+## 4 analysis.Rmd       vignettes  file_move('project_miceps/analysis.Rmd', fs::di~
+## 5 citrate_v_time.png inst/image file_move('project_miceps/citrate_v_time.png', ~
+## 6 mice.csv           data-raw   file_move('project_miceps/mice.csv', fs::dir_cr~
+## 7 proteins_v_time.p~ inst/image file_move('project_miceps/proteins_v_time.png',~
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged -------------------------------- fertile 0.0.0.9027 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ---------------------------------------------- fertile 0.0.0.9028 --}}\begin{verbatim}
 ## NULL
 \end{verbatim}
 \end{kframe}
@@ -431,12 +416,14 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \hlkwd{log_report}\hlstd{()}
 \end{alltt}
 \begin{verbatim}
-## # A tibble: 3 x 4
+## # A tibble: 5 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-10-10 13:33:50
-## 2 package:for~ <NA>                                 base::l~ 2020-10-10 13:33:50
-## 3 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-10 13:33:50
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-11 15:10:40
+## 2 package:for~ <NA>                                 base::l~ 2020-10-11 15:10:40
+## 3 Seed Before  <NA>                                 14       2020-10-11 15:10:40
+## 4 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-11 15:10:40
+## 5 Seed After   <NA>                                 28       2020-10-11 15:10:40
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -465,13 +452,26 @@ Most shims are quite simple and look something like what is shown below for \fun
 \end{alltt}
 \begin{verbatim}
 ## function(file, ...) {
+## 
 ##   if (interactive_log_on()) {
+##     if (Sys.getenv("FERTILE_RENDER_MODE") == TRUE){
+##       log_push('Seed Before', .Random.seed[2])
+##     }
+## 
 ##     log_push(file, "readr::read_csv")
+## 
 ##     check_path_safe(file, ... = "readr::read_csv")
-##     readr::read_csv(file, ...)
+## 
+##     data <- readr::read_csv(file, ...)
+## 
+##     if (Sys.getenv("FERTILE_RENDER_MODE") == TRUE){
+##       log_push('Seed After', .Random.seed[2])
+##     }
+## 
+##     return (data)
 ##   }
 ## }
-## <bytecode: 0x7fea6a6f2048>
+## <bytecode: 0x7f9a68cb9468>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -573,15 +573,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpxR3hjP/project_miceps
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpxR3hjP/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpxR3hjP/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpxR3hjP/project_miceps/Estrogen_Receptors.docx
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps/Blot_data_updated.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps/CS_data_redone.csv
+## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/Rtmpz372mQ/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -725,1119 +725,7 @@ In the moment, it often feels easiest to take a shortcut---to use an absolute pa
 The sample project \cmd{project\_miceps} and package code associated with this paper can be found in the \cmd{R} and \cmd{tests} folders at \url{https://github.com/baumer-lab/fertile}.
 
 \nocite{*}% Show all bib entries - both cited and uncited; comment this line to view only cited bib entries;
-%\bibliography{refs}%
-
-\begin{thebibliography}{}
-
-\bibitem [\protect \citeauthoryear {%
-Baker%
-}{%
-Baker%
-}{%
-{\protect \APACyear {2016}}%
-}]{%
-baker20161}
-\APACinsertmetastar {%
-baker20161}%
-\begin{APACrefauthors}%
-Baker, M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2016}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {1,500 scientists lift the lid on reproducibility} {1,500
-  scientists lift the lid on reproducibility}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Nature News}{533}{7604}{452}.
-\newblock
-\begin{APACrefURL}
-  \url{https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Baumer%
-\ \BBA {} Bertin%
-}{%
-Baumer%
-\ \BBA {} Bertin%
-}{%
-{\protect \APACyear {2020}}%
-}]{%
-R-fertile}
-\APACinsertmetastar {%
-R-fertile}%
-\begin{APACrefauthors}%
-Baumer, B\BPBI S.%
-\BCBT {}\ \BBA {} Bertin, A\BPBI M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-\APACrefbtitle {fertile: creating optimal conditions for reproducibility.}
-  {fertile: creating optimal conditions for reproducibility.}
-\newblock
-\begin{APACrefURL} \url{https://github.com/baumer-lab/fertile} \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 0.0.0.9027}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-J.~Blischak%
-, Carbonetto%
-\BCBL {}\ \BBA {} Stephens%
-}{%
-J.~Blischak%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2019}}%
-}]{%
-R-workflowr}
-\APACinsertmetastar {%
-R-workflowr}%
-\begin{APACrefauthors}%
-Blischak, J.%
-, Carbonetto, P.%
-\BCBL {}\ \BBA {} Stephens, M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-\APACrefbtitle {workflowr: A Framework for Reproducible and Collaborative Data
-  Science.} {workflowr: A framework for reproducible and collaborative data
-  science.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=workflowr}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 1.6.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-J\BPBI D.~Blischak%
-, Carbonetto%
-\BCBL {}\ \BBA {} Stephens%
-}{%
-J\BPBI D.~Blischak%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2019}}%
-}]{%
-workflowr2019}
-\APACinsertmetastar {%
-workflowr2019}%
-\begin{APACrefauthors}%
-Blischak, J\BPBI D.%
-, Carbonetto, P.%
-\BCBL {}\ \BBA {} Stephens, M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Creating and sharing reproducible research code the
-  workflowr way} {Creating and sharing reproducible research code the workflowr
-  way}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{F1000Research}{8}{1749}{}.
-\newblock
-\begin{APACrefURL} \url{https://doi.org/10.12688/f1000research.20843.1}
-  \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} 10.12688/f1000research.20843.1 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Broman%
-}{%
-Broman%
-}{%
-{\protect \APACyear {2019}}%
-}]{%
-broman}
-\APACinsertmetastar {%
-broman}%
-\begin{APACrefauthors}%
-Broman, K.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-\APACrefbtitle {initial steps toward reproducible research: organize your data
-  and code.} {initial steps toward reproducible research: organize your data
-  and code.}
-\newblock
-\begin{APACrefURL} \url{https://kbroman.org/steps2rr/pages/organize.html}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Cooper%
-\ \protect \BOthers {.}}{%
-Cooper%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2017}}%
-}]{%
-cooper2017guide}
-\APACinsertmetastar {%
-cooper2017guide}%
-\begin{APACrefauthors}%
-Cooper, N.%
-, Hsing, P\BHBI Y.%
-, Croucher, M.%
-, Graham, L.%
-, James, T.%
-, Krystalli, A.%
-\BCBL {}\ \BBA {} Michonneau, F.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2017}{}{}.
-\newblock
-\APACrefbtitle {A guide to reproducible code in ecology and evolution.} {A
-  guide to reproducible code in ecology and evolution.}
-\newblock
-\begin{APACrefURL}
-  \url{https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Eisner%
-}{%
-Eisner%
-}{%
-{\protect \APACyear {2018}}%
-}]{%
-eisner-reproducibility}
-\APACinsertmetastar {%
-eisner-reproducibility}%
-\begin{APACrefauthors}%
-Eisner, D\BPBI A.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2018}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Reproducibility of science: Fraud, impact factors and
-  carelessness} {Reproducibility of science: Fraud, impact factors and
-  carelessness}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Journal of Molecular and Cellular
-  Cardiology}{114}{}{364-368}.
-\newblock
-\begin{APACrefURL}
-  \url{http://www.sciencedirect.com/science/article/pii/S0022282817303334}
-  \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} https://doi.org/10.1016/j.yjmcc.2017.10.009 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Fidler%
-\ \BBA {} Wilcox%
-}{%
-Fidler%
-\ \BBA {} Wilcox%
-}{%
-{\protect \APACyear {2018}}%
-}]{%
-sep-scientific-reproducibility}
-\APACinsertmetastar {%
-sep-scientific-reproducibility}%
-\begin{APACrefauthors}%
-Fidler, F.%
-\BCBT {}\ \BBA {} Wilcox, J.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2018}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Reproducibility of Scientific Results} {Reproducibility
-  of scientific results}.{\BBCQ}
-\newblock
-\BIn{} E\BPBI N.~Zalta\ (\BED), \APACrefbtitle {The Stanford Encyclopedia of
-  Philosophy} {The stanford encyclopedia of philosophy}\ (\PrintOrdinal{Winter
-  2018}\ \BEd).
-\newblock
-\APACaddressPublisher{}{Metaphysics Research Lab, Stanford University}.
-\newblock
-\APAChowpublished
-  {\url{https://plato.stanford.edu/archives/win2018/entries/scientific-reproducibility/}}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-FitzJohn%
-\ \protect \BOthers {.}}{%
-FitzJohn%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2020}}%
-}]{%
-R-orderly}
-\APACinsertmetastar {%
-R-orderly}%
-\begin{APACrefauthors}%
-FitzJohn, R.%
-, Ashton, R.%
-, Hill, A.%
-, Eden, M.%
-, Hinsley, W.%
-, Russell, E.%
-\BCBL {}\ \BBA {} Thompson, J.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-\APACrefbtitle {orderly: Lightweight Reproducible Reporting.} {orderly:
-  Lightweight reproducible reporting.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=orderly}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 1.0.4}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Gancarz%
-}{%
-Gancarz%
-}{%
-{\protect \APACyear {2003}}%
-}]{%
-unix}
-\APACinsertmetastar {%
-unix}%
-\begin{APACrefauthors}%
-Gancarz, M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYear{2003}.
-\newblock
-\APACrefbtitle {Linux and the Unix Philosophy} {Linux and the unix philosophy}\
-  (\PrintOrdinal{2nd}\ \BEd).
-\newblock
-\APACaddressPublisher{Woburn, MA}{Digital Press}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Goodman%
-, Fanelli%
-\BCBL {}\ \BBA {} Ioannidis%
-}{%
-Goodman%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2016}}%
-}]{%
-Goodman341ps12}
-\APACinsertmetastar {%
-Goodman341ps12}%
-\begin{APACrefauthors}%
-Goodman, S\BPBI N.%
-, Fanelli, D.%
-\BCBL {}\ \BBA {} Ioannidis, J\BPBI P\BPBI A.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2016}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {What does research reproducibility mean?} {What does
-  research reproducibility mean?}{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Science Translational Medicine}{8}{341}{1--6}.
-\newblock
-\begin{APACrefURL} \url{https://stm.sciencemag.org/content/8/341/341ps12}
-  \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} 10.1126/scitranslmed.aaf5027 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Gosselin%
-}{%
-Gosselin%
-}{%
-{\protect \APACyear {2020}}%
-}]{%
-bioessays-gosselin}
-\APACinsertmetastar {%
-bioessays-gosselin}%
-\begin{APACrefauthors}%
-Gosselin, R\BHBI D.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Statistical Analysis Must Improve to Address the
-  Reproducibility Crisis: The ACcess to Transparent Statistics (ACTS) Call to
-  Action} {Statistical analysis must improve to address the reproducibility
-  crisis: The access to transparent statistics (acts) call to action}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{BioEssays}{42}{1}{1900189}.
-\newblock
-\begin{APACrefURL}
-  \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/bies.201900189}
-  \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} 10.1002/bies.201900189 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Henry%
-\ \BBA {} Wickham%
-}{%
-Henry%
-\ \BBA {} Wickham%
-}{%
-{\protect \APACyear {2020}}%
-}]{%
-R-tidyselect}
-\APACinsertmetastar {%
-R-tidyselect}%
-\begin{APACrefauthors}%
-Henry, L.%
-\BCBT {}\ \BBA {} Wickham, H.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-\APACrefbtitle {tidyselect: Select from a Set of Strings.} {tidyselect: Select
-  from a set of strings.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=tidyselect}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 1.1.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Hermans%
-\ \BBA {} Aldewereld%
-}{%
-Hermans%
-\ \BBA {} Aldewereld%
-}{%
-{\protect \APACyear {2017}}%
-}]{%
-hermans2017programming}
-\APACinsertmetastar {%
-hermans2017programming}%
-\begin{APACrefauthors}%
-Hermans, F.%
-\BCBT {}\ \BBA {} Aldewereld, M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2017}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Programming is writing is programming} {Programming is
-  writing is programming}.{\BBCQ}
-\newblock
-\BIn{} \APACrefbtitle {Companion to the first International Conference on the
-  Art, Science and Engineering of Programming} {Companion to the first
-  international conference on the art, science and engineering of programming}\
-  (\BPGS\ 1--8).
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Kitzes%
-, Turek%
-\BCBL {}\ \BBA {} Deniz%
-}{%
-Kitzes%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2017}}%
-}]{%
-kitzes2017practice}
-\APACinsertmetastar {%
-kitzes2017practice}%
-\begin{APACrefauthors}%
-Kitzes, J.%
-, Turek, D.%
-\BCBL {}\ \BBA {} Deniz, F.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYear{2017}.
-\newblock
-\APACrefbtitle {The Practice of Reproducible Research: Case Studies and Lessons
-  from the Data-Intensive Sciences} {The practice of reproducible research:
-  Case studies and lessons from the data-intensive sciences}.
-\newblock
-\APACaddressPublisher{Berkeley, CA}{University of California Press}.
-\newblock
-\begin{APACrefURL} \url{https://www.practicereproducibleresearch.org}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Martinez%
-\ \protect \BOthers {.}}{%
-Martinez%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2018}}%
-}]{%
-r-opensci}
-\APACinsertmetastar {%
-r-opensci}%
-\begin{APACrefauthors}%
-Martinez, C.%
-, Hollister, J.%
-, Marwick, B.%
-, Sz{\"o}cs, E.%
-, Zeitlin, S.%
-, Kinoshita, B\BPBI P.%
-\BDBL {}Meinke, B.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2018}{}{}.
-\newblock
-\APACrefbtitle {{Reproducibility in Science: A Guide to enhancing
-  reproducibility in scientific results and writing}.} {{Reproducibility in
-  Science: A Guide to enhancing reproducibility in scientific results and
-  writing}.}
-\newblock
-\begin{APACrefURL} \url{http://ropensci.github.io/reproducibility-guide/}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Marwick%
-}{%
-Marwick%
-}{%
-{\protect \APACyear {2019}}%
-}]{%
-R-rrtools}
-\APACinsertmetastar {%
-R-rrtools}%
-\begin{APACrefauthors}%
-Marwick, B.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-\APACrefbtitle {rrtools: Creates a Reproducible Research Compendium.} {rrtools:
-  Creates a reproducible research compendium.}
-\newblock
-\begin{APACrefURL} \url{https://github.com/benmarwick/rrtools} \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 0.1.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Marwick%
-, Boettiger%
-\BCBL {}\ \BBA {} Mullen%
-}{%
-Marwick%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2018}}%
-}]{%
-marwick2018packaging}
-\APACinsertmetastar {%
-marwick2018packaging}%
-\begin{APACrefauthors}%
-Marwick, B.%
-, Boettiger, C.%
-\BCBL {}\ \BBA {} Mullen, L.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2018}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Packaging data analytical work reproducibly using {R}
-  (and friends)} {Packaging data analytical work reproducibly using {R} (and
-  friends)}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{The American Statistician}{72}{1}{80--88}.
-\newblock
-\begin{APACrefURL} \url{https://peerj.com/preprints/3192.pdf} \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} doi.org/10.1080/00031305.2017.1375986 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-McArthur%
-}{%
-McArthur%
-}{%
-{\protect \APACyear {2019}}%
-}]{%
-engineering-reproducibility}
-\APACinsertmetastar {%
-engineering-reproducibility}%
-\begin{APACrefauthors}%
-McArthur, S\BPBI L.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Repeatability, Reproducibility, and Replicability:
-  Tackling the 3R challenge in biointerface science and engineering}
-  {Repeatability, reproducibility, and replicability: Tackling the 3r challenge
-  in biointerface science and engineering}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Biointerphases}{14}{2}{1--2}.
-\newblock
-\begin{APACrefURL} \url{https://doi.org/10.1116/1.5093621} \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} 10.1116/1.5093621 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-McIntire%
-\ \BBA {} Chubaty%
-}{%
-McIntire%
-\ \BBA {} Chubaty%
-}{%
-{\protect \APACyear {2020}}%
-}]{%
-R-reproducible}
-\APACinsertmetastar {%
-R-reproducible}%
-\begin{APACrefauthors}%
-McIntire, E\BPBI J\BPBI B.%
-\BCBT {}\ \BBA {} Chubaty, A\BPBI M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-\APACrefbtitle {reproducible: A Set of Tools that Enhance Reproducibility
-  Beyond Package Management.} {reproducible: A set of tools that enhance
-  reproducibility beyond package management.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=reproducible}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 1.0.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-OpenSci%
-}{%
-OpenSci%
-}{%
-{\protect \APACyear {2020}}%
-}]{%
-R-drake}
-\APACinsertmetastar {%
-R-drake}%
-\begin{APACrefauthors}%
-OpenSci, R.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-\APACrefbtitle {drake: A Pipeline Toolkit for Reproducible Computation at
-  Scale.} {drake: A pipeline toolkit for reproducible computation at scale.}
-\newblock
-\begin{APACrefURL} \url{https://cran.r-project.org/package=drake}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 7.11.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-{Oracle Corporation}%
-}{%
-{Oracle Corporation}%
-}{%
-{\protect \APACyear {2019}}%
-}]{%
-wercker}
-\APACinsertmetastar {%
-wercker}%
-\begin{APACrefauthors}%
-{Oracle Corporation}.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-\APACrefbtitle {Wercker.} {Wercker.}
-\newblock
-\begin{APACrefURL} \url{https://github.com/wercker/wercker} \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Patil%
-, Peng%
-\BCBL {}\ \BBA {} Leek%
-}{%
-Patil%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2019}}%
-}]{%
-patil2019visual}
-\APACinsertmetastar {%
-patil2019visual}%
-\begin{APACrefauthors}%
-Patil, P.%
-, Peng, R\BPBI D.%
-\BCBL {}\ \BBA {} Leek, J\BPBI T.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {A visual tool for defining reproducibility and
-  replicability} {A visual tool for defining reproducibility and
-  replicability}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Nature human behaviour}{3}{7}{650--652}.
-\newblock
-\begin{APACrefURL} \url{https://www.nature.com/articles/s41562-019-0629-z}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Peng%
-}{%
-Peng%
-}{%
-{\protect \APACyear {2009}}%
-}]{%
-peng2009bio}
-\APACinsertmetastar {%
-peng2009bio}%
-\begin{APACrefauthors}%
-Peng, R\BPBI D.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2009}{07}{}.
-\newblock
-{\BBOQ}\APACrefatitle {{Reproducible research and Biostatistics}}
-  {{Reproducible research and Biostatistics}}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Biostatistics}{10}{3}{405-408}.
-\newblock
-\begin{APACrefURL} \url{https://doi.org/10.1093/biostatistics/kxp014}
-  \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} 10.1093/biostatistics/kxp014 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Popper%
-}{%
-Popper%
-}{%
-{\protect \APACyear {2005}}%
-}]{%
-popper2005logic}
-\APACinsertmetastar {%
-popper2005logic}%
-\begin{APACrefauthors}%
-Popper, K.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYear{2005}.
-\newblock
-\APACrefbtitle {The logic of scientific discovery} {The logic of scientific
-  discovery}.
-\newblock
-\APACaddressPublisher{New York, NY}{Routledge}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-{R Core Team}%
-}{%
-{R Core Team}%
-}{%
-{\protect \APACyear {2020}}%
-}]{%
-r-software}
-\APACinsertmetastar {%
-r-software}%
-\begin{APACrefauthors}%
-{R Core Team}.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {R: A Language and Environment for Statistical Computing}
-  {R: A language and environment for statistical computing}{\BBCQ}\
-  [\bibcomputersoftwaremanual].
-\newblock
-\APACaddressPublisher{Vienna, Austria}{}.
-\newblock
-\begin{APACrefURL} \url{https://www.R-project.org/} \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-R-Core-Team%
-}{%
-R-Core-Team%
-}{%
-{\protect \APACyear {2020}}%
-}]{%
-coreteam-extensions}
-\APACinsertmetastar {%
-coreteam-extensions}%
-\begin{APACrefauthors}%
-R-Core-Team.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Writing R Extensions} {Writing r extensions}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{R Foundation for Statistical Computing}{}{}{}.
-\newblock
-\begin{APACrefURL}
-  \url{http://cran.stat.unipd.it/doc/manuals/r-release/R-exts.pdf}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Ross%
-, DeCicco%
-\BCBL {}\ \BBA {} Randhawa%
-}{%
-Ross%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2018}}%
-}]{%
-R-checkers}
-\APACinsertmetastar {%
-R-checkers}%
-\begin{APACrefauthors}%
-Ross, N.%
-, DeCicco, L.%
-\BCBL {}\ \BBA {} Randhawa, N.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2018}{}{}.
-\newblock
-\APACrefbtitle {checkers: Automated checking of best practices for research
-  compendia.} {checkers: Automated checking of best practices for research
-  compendia.}
-\newblock
-\begin{APACrefURL}
-  \url{https://github.com/ropenscilabs/checkers/blob/master/DESCRIPTIONr}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 0.1.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Ushey%
-, McPherson%
-, Cheng%
-, Atkins%
-\BCBL {}\ \BBA {} Allaire%
-}{%
-Ushey%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2018}}%
-}]{%
-R-packrat}
-\APACinsertmetastar {%
-R-packrat}%
-\begin{APACrefauthors}%
-Ushey, K.%
-, McPherson, J.%
-, Cheng, J.%
-, Atkins, A.%
-\BCBL {}\ \BBA {} Allaire, J.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2018}{}{}.
-\newblock
-\APACrefbtitle {packrat: A Dependency Management System for Projects and their
-  R Package Dependencies.} {packrat: A dependency management system for
-  projects and their r package dependencies.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=packrat}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 0.5.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wallach%
-, Boyack%
-\BCBL {}\ \BBA {} Ioannidis%
-}{%
-Wallach%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2018}}%
-}]{%
-plos-biology}
-\APACinsertmetastar {%
-plos-biology}%
-\begin{APACrefauthors}%
-Wallach, J\BPBI D.%
-, Boyack, K\BPBI W.%
-\BCBL {}\ \BBA {} Ioannidis, J\BPBI P\BPBI A.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2018}{11}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Reproducible research practices, transparency, and open
-  access data in the biomedical literature, 2015-2017} {Reproducible research
-  practices, transparency, and open access data in the biomedical literature,
-  2015-2017}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{PLOS Biology}{16}{11}{1-20}.
-\newblock
-\begin{APACrefURL} \url{https://doi.org/10.1371/journal.pbio.2006930}
-  \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} 10.1371/journal.pbio.2006930 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wickham%
-}{%
-Wickham%
-}{%
-{\protect \APACyear {2011}}%
-}]{%
-testthat2011}
-\APACinsertmetastar {%
-testthat2011}%
-\begin{APACrefauthors}%
-Wickham, H.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2011}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {testthat: Get Started with Testing} {testthat: Get
-  started with testing}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{The R Journal}{3}{}{5--10}.
-\newblock
-\begin{APACrefURL}
-  \url{https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wickham%
-}{%
-Wickham%
-}{%
-{\protect \APACyear {2015}}%
-}]{%
-hadley-packages}
-\APACinsertmetastar {%
-hadley-packages}%
-\begin{APACrefauthors}%
-Wickham, H.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYear{2015}.
-\newblock
-\APACrefbtitle {R Packages} {R packages}\ (\PrintOrdinal{1st}\ \BEd).
-\newblock
-\APACaddressPublisher{Sebastopol, CA}{O'Reilly Media, Inc.}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wickham%
-}{%
-Wickham%
-}{%
-{\protect \APACyear {2019}}%
-{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
-R-testthat}
-\APACinsertmetastar {%
-R-testthat}%
-\begin{APACrefauthors}%
-Wickham, H.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019{\protect \BCnt {1}}}{}{}.
-\newblock
-\APACrefbtitle {testthat: Unit Testing for {R}.} {testthat: Unit testing for
-  {R}.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=testthat}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 2.3.1}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wickham%
-}{%
-Wickham%
-}{%
-{\protect \APACyear {2019}}%
-{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
-R-tidyverse}
-\APACinsertmetastar {%
-R-tidyverse}%
-\begin{APACrefauthors}%
-Wickham, H.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019{\protect \BCnt {2}}}{}{}.
-\newblock
-\APACrefbtitle {tidyverse: Easily Install and Load the 'Tidyverse'.}
-  {tidyverse: Easily install and load the 'tidyverse'.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=tidyverse}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 1.3.0}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wickham%
-, Averick%
-\BCBL {}\ \protect \BOthers {.}}{%
-Wickham%
-, Averick%
-\BCBL {}\ \protect \BOthers {.}}{%
-{\protect \APACyear {2019}}%
-}]{%
-tidyverse2019}
-\APACinsertmetastar {%
-tidyverse2019}%
-\begin{APACrefauthors}%
-Wickham, H.%
-, Averick, M.%
-, Bryan, J.%
-, Chang, W.%
-, McGowan, L\BPBI D.%
-, Fran{\c c}ois, R.%
-\BDBL {}Yutani, H.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Welcome to the {tidyverse}} {Welcome to the
-  {tidyverse}}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Journal of Open Source Software}{4}{43}{1686}.
-\newblock
-\begin{APACrefURL} \url{https://tidyverse.tidyverse.org/articles/paper.html}
-  \end{APACrefURL}
-\newblock
-\begin{APACrefDOI} 10.21105/joss.01686 \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wickham%
-, Fran{\c c}ois%
-, Henry%
-\BCBL {}\ \BBA {} M{\"u}ller%
-}{%
-Wickham%
-, Fran{\c c}ois%
-\BCBL {}\ \protect \BOthers {.}}{%
-{\protect \APACyear {2019}}%
-}]{%
-R-dplyr}
-\APACinsertmetastar {%
-R-dplyr}%
-\begin{APACrefauthors}%
-Wickham, H.%
-, Fran{\c c}ois, R.%
-, Henry, L.%
-\BCBL {}\ \BBA {} M{\"u}ller, K.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2019}{}{}.
-\newblock
-\APACrefbtitle {dplyr: A Grammar of Data Manipulation.} {dplyr: A grammar of
-  data manipulation.}
-\newblock
-\begin{APACrefURL} \url{https://CRAN.R-project.org/package=dplyr}
-  \end{APACrefURL}
-\newblock
-\APACrefnote{R package version 0.8.3}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wilson%
-\ \protect \BOthers {.}}{%
-Wilson%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2014}}%
-}]{%
-wilson2014best}
-\APACinsertmetastar {%
-wilson2014best}%
-\begin{APACrefauthors}%
-Wilson, G.%
-, Aruliah, D\BPBI A.%
-, Brown, C\BPBI T.%
-, Hong, N\BPBI P\BPBI C.%
-, Davis, M.%
-, Guy, R\BPBI T.%
-\BDBL {}others%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2014}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Best practices for scientific computing} {Best practices
-  for scientific computing}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{PLOS Biology}{12}{1}{e1001745}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wilson%
-\ \protect \BOthers {.}}{%
-Wilson%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2017}}%
-}]{%
-wilson2017good}
-\APACinsertmetastar {%
-wilson2017good}%
-\begin{APACrefauthors}%
-Wilson, G.%
-, Bryan, J.%
-, Cranston, K.%
-, Kitzes, J.%
-, Nederbragt, L.%
-\BCBL {}\ \BBA {} Teal, T\BPBI K.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2017}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Good enough practices in scientific computing} {Good
-  enough practices in scientific computing}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{PLOS Biology}{13}{6}{e1005510}.
-\newblock
-\begin{APACrefURL}
-  \url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\end{thebibliography}
+\bibliography{refs}%
 
 
 
