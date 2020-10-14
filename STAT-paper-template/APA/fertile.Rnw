@@ -296,10 +296,10 @@ Much of the functionality in \pkg{fertile} is achieved by writing \href{https://
 \item Write this new function so that it: a) captures any arguments, b) logs the name of the function called, c) performs any checks on these arguments, and d) calls the original function with the original arguments. Except where warranted, the execution looks the same to the user as if they were calling the original function. \textcolor{blue}{For most shims, "file" is the only argument of interest. The other arguments are managed using the dots (...), which capture and save them, allowing them to eventually be passed back to the original shimmed function (e.g. \func{readr::read\_csv})}.
 
 \end{enumerate}
-Most shims are quite simple and look something like what is shown below for \func{read\_csv}. 
+Most shims are quite simple and look something like what is shown below for \textcolor{blue}{\func{read.csv}}. 
 
 <<>>=
-fertile::read_csv
+fertile::read.csv
 @
 
 \pkg{fertile} shims many common functions, including those that read in a variety of data types, write data, and load packages. This works both proactively and retroactively, as the shimmed functions written in \pkg{fertile} are activated both when the user is coding interactively and when a file containing code is rendered.
