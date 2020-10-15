@@ -235,9 +235,9 @@ Proactively, the package identifies potential mistakes as they are made by the u
 {\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Detected paths that lead outside the project directory. Such paths are not reproducible and will likely only work on your computer. If you would like to continue anyway, please execute the following command: readr::read\_csv('../../../Desktop/my\_data.csv')}}\end{kframe}
 \end{knitrout}
 
-\textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a snipped of code to execute that will achieve this for them.}
+\textcolor{blue}{For users who want to override this behavior and execute their function anyway, we provide a snippet of code to bypass \pkg{fertile} and execute the original function call.}
 
-\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute a different function that produces the same behavior but in a reproducible way.}
+\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the preferred way to achieve the desired action is for the user to execute a different function that produces the same behavior but in a reproducible way. For example, by using the \func{here} function from the \pkg{here} package \citep{R-here} instead of \func{setwd}.}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -310,18 +310,18 @@ Subsets of the sixteen tests can be invoked using the \pkg{tidyselect} helper fu
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... -------------------------------------------------------- fertile 0.0.0.9028 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Compiling... ------------------------------------------------------------------------------------------------------------------ fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... ---------------------------------------------- fertile 0.0.0.9028 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Rendering R scripts... -------------------------------------------------------------------------------------------------------- fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks -------------------------------------- fertile 0.0.0.9028 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Running reproducibility checks ------------------------------------------------------------------------------------------------ fertile 0.0.0.9028 --}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for no absolute paths}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Checking for only portable paths}}\end{kframe}
 \begin{kframe}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ------------------------------------------- fertile 0.0.0.9028 --}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Summary of fertile checks ----------------------------------------------------------------------------------------------------- fertile 0.0.0.9028 --}}\end{kframe}
 \begin{kframe}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# v Reproducibility checks passed: 2}}\end{kframe}
@@ -338,9 +338,9 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps ---------------------- fertile 0.0.0.9028 --}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Analysis of reproducibility for project\_miceps -------------------------------------------------------------------------------- fertile 0.0.0.9028 --}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code -------------------------------- fertile 0.0.0.9028 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Packages referenced in source code ------------------------------------------------------------------------------------------ fertile 0.0.0.9028 --}}\begin{verbatim}
 ## # A tibble: 9 x 3
 ##   package       N used_in                    
 ##   <chr>     <int> <chr>                      
@@ -356,13 +356,13 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory ---------------------------------------- fertile 0.0.0.9028 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Files present in directory -------------------------------------------------------------------------------------------------- fertile 0.0.0.9028 --}}\begin{verbatim}
 ## # A tibble: 9 x 4
 ##   file               ext        size mime                                       
 ##   <fs::path>         <chr> <fs::byt> <chr>                                      
 ## 1 Estrogen_Receptor~ docx     10.97K application/vnd.openxmlformats-officedocum~
-## 2 citrate_v_time.png png     188.68K image/png                                  
-## 3 proteins_v_time.p~ png     379.22K image/png                                  
+## 2 citrate_v_time.png png     188.29K image/png                                  
+## 3 proteins_v_time.p~ png     377.95K image/png                                  
 ## 4 Blot_data_updated~ csv      14.43K text/csv                                   
 ## 5 CS_data_redone.csv csv       7.39K text/csv                                   
 ## 6 mice.csv           csv      14.33K text/csv                                   
@@ -372,7 +372,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files -------------------------------------- fertile 0.0.0.9028 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Suggestions for moving files ------------------------------------------------------------------------------------------------ fertile 0.0.0.9028 --}}\begin{verbatim}
 ## # A tibble: 7 x 3
 ##   path_rel           dir_rel    cmd                                             
 ##   <fs::path>         <fs::path> <chr>                                           
@@ -386,13 +386,13 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ------------------------------------------ fertile 0.0.0.9028 --}}\begin{verbatim}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# --\ \  Problematic paths logged ---------------------------------------------------------------------------------------------------- fertile 0.0.0.9028 --}}\begin{verbatim}
 ## NULL
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
-\textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those who want to use the proactive features can simply  refrain from using the retroactive-specific functions.
+\textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon loading the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those who want to use the proactive features can simply  refrain from using the retroactive-specific functions.
 Conversely, those who want to use only the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
 
 \subsection{Logging}
@@ -421,11 +421,11 @@ Conversely, those who want to use only the retroactive features can wait to load
 ## # A tibble: 5 x 4
 ##   path         path_abs                             func     timestamp          
 ##   <chr>        <chr>                                <chr>    <dttm>             
-## 1 package:pur~ <NA>                                 base::l~ 2020-10-14 18:12:20
-## 2 package:for~ <NA>                                 base::l~ 2020-10-14 18:12:20
-## 3 Seed Before  <NA>                                 20       2020-10-14 18:12:20
-## 4 project_mic~ /Users/audreybertin/Documents/ferti~ readr::~ 2020-10-14 18:12:20
-## 5 Seed After   <NA>                                 34       2020-10-14 18:12:20
+## 1 package:pur~ <NA>                                 base::l~ 2020-10-15 17:20:28
+## 2 package:for~ <NA>                                 base::l~ 2020-10-15 17:20:28
+## 3 Seed Before  <NA>                                 20       2020-10-15 17:20:28
+## 4 project_mic~ /home/bbaumer/Dropbox/git/fertile-p~ readr::~ 2020-10-15 17:20:28
+## 5 Seed After   <NA>                                 35       2020-10-15 17:20:28
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -460,7 +460,7 @@ Most shims are quite simple and look something like what is shown below for \tex
 ##     utils::read.csv(file, ...)
 ##   }
 ## }
-## <bytecode: 0x7fc7f433c548>
+## <bytecode: 0x55e884da4358>
 ## <environment: namespace:fertile>
 \end{verbatim}
 \end{kframe}
@@ -562,15 +562,15 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 \hlstd{temp_dir}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpyKNgZn/project_miceps
+## /tmp/RtmpqsLI66/project_miceps
 \end{verbatim}
 \begin{alltt}
 \hlstd{fs}\hlopt{::}\hlkwd{dir_ls}\hlstd{(temp_dir)} \hlopt{%>%} \hlkwd{head}\hlstd{(}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpyKNgZn/project_miceps/Blot_data_updated.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpyKNgZn/project_miceps/CS_data_redone.csv
-## /var/folders/v6/f62qz88s0sd5n3yqw9d8sb300000gn/T/RtmpyKNgZn/project_miceps/Estrogen_Receptors.docx
+## /tmp/RtmpqsLI66/project_miceps/Blot_data_updated.csv
+## /tmp/RtmpqsLI66/project_miceps/CS_data_redone.csv
+## /tmp/RtmpqsLI66/project_miceps/Estrogen_Receptors.docx
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -578,7 +578,7 @@ The \func{sandbox} function allows the user to make a copy of their project in a
 
 \subsubsection{Managing Project Dependencies}
 
-One of the challenges with ensuring that work is reproducible is the issue of dependencies. Many data analysis projects reference a variety of \R packages in their code. When such projects are shared with other users who may not have the required packages downloaded, it can cause errors that prevent the project from running properly. 
+One of the challenges with ensuring that work is reproducible is \textcolor{blue}{\st{the issue of}} dependencies. Many data analysis projects reference a variety of \R packages in their code. When such projects are shared with other users who may not have the required packages downloaded, it can cause errors that prevent the project from running properly. 
 
 The \func{proj\_pkg\_script} function assists with this issue by making it simple and fast to download dependencies. When run on an \R project directory, the function creates a \cmd{.R} script file that contains the code needed to install all of the packages referenced in the project, differentiating between packages located on CRAN and those located on GitHub.
 \begin{knitrout}

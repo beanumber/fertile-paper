@@ -353,7 +353,7 @@ fs::dir_ls(temp_dir) %>% head(3)
 
 \subsubsection{Managing Project Dependencies}
 
-One of the challenges with ensuring that work is reproducible is the issue of dependencies. Many data analysis projects reference a variety of \R packages in their code. When such projects are shared with other users who may not have the required packages downloaded, it can cause errors that prevent the project from running properly. 
+One of the challenges with ensuring that work is reproducible is \textcolor{blue}{\st{the issue of}} dependencies. Many data analysis projects reference a variety of \R packages in their code. When such projects are shared with other users who may not have the required packages downloaded, it can cause errors that prevent the project from running properly. 
 
 The \func{proj\_pkg\_script} function assists with this issue by making it simple and fast to download dependencies. When run on an \R project directory, the function creates a \cmd{.R} script file that contains the code needed to install all of the packages referenced in the project, differentiating between packages located on CRAN and those located on GitHub.
 <<proj_pkg_script, eval=TRUE>>=
