@@ -96,4 +96,5 @@ The first two bullets in the future work section have been completed since the s
 
 Additionally, a new bullet point on code commenting (relevant to the has_well_commented_code() function as well as one of the added sources), has been added to the summary of reproducibility components.
 
+Finally, the sample shim (previously `read_csv()`) has been changed to `read.csv()`. This is because of a change to the behavior of `readr::read_csv` since the original submission of the manuscript which required the shim for that function to be adjusted---making it no longer representative of most shims in `fertile`.
 
