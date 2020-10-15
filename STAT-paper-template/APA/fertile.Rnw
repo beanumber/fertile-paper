@@ -172,9 +172,9 @@ read.csv("~/Desktop/my_data.csv")
 read_csv("../../../Desktop/my_data.csv")
 @
 
-\textcolor{blue}{Users who want to override this behavior and execute their function anyway are provided with a snipped of code to execute that will achieve this for them.}
+\textcolor{blue}{For users who want to override this behavior and execute their function anyway, we provide a snippet of code to bypass \pkg{fertile} and execute the original function call.}
 
-\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the only way to achieve the desired action is for the user to execute a different function that produces the same behavior but in a reproducible way.}
+\pkg{fertile} is even more aggressive with functions (like \func{setwd}) that are almost certain to break reproducibility \textcolor{blue}{no matter the type of path passed to them}. \textcolor{red}{\st{, causing them to throw errors that prevent their execution and providing recommendations for better alternatives}}. \textcolor{blue}{When these functions are called, users are not presented with an option to override the resulting error. Instead, the preferred way to achieve the desired action is for the user to execute a different function that produces the same behavior but in a reproducible way. For example, by using the \func{here} function from the \pkg{here} package \citep{R-here} instead of \func{setwd}.}
 
 <<setwd, message=FALSE, error = TRUE>>=
 setwd("~/Desktop")
@@ -256,7 +256,7 @@ The \func{proj\_analyze} function creates a report documenting the structure of 
 proj_analyze(proj_dir)
 @
 
-\textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon the loading of the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those who want to use the proactive features can simply  refrain from using the retroactive-specific functions.
+\textcolor{blue}{Both the proactive and retroactive features available in \pkg{fertile} are enabled automatically upon loading the package. To prevent users from accidentally enabling or disabling features, \pkg{fertile} does not provide any option to control which features are active. However, those who want to use the proactive features can simply  refrain from using the retroactive-specific functions.
 Conversely, those who want to use only the retroactive features can wait to load \pkg{fertile} until they are ready to produce a report on their project.}
 
 \subsection{Logging}

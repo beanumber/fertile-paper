@@ -1,9 +1,9 @@
-# Paper Revision Changelog
+# Response to reviewers
 
 Thank you for the excellent feedback on the first submission of the "fertile" manuscript. Below are our responses to the comments made by the Associate Editor and Reviewer:
 
 
-**Associate Editor’s Comments:**
+## Associate Editor’s Comments
 
 *p. 1: I suggest removing the parentheses from the abstract and replacing with commas.*
 
@@ -34,13 +34,14 @@ This feature (version-specific dependency tracking) has been added to fertile si
 Yes, this is true! Since the submission of the original manuscript, we decided to conduct another trial in the classroom in fall 2020, now that Smith College is 100% online. The text has been updated to reflect this.
 
 
-**Reviewer’s Comments:**
+## Reviewer’s Comments
 
 
 General:
+
 *- the use of shims is likely unfamiliar to R users. Therefore, I have some concern about the ability of a user to control how aggressively this package performs. For example, if a user specifies an absolute path and receives an error message, it will be difficult for the user to determine what function was used to specify this error message and determine if there is a way to be less aggressive (to turn that into a warning, instead of an error, for example). My fear is that this functionality may limit use. However, I do like that the sandbox() function addresses this to an extent, allowing users to test things out and "get it right" before retuning to where the original error message was received.* 
 
-This is an excellent point! Part of the reason that fertile is so strict on this behavior is that in my own personal experience, many R coders (particularly those with little experience) tend to ignore warnings as long as their code executes properly. Having fertile’s path-related behavior be error based ensures that no one will skip over the messages that come up. However, my co-author and I do recognize that some users may still want to run these functions despite the warnings. In order to take this into account, we have added detail to the error messages produced by the shims. The new messages provide users with a method to override the error produced by fertile.
+This is an excellent point! Part of the reason that fertile is so strict on this behavior is that in our experience, many R coders (particularly those with little experience) tend to ignore warnings as long as their code executes properly. Having fertile’s path-related behavior be error based ensures that no one will skip over the messages that come up. However, we do recognize that some users may still want to run these functions despite the warnings. In order to take this into account, we have added detail to the error messages produced by the shims. The new messages provide users with a strategy to override the error produced by fertile.
 
 Specific minor suggestions (in order of manuscript):
 
@@ -61,7 +62,7 @@ This has been clarified in the text. In addition, further explanation of the dif
 
 - *3.2 `list_checks()` is a nice function, but a table with the checks and a brief description of what that check does in the paper would be beneficial.*
 
-This table has been added! Since list_checks() provides no additional benefit to the user than the information in this table, it is no longer mentioned.
+This table has been added! Since `list_checks()` provides no additional benefit to the user than the information in this table, it is no longer mentioned.
 
 - *in 3.1 and 3.2, it may be nice to describe explicitly whether it's possible to just use one or the other (proactive vs retroactive)....similar to how in 3.3 it's described how logging can be turned off (or reset). I could envision one wanting to develop without error and then check at the end (retroactive only). Philosophically, I could see that you would not want to build that in and that people could then just load your package at the end...but this may be something explicitly stated in the manuscript.*
 
@@ -69,7 +70,7 @@ Thank you for pointing this out. A comment to this effect has been added to the 
 
 - *Section 3.2: The average user may not know what the tidyselect helper functions are.  A bit more explanation here would likely help readers/users.*
 
-A short description of tidy select helpers and their applicability here has been added just before the proj_check_some() example.
+A short description of tidy select helpers and their applicability here has been added just before the `proj_check_some()` example.
 
 - *Section 3.4: The average reader may not understand what "and always the dots" means in point 2. Slightly more explanation may be helpful here.* 
 
@@ -81,7 +82,7 @@ That code has been hidden from view. Instead, there is now a sentence stating th
 
 - *Section 4: Suggestion to rename to future directions or something other than results, given the lack of results here (no fault of the authors, here! simply beyond one's control.) But, I did read and was bummed to see no results here after the section header was Results. Excited to see these results in the future, regardless!*
 
-Agreed on this point. No results are discussed so that warrants a name change. Since the section is about an experiment, however, I have chosen to replace it with “Experimental Testing”. We also decided to run a second trial this semester, so future directions is no longer an applicable name as it is happening currently!
+Agreed on this point. No results are discussed so that warrants a name change. Since the section is about an experiment, however, we have chosen to replace it with “Experimental Testing”. We also decided to run a second trial this semester, so "future directions" is no longer an applicable name as it is happening currently!
 
 *Very minor* (feel free to ignore)
 - *I haven't dug into the code fully so I may have missed it, but I could imagine that a user may want the ability to add their own shim to make a check for something as new packages/functions come out or for something specific to their own uses. Is there functionality for one to create/add their own shim to their installation of fertile?*
@@ -89,7 +90,7 @@ Agreed on this point. No results are discussed so that warrants a name change. S
 Thank you for this excellent idea. There is not currently a functionality for this, but it is definitely something of interest for the future. As a result, we have added it to the future work section.
 
 
-**Additional Changes**
+## Additional Changes
 
 The first two bullets in the future work section have been completed since the submission of the original manuscript. Due to this, those bullets have been removed and replaced with new future steps.
 
