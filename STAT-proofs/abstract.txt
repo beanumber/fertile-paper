@@ -2,9 +2,10 @@ The advancement of scientific knowledge increasingly depends on ensuring that da
 Reproducibility has many benefits in the scientific community, including ensuring the trustworthiness of results and allowing for a faster and more effective exchange of ideas. 
 However, while the benefits of reproducibility are clear, there are currently significant behavioral and technical challenges that prevent its widespread implementation. There are no agreed upon standards in terms of the components necessary to achieve reproducibility, making it difficult to create a catch-all solution. Additionally, many of the existing software approaches designed to help face significant challenges, including the following:
 1. Many are very complicated, dissuading less experienced users, 
-2. They often effectively address a highly specific aspect of reproducibility but fail to consider other areas, or,
-3. They focus on the big picture but, in doing so, do not account for highly specific issues that can still break reproducibility. 
-In this paper, we present “fertile”, a software package designed for users of the R programming language, which attempts to address these gaps in existing software.
-“fertile” is a simple, easy-to-learn tool that provides users with information on a wide variety of aspects influencing reproducibility, including issues specific to the process of conducting data analyses in the RStudio project development environment.
-“fertile” operates in two modes: proactively, to prevent reproducibility mistakes from happening in the first place, and retroactively, analyzing code that is already written for potential problems. Furthermore, “fertile” is designed to educate users on why their mistakes are problematic and how to fix them. 
-Although “fertile” cannot address the problem of reproducibility on a wide scale, it has the potential to provide many benefits within the R coding community, greatly simplifying the process of achieving reproducibility for users of RStudio.
+2. They often effectively address a specific aspect of reproducibility but fail to consider other areas, or,
+3. They focus on the big picture but, in doing so, do not account for specific issues that can still break reproducibility. 
+In this paper, we present “fertile,” a software package designed for users of the R programming language, which attempts to address these gaps in existing software.
+“fertile” is a simple, easy-to-learn tool that provides users with information on a variety of issues that affect reproducibility, including those specific to the process of conducting data analyses in the RStudio project development environment.
+“fertile” operates in two modes: proactively, to prevent reproducibility mistakes from happening in the first place, and retroactively, analyzing code that is already written for potential problems. 
+Furthermore, “fertile” is designed to educate users on why their mistakes are problematic and how to fix them. 
+Although “fertile” cannot solve the problem of reproducibility, it has the potential to provide many benefits within the R coding community, greatly simplifying the process of achieving reproducibility for users of RStudio.
